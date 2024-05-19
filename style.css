@@ -10,18 +10,40 @@
 }
 
 h1{
-    padding-top: 50px;
+    padding-top: 10px;
     margin-left:500px;
     font-family: "Poppins";
     color: #2F3367;
     font-size: 1.7em;
+    padding-bottom: 10px;
+}
+
+p.pf{
+    font-size: 1.0em;
+    margin-bottom: 5px;
 }
 
 p{
-    margin-top: 20px;
+    margin-top: 5px;
     margin-left: 500px;
     font-family: "Poppins";
     color: #303468;
+}
+
+.classeobrigatoria{
+    color: black;
+    font-size: 0.9em;
+    width: 450px;
+    height: 20px;
+    border: 2px solid red;
+    margin-left: 625px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+span{
+    color: red;
+    font-size: 0.9em;
 }
 
 .view{
@@ -41,7 +63,7 @@ h2{
     font-weight: bold;
 }
 
-.login{
+.cadastro{
     margin-left: 0px;
     color: white;
     text-align: center;
@@ -59,90 +81,78 @@ h2{
 
 input[type=text]{
     width:80%;
-    height: 55px;
+    height: 50px;
     box-sizing: border-box;
     border: none;
     border-radius: 4px;
     font-size: 16px;
     font-family: "Poppins";
     background-color: #F5F5F7;
-    background-image: url(img/icone2.png);
-    background-position: 10px 12px;
+    background-image: url(telacadastro/img/icone2.png);
+    background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 60px;
     color: #8B8FA8;
-    margin-top: 40px;
+    margin-top: 3px;
 }
 
 input[type=password]{
     width:80%;
-    height: 55px;
+    height: 50px;
     box-sizing: border-box;
     border: none;
     border-radius: 4px;
     font-size: 16px;
     font-family: "Poppins";
     background-color: #F5F5F7;
-    background-image: url(img/icone2.png);
-    background-position: 10px 12px;
+    background-image: url(telacadastro/img/icone2.png);
+    background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 60px;
     color: #8B8FA8;
-    margin-top: 10px;
+    margin-top: 3px;
 }
 
-input[type=submit]{
-    width:30%;
-    height: 45px;
+button[type=submit]{
+    width:23%;
+    height: 40px;
     box-sizing: border-box;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     font-family: "Poppins";
     background-color: #007DFA;
-    background-image: url(img/iconeproximo.png);
-    background-position: 235px 15px;
+    background-image: url(telacadastro/img/iconeproximo.png);
+    background-position: 170px 12px;
     background-repeat: no-repeat;
     color: white;
     font-weight: normal;
     font-size: 1.2em;
     text-align:start;
     padding-left: 15px;
-    margin-left: 430px;
-    margin-top: 15px;
-}
-
-.esenha{
-    text-decoration: none;
-    color: #393D6E;
-    font-weight: normal;
-    margin-top: 20px;
-}
-
-.esenha:hover{
-    color: #1e2038;
+    margin-left: 490px;
 }
 
 .enviar{
     margin-top: 10px;
 }
 
-input[type=submit]:hover{
+button[type=submit]:hover{
     background-color: #0172e4;
 }
 
-.semconta{
+.comconta{
     position: fixed;
-    bottom: 40px;
+    bottom: 10px;
 
 }
 
-a.criar{
+a.entrarconta{
     text-decoration: none;
     color: #007DFA;
-    margin-left: 390px;
+    margin-left: 40px;
 }
 
-a.criar:hover{
+a.entrarconta:hover{
     color: #0172e4;
 }

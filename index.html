@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <main>
@@ -16,10 +15,10 @@
         <p class="classeobrigatoria">Os itens assinalados com <span>*</span> são de preenchimento obrigatório</p>
     </div>
     <div class="formulario">
-        <form action="#">
+        <form action="/quote" method="post">
             <p class="p1">
                 <label for="inome"></label>
-                <input type="text" name="nome" id="inome" required placeholder="Nome Completo*" class="mainLoginInput">
+                <input type="text" name="nome_completo" id="inome" required placeholder="Nome Completo*">
             </p>
             <p class="p1">
                 <label for="icpf"></label>
@@ -52,9 +51,9 @@
         </form>
     </div>
     <div class="view">
-        <img src="img/logo.png" alt="Logo Sobrevidas" class="center">
+        <img src="./telacadastro/img/logo.png" alt="Logo Sobrevidas" class="center">
         <h2>SOBREVIDAS - ACS</h2>
-        <p class="login">Rastreamento e Monitoramento do câncer de boca</p>
+        <p class="cadastro">Rastreamento e Monitoramento do câncer de boca</p>
     </div>
 </body>
 </html>
