@@ -134,7 +134,6 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 				return
 			}
 		}
-		fmt.Println(cpf, senha)
 	}
 }
 
