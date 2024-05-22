@@ -20,6 +20,7 @@ func main() {
 	http.Handle("/", fs)
 	http.HandleFunc("/login", autenticaCadastroELevaAoLogin)
 	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
+	http.HandleFunc("/esqueceusenha", atualizarSenha)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -134,5 +135,59 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 			}
 		}
 		fmt.Println(cpf, senha)
+	}
+}
+
+type validarCpf struct{
+	Cpf string
+}
+
+func atualizarSenha(w http.ResponseWriter, r *http.Request){
+	err := templates.ExecuteTemplate(w, "esqueceusenha.html", "a")
+	if err != nil{
+		return
+	}
+	if r.Method != http.MethodGet{
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+	err = r.ParseForm()
+	if err != nil{
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		return
+	}
+	cpf := r.FormValue("cpf")
+	senha := r.FormValue("senha")
+	confirmarsenha := r.FormValue("confirmpassword")
+	pegarcpf, err := db.Query("SELECT cpf FROM cadastro")
+	if err != nil{
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+		return
+	}
+	defer pegarcpf.Close()
+	armazenamento := make([]validarCpf, 0)
+
+	for pegarcpf.Next(){
+		armazenar := validarCpf{}
+		err := pegarcpf.Scan(&armazenar.Cpf)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		armazenamento = append(armazenamento, armazenar)
+	}
+	if err = pegarcpf.Err(); err != nil{
+		http.Error(w, http.StatusText(500), 500)
+		return
+	}
+
+	for _, armazenado := range armazenamento{
+		if armazenado.Cpf == cpf && senha==confirmarsenha{
+			_, err := db.Exec(`UPDATE cadastro SET senha=$1 WHERE cpf=$2`, senha, cpf)
+			if err != nil{
+				return
+			}
+		}
 	}
 }
