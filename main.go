@@ -3,20 +3,23 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
 
-	_ "github.com/lib/pq"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 var db = fazConexaoComBanco()
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
 	http.Handle("/", fs)
-	http.HandleFunc("/quote", createQuote)
+	http.HandleFunc("/login", autenticaCadastroELevaAoLogin)
+	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -49,9 +52,9 @@ func fazConexaoComBanco() *sql.DB{
 	return database
 }
 
-func createQuote(w http.ResponseWriter, r *http.Request){
+func autenticaCadastroELevaAoLogin(w http.ResponseWriter, r *http.Request){
 	if r.Method != http.MethodPost{
-		http.Redirect(w, r, "/quote", http.StatusSeeOther)
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
 		return
 	}
 	err := r.ParseForm()
@@ -75,7 +78,61 @@ func createQuote(w http.ResponseWriter, r *http.Request){
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 	} else{
-		http.Redirect(w, r, "/quote", http.StatusSeeOther)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
+	}
+
+	err = templates.ExecuteTemplate(w, "login.html", "a")
+	if err != nil{
+		return
+	}
+}
+
+type validarlogin struct{
+	Cpf string
+	Senha string
+}
+
+func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
+	if r.Method != http.MethodGet{
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+	err := r.ParseForm()
+	if err != nil{
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		return
+	}
+	cpf := r.FormValue("cpf")
+	senha := r.FormValue("senha")
+	cpfsenha, err := db.Query("SELECT cpf, senha FROM cadastro")
+	if err != nil{
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	defer cpfsenha.Close()
+	armazenamento := make([]validarlogin, 0)
+
+	for cpfsenha.Next(){
+		armazenar := validarlogin{}
+		err := cpfsenha.Scan(&armazenar.Cpf, &armazenar.Senha)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		armazenamento = append(armazenamento, armazenar)
+	}
+	if err = cpfsenha.Err(); err != nil{
+		http.Error(w, http.StatusText(500), 500)
+		return
+	}
+	for _, armazenado := range armazenamento{
+		if armazenado.Cpf == cpf && armazenado.Senha == senha{
+			err = templates.ExecuteTemplate(w, "dashboard.html", "a")
+			if err != nil{
+				return
+			}
+		}
+		fmt.Println(cpf, senha)
 	}
 }
