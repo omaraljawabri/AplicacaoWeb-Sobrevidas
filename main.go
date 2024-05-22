@@ -66,10 +66,16 @@ func createQuote(w http.ResponseWriter, r *http.Request){
 	cnes := r.PostForm.Get("cnes")
 	ine := r.PostForm.Get("ine")
 	senha := r.PostForm.Get("senha")
+	confirmsenha := r.PostForm.Get("confirmsenha")
 
-	_, err = db.Exec("INSERT INTO cadastro(nome_completo, cpf, cns, cbo, cnes, ine, senha) VALUES($1, $2, $3, $4, $5, $6, $7)", nomecompleto, cpf, cns, cbo, cnes, ine, senha)
-	if err != nil{
-		log.Println(err.Error())
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	if confirmsenha == senha{
+		_, err = db.Exec("INSERT INTO cadastro(nome_completo, cpf, cns, cbo, cnes, ine, senha) VALUES($1, $2, $3, $4, $5, $6, $7)", nomecompleto, cpf, cns, cbo, cnes, ine, senha)
+		if err != nil{
+			log.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		}
+	} else{
+		http.Redirect(w, r, "/quote", http.StatusSeeOther)
+		return
 	}
 }
