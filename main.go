@@ -20,7 +20,7 @@ func main() {
 	http.Handle("/", fs)
 	http.HandleFunc("/login", autenticaCadastroELevaAoLogin)
 	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
-	http.HandleFunc("/senhaatualizada", atualizarSenha)
+	http.HandleFunc("/atualizarsenha", atualizarSenha)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -184,6 +184,8 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 				return
 			}
 			templates.ExecuteTemplate(w, "login.html", "a")
+		} else{
+			http.Redirect(w, r, "/templates/telaesqueceusenha/esqueceusenha.html", http.StatusSeeOther)
 		}
 	}
 }
