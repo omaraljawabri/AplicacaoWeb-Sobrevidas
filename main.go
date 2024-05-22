@@ -186,6 +186,6 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 			templates.ExecuteTemplate(w, "login.html", "a")
 		} else{
 			http.Redirect(w, r, "/templates/telaesqueceusenha/esqueceusenha.html", http.StatusSeeOther)
-		}
+		} //VER SE NÃO TA NO LUGAR ERRADO, TALVEZ FORA DO FOR
 	}
 }
