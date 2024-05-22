@@ -20,7 +20,7 @@ func main() {
 	http.Handle("/", fs)
 	http.HandleFunc("/login", autenticaCadastroELevaAoLogin)
 	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
-	http.HandleFunc("/esqueceusenha", atualizarSenha)
+	http.HandleFunc("/senhaatualizada", atualizarSenha)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -143,15 +143,11 @@ type validarCpf struct{
 }
 
 func atualizarSenha(w http.ResponseWriter, r *http.Request){
-	err := templates.ExecuteTemplate(w, "esqueceusenha.html", "a")
-	if err != nil{
-		return
-	}
 	if r.Method != http.MethodGet{
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
 		return
 	}
-	err = r.ParseForm()
+	err := r.ParseForm()
 	if err != nil{
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 		return
@@ -188,6 +184,7 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 			if err != nil{
 				return
 			}
+			templates.ExecuteTemplate(w, "login.html", "a")
 		}
 	}
 }
