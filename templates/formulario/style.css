@@ -1,0 +1,479 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.asc {
+    color: red;
+    display: inline-block;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    background-color: white;
+    width: 100vw;
+    padding: 1px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    margin-bottom: 12px;
+    background-color: #007bff;
+    border-radius: 10px 0px 10px 0px;
+    padding: 5px;
+}
+
+header > img{
+    display: inline-block;
+    width: 50px;
+}
+
+header > h1,h2 {
+    display: inline-block;
+    padding-left: 10px;
+    text-align: center;
+    transform: translateY(-50%);
+}
+
+header > h2 {
+    padding-left: -20px;
+}
+
+header h1 {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 1.5em;
+}
+
+header h2 {
+    color: white;
+    font-size: 1em;
+    margin: auto;
+    padding-left: 50px;
+}
+
+.form-section-01 {
+    max-width: 1024px;
+    display: inline-block;
+    position: relative;
+    margin: -5px -5px 4px -5px;
+    max-height: 150px;
+    font-size: 0.6em;
+}
+
+.form-section-01 > .infoacs {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 10px 0px 0px 10px;
+    padding: 3px 5px 2px 5px;
+    margin-right: -10px;
+    margin-left: 6px
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 3px 2px 3px;
+}
+
+caption {
+    font-weight: bolder;
+    text-align: left;
+    display: inline-block;
+}
+
+#hifen {
+    border: 0;
+}
+
+.form-section-01 > #cbo {
+    padding-right: 10px;
+}
+
+.form-section-01 > #cbo {
+    border-radius: 0;
+
+}
+
+.form-section-01 > #cnes {
+    border-radius: 0;
+}
+
+.form-section-01 > #ine {
+    border-radius: 0;
+}
+
+.form-section-01 > #microarea {
+    border-radius: 0;
+}
+
+.form-section-01 > #datacadastro {
+    border-radius: 0px 10px 10px 0px;
+    width: 170px;
+}
+
+.form-section-one{
+    max-height: 824px;
+    max-width: 260px;
+    padding: 10px;
+    display: inline-block;
+    font-size: 0.7em;
+}
+
+.form-section-two{
+    max-height: 824px;
+    max-width: 260px;
+    padding: 10px;
+    display: inline-block;
+    font-size: 0.7em;
+}
+
+.form-section label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-section-one label{
+        font-weight: bold;
+        margin-bottom: 5px;
+        margin-top: -12px;
+        display: block;
+        padding-bottom: 5px;
+        padding-top: 10px;
+        color: gray;
+}
+
+.form-section-one > p {
+    padding-bottom: 3px;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+.form-section-two {
+    position: absolute;
+}
+
+
+.form-section-two label{
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: -12px;
+    display: block;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    color: gray;
+}
+
+.form-section-two > p {
+    padding-bottom: 3px;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+.form-section input,
+.form-section input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-section-one input,
+.form-section-one input {
+    border: 2px solid black;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 10px;
+    width: 220px;
+    font-size: 0.7em;
+}
+
+.form-section-one > select{
+    margin-top: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    width: 220px;
+    cursor: pointer;
+    font-size: 0.7em;
+}
+
+.form-section-one option{
+    font-size: 1.5em; 
+    color: black;
+    background-color: white;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    transition: background-color 0.3s ease;
+ }
+
+ .form-section-one option:hover {
+    background-color: blue;
+ }
+
+ .form-section-one option:checked {
+    background-color: white;
+ }
+
+.form-section-two input,
+.form-section-two input {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+    width: 220px;
+    font-size: 0.7em;
+}
+
+.form-section input[type="text"]:disabled,
+.form-section input[type="email"]:disabled {
+    background-color: #e9ecef;
+}
+
+#campo-endereco {
+    font-size: 1.7em; margin-bottom: 0px; margin-top: 5px;margin-bottom: -7px;
+}
+
+.form-section-three > div {
+    display: inline-block;
+    max-width: 256px;
+    max-height: 824px;
+}
+
+.form-section-three label {
+    margin-top: 1px;
+}
+
+#cep {
+    width: 100px;
+}
+
+#ibairro {
+    width: 120px;
+}
+
+#irua {
+    width: 90px;
+}
+
+#inum {
+    width: 50px;
+}
+
+#icomplemento {
+    width: 80px;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100px;
+}
+
+.radio-group > p{
+    width: 100px;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    float: left;
+    margin-top: 10px;
+}
+
+.radio-group button[type="submit"] {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 3px 10px 3px 10px;
+    display: inline-block;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.301);
+    position: relative;
+    margin-left: 110px;
+    margin-right: -85px;
+    margin-bottom: -8px;
+    margin-top: 2px;
+    width: 50px;
+    font-size: 0.7em;
+}
+
+.radio-group button[type="submit"]:hover{
+    background-color: rgba(255, 0, 0, 0.342);
+}
+
+.radio-group button[type="submit"]:checked{
+    background-color: red;
+}
+
+.radio-group label {
+    margin-right: 20px;
+}
+
+.risk-factors {
+    max-width: 250px;
+    max-height: 600px;
+    padding: 12px;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    position: relative;
+    display: inline-block;
+    float: right;
+    background-color: #49bbc691;
+    border-radius: 20px;
+    font-size: 0.7em;
+    transform: translateX(-5%);
+}
+
+.risk-factors h3 {
+    margin-bottom: 3px;
+    font-size: 1em;
+}
+
+.risk-factors > div {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.risk-factors label {
+    padding: 7px;
+    width: 220px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 20px;
+    font-size: 0.7em;
+}
+
+.risk-level {
+    margin-top: -5px;
+}
+
+.risk-level > label {
+    width: 200px;
+    margin: auto;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.risk-status {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-left: 65px;
+    border: 1px solid black;
+    margin-bottom: -40px;
+    font-size: 0.8em;
+}
+
+.botoes {
+    display: inline-flex;
+    margin-top: -14px;
+}
+
+.form-section-voltar{
+    width: 150px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.form-section-voltar > [type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin-top: 20px;
+    float: left;
+}
+
+.form-section-voltar > [type="submit"]:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+.form-section-obrigatorio {
+    border: 1px solid red;
+    border-radius: 10px;
+    width: 450px;
+    padding: 2px 2px 2px 2px;
+    margin-left: 20px;
+    margin-top: 70px;
+    font-size: 0.5em;
+    transform: translateY(-30px);
+}
+
+.form-section-download {
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-top: 40px;
+}
+
+.form-section-download > img {
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.form-section-validar-tel {
+    max-height: 50px;
+}
+
+.form-section-validar-tel > [type="submit"] {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-top: 30px;
+    margin-right: 15px;
+    margin-left: 30px;
+    width: 150px;
+    font-size: 0.9em;
+}
+
+.form-section-validar-tel > [type="submit"]:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+.form-section-confirmar > [type="submit"] {
+    padding: 10px 20px 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-right: 10px;
+}
+
+.form-section-confirmar > [type="submit"]:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .form-section {
+        width: 100%;
+    }
+}
