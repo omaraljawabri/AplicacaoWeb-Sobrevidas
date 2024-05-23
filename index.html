@@ -203,6 +203,18 @@
             color: #0172e4;
         }
     </style>
+    <script>
+        function confereSenha() {
+            const senha = document.querySelector('input[name=senha]');
+            const confirma = document.querySelector('input[name=confirmsenha]');
+
+            if (confirma.value == senha.value) {
+                confirma.setCustomValidity('');
+            } else{
+                confirma.setCustomValidity('As senhas não conferem');
+            }
+        }
+    </script>
 </head>
 <body>
     <main>
@@ -240,12 +252,12 @@
             </p>
             <p class="p7">
                 <label for="ipassword"></label>
-                <input type="password" name="senha" id="ipassword" required placeholder="Senha*" class="senha">
+                <input type="password" name="senha" id="ipassword" required placeholder="Senha*" class="senha" onchange='confereSenha()'>
                 <a href="#" class="imgsenha"></a>
             </p>
             <p class="p8">
                 <label for="iconfirmpassword"></label>
-                <input type="password" name="confirmsenha" id="iconfirmpassword" required placeholder="Confirmar senha*">
+                <input type="password" name="confirmsenha" id="iconfirmpassword" required placeholder="Confirmar senha*" onchange='confereSenha()'>
             </p>
             <p class="enviar"><button type="submit">Confirmar</button></p>
             <div class="comconta">

@@ -136,6 +136,18 @@
             margin-top: 0px;
         }
     </style>
+    <script>
+        function confereSenha() {
+            const senha = document.querySelector('input[name=senha]');
+            const confirma = document.querySelector('input[name=confirmpassword]');
+
+            if (confirma.value == senha.value) {
+                confirma.setCustomValidity('');
+            } else{
+                confirma.setCustomValidity('As senhas não conferem');
+            }
+        }
+    </script>
 </head>
 <body>
     <main>
@@ -150,11 +162,11 @@
             </p>
             <p class="p1">
                 <label for="ipassword"></label>
-                <input type="password" name="senha" id="ipassword" required placeholder="Senha">
+                <input type="password" name="senha" id="ipassword" required placeholder="Senha" onchange='confereSenha()'>
             </p>
             <p class="p1">
                 <label for="iconfirmpassword"></label>
-                <input type="password" name="confirmpassword" id="iconfirmpassord" required placeholder="Confirmar senha">
+                <input type="password" name="confirmpassword" id="iconfirmpassord" required placeholder="Confirmar senha" onchange='confereSenha()'>
             </p>
             <p class="enviar"><input type="submit" value="Redefina sua senha"></p>
         </form>
