@@ -228,7 +228,7 @@
         <form action="/login" method="post">
             <p class="p1">
                 <label for="inome"></label>
-                <input type="text" name="nome_completo" id="inome" required placeholder="Nome Completo*">
+                <input type="text" name="nome_completo" id="inome" required placeholder="Nome Completo*" minlength="1">
             </p>
             <p class="p1">
                 <label for="icpf"></label>
@@ -252,12 +252,12 @@
             </p>
             <p class="p7">
                 <label for="ipassword"></label>
-                <input type="password" name="senha" id="ipassword" required placeholder="Senha*" class="senha" onchange='confereSenha()'>
+                <input type="password" name="senha" id="ipassword" required placeholder="Senha*" class="senha" onchange='confereSenha()' minlength="1">
                 <a href="#" class="imgsenha"></a>
             </p>
             <p class="p8">
                 <label for="iconfirmpassword"></label>
-                <input type="password" name="confirmsenha" id="iconfirmpassword" required placeholder="Confirmar senha*" onchange='confereSenha()'>
+                <input type="password" name="confirmsenha" id="iconfirmpassword" required placeholder="Confirmar senha*" onchange='confereSenha()' minlength="1">
             </p>
             <p class="enviar"><button type="submit">Confirmar</button></p>
             <div class="comconta">
