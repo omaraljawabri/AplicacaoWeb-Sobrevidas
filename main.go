@@ -13,14 +13,16 @@ import (
 )
 
 var db = fazConexaoComBanco()
-var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html"))
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
 	http.Handle("/", fs)
 	http.HandleFunc("/login", autenticaCadastroELevaAoLogin)
+	http.HandleFunc("/logininvalido", loginInvalido)
 	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
 	http.HandleFunc("/esqueceusenha", executarEsqueceuSenha)
+	http.HandleFunc("/atualizarinvalido", atualizarSenhaInvalido)
 	http.HandleFunc("/atualizarsenha", atualizarSenha)
 
 	log.Println("Server rodando na porta 8080")
@@ -95,6 +97,13 @@ type validarlogin struct{
 	Senha string
 }
 
+func loginInvalido(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "logininvalido.html", "a")
+	if err != nil{
+		return
+	}
+}
+
 func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	if r.Method != http.MethodGet{
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
@@ -134,8 +143,10 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 			if err != nil{
 				return
 			}
+			return
 		}
 	}
+	http.Redirect(w, r, "/logininvalido", http.StatusSeeOther)
 }
 
 type validarCpf struct{
@@ -144,6 +155,13 @@ type validarCpf struct{
 
 func executarEsqueceuSenha(w http.ResponseWriter, _ *http.Request){
 	err := templates.ExecuteTemplate(w, "esqueceusenha.html", "a")
+	if err != nil{
+		return
+	}
+}
+
+func atualizarSenhaInvalido(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "cpfinvalido.html", "a")
 	if err != nil{
 		return
 	}
@@ -195,6 +213,8 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 			if err != nil{
 				return
 			}
+			return
 		}	
 	}
+	http.Redirect(w, r, "atualizarinvalido", http.StatusSeeOther)
 }

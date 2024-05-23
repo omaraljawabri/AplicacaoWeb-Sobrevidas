@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esqueceu a Senha</title>
+    <title>Login</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Passion+One:wght@400;700;900&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sriracha&display=swap');
 
@@ -15,8 +15,7 @@
         }
 
         h1{
-            padding-top: 8vh;
-            padding-top: 8vh;
+            padding-top: 2vh;
             margin-left:36.7vw;
             font-family: "Poppins";
             color: #2F3367;
@@ -28,11 +27,11 @@
             margin-left: 36.7vw;
             font-family: "Poppins";
             color: #303468;
-            font-size: 1.2vw;
         }
 
         p.pf{
-            margin-bottom: 5vh;
+            font-size: 1.2vw;
+            margin-bottom: 0.8vh;
         }
 
         .view{
@@ -52,12 +51,13 @@
             font-weight: bold;
         }
 
-        .rastreamento{
+        .login{
             margin-left: 0px;
             color: white;
             text-align: center;
             font-family: "Inter";
-            font-size: 1.6vw;
+            font-size: 1.7vw;
+            margin-bottom: 0.8vh;
             font-weight: normal;
         }
 
@@ -70,7 +70,7 @@
 
         input[type=text]{
             width:51vw;
-            height: 10vh;
+            height: 9vh;
             box-sizing: border-box;
             border: none;
             border-radius: 4px;
@@ -78,17 +78,35 @@
             font-family: "Poppins";
             background-color: #F5F5F7;
             background-image: url(img/icone2.png);
-            background-size: 2.3vw;
-            background-position: center left 10px;
+            background-position: center left 12px;
             background-repeat: no-repeat;
+            background-size: 2.3vw;
             padding: 12px 20px 12px 60px;
             color: #8B8FA8;
+            margin-top: 40px;
+        }
+
+        .imgsenha{
+            position: absolute;
+            left: 83.7vw;
+            width: 4vw;
+            height: 9vh;
+            box-sizing: border-box;
+            border: none;
+            background-image: url(img/olhosenha.png);
+            background-size: 2vw;
+            background-repeat: no-repeat;
+            background-position: center center;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
             margin-top: 10px;
+            padding: 12px 10px;
         }
 
         input[type=password]{
+            position: relative;
             width:51vw;
-            height: 10vh;
+            height: 9vh;
             box-sizing: border-box;
             border: none;
             border-radius: 4px;
@@ -97,85 +115,113 @@
             background-color: #F5F5F7;
             background-image: url(img/icone2.png);
             background-size: 2.3vw;
-            background-position: center left 10px;
+            background-position: center left 12px;
             background-repeat: no-repeat;
             padding: 12px 20px 12px 60px;
             color: #8B8FA8;
             margin-top: 10px;
         }
 
-        input[type=submit]{
-            width:19.5vw;
-            height: 8vh;
+        button[type=submit]{
+            width:18.5vw;
+            height: 7vh;
             box-sizing: border-box;
             border: none;
             border-radius: 5px;
-            font-size: 1.5vw;
+            font-size: 1.2vw;
             font-family: "Poppins";
             background-color: #007DFA;
             background-image: url(img/iconeproximo.png);
-            background-position: right 10px center;
+            background-position: center right 12px;
             background-repeat: no-repeat;
             background-size: 1.2vw;
             color: white;
             font-weight: normal;
+            font-size: 1.2em;
             text-align:start;
             padding-left: 15px;
-            margin-left: 31.5vw;
-            margin-top: 10vh;
+            margin-left: 32.5vw;
+            margin-top: 15px;
+        }
+
+        .esenha{
+            text-decoration: none;
+            color: #393D6E;
+            font-weight: normal;
+            margin-top: 20px;
+            font-size: 1.2vw;
+        }
+
+        .esenha:hover{
+            color: #1e2038;
         }
 
         .enviar{
-            margin-top: 2vh;
+            font-size: 1.2vw;
         }
 
         input[type=submit]:hover{
             background-color: #0172e4;
         }
 
-        p.p1{
-            margin-top: 0px;
+        .semconta{
+            font-size: 1.2vw;
+            position: relative;
+            top: 18vh;
         }
-    </style>
-    <script>
-        function confereSenha() {
-            const senha = document.querySelector('input[name=senha]');
-            const confirma = document.querySelector('input[name=confirmpassword]');
 
-            if (confirma.value == senha.value) {
-                confirma.setCustomValidity('');
-            } else{
-                confirma.setCustomValidity('As senhas não conferem');
-            }
+        a.criar{
+            font-size: 1.2vw;
+            text-decoration: none;
+            color: #007DFA;
+            margin-left: 28.2vw;
         }
-    </script>
+
+        a.criar:hover{
+            color: #0172e4;
+        }
+        .invalido{
+            margin-top: 1vh;
+            color: red;
+            font-size: 1.2vw;
+            font-family: "Inter";
+            background-color: rgba(255, 0, 0, 0.192);
+            margin-left: 50vw;
+            width: 30vw;
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
+    <p class="invalido">CPF e/ou senha inválido(os), tente novamente!</p>
     <main>
-        <h1>Esqueceu a Senha?</h1>
-        <p class="pf">Por favor, Agente Comunitário de Saúde, insira sua nova senha:</p>
+        <h1>Login</h1>
+        <p class="pf">Por favor, Agente Comunitário de Saúde, coloque suas informações abaixo:</p>
     </main>
     <div class="formulario">
-        <form action="/atualizarsenha" method="get">
+        <form action="/dashboard" method="get">
             <p class="p1">
                 <label for="icpf"></label>
-                <input type="text" name="cpf" id="icpf" required minlength="11" maxlength="11" placeholder="Insira seu CPF" pattern="\d*">
+                <input type="text" name="cpf" id="icpf" required minlength="11" maxlength="11" placeholder="CPF" class="mainLoginInput" pattern="\d*">
             </p>
             <p class="p1">
                 <label for="ipassword"></label>
-                <input type="password" name="senha" id="ipassword" required placeholder="Senha" onchange='confereSenha()' minlength="1">
+                <input type="password" name="senha" id="ipassword" required placeholder="Senha" class="mainLoginInput" minlength="1">
+                <a href="#" class="imgsenha"></a>
             </p>
-            <p class="p1">
-                <label for="iconfirmpassword"></label>
-                <input type="password" name="confirmpassword" id="iconfirmpassord" required placeholder="Confirmar senha" onchange='confereSenha()' minlength="1">
-            </p>
-            <p class="enviar"><input type="submit" value="Redefina sua senha"></p>
+            <p class="esenha"><a href="/esqueceusenha" class="esenha">Esqueceu a senha?</a></p>
+            <p class="enviar"><button type="submit">Login</button></p>
+            <div class="semconta">
+                <p>Não tem uma conta?<a href="/index.html" class="criar">Crie uma conta</a></p>
+            </div>
         </form>
     </div>
     <div class="view">
         <img src="img/Logo Sobrevidas Sem Escrita.png" alt="Logo Sobrevidas" class="center">
         <h2>SOBREVIDAS - ACS</h2>
-        <p class="rastreamento">Rastreamento e Monitoramento do câncer de boca</p>
+        <p class="login">Rastreamento e Monitoramento do câncer de boca</p>
     </div>
+
 </body>
 </html>
