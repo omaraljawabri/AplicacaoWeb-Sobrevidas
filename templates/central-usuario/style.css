@@ -1,0 +1,234 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Passion+One:wght@400;700;900&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sriracha&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kaushan+Script&family=Passion+One:wght@400;700;900&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sriracha&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+p{
+    font-family: "Inter";
+}
+
+header{
+    background-color: #007FDA;
+    width: 100%;
+    height: 8vh;
+    display: flex;
+}
+
+.posicionar{
+    display: block;
+    margin-left: 1%;
+    height: 8vh;
+    width: 5%;
+}
+
+.titulo{
+    font-size: 5vh;
+    position: fixed;
+    font-family: "Inter";
+    margin-top: 0.5%;
+    left: 15%;
+    color: white;
+}
+
+.subtitulo{
+    font-size: 4vh;
+    position: fixed;
+    font-family: "Inter";
+    color: white;
+    margin-top: 0.8%;
+    left: 55%;
+}
+
+#caixausuario{
+    position: fixed;
+    display: flex;
+    background-color: #0C91F0;
+    border-radius: 8px;
+    height: 6.5%;
+    width: 13%;
+    top: 1%;
+    left: 80%;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.226);
+}
+
+.usuario{
+    position: fixed;
+    background-color: #5A67BA;
+    border-radius: 50%;
+    color: white;
+    font-family: "Poppins";
+    font-weight: bold;
+    margin-top: 1.3vh;
+    margin-left: 0.5vw;
+    width: 2%;
+    height: 3.7%;
+    text-align: center;
+    font-size: 2.5vh;
+}
+
+.caixa{
+    position: fixed;
+    color: white;
+    font-family: "Poppins";
+    font-weight: bold;
+    top: 2.3%;
+    left: 83%;
+    font-size: 2.5vh;
+}
+
+.sinoimg{
+    position: fixed;
+    top: 2.3vh;
+    left: 90%;
+    width: 2%;
+    height: 4%;
+}
+
+.sair{
+    position: fixed;
+    display: block;
+    height: 4%;
+    width: 2%;
+    top: 2%;
+    right: 2%;
+}
+
+.view{
+    background-color: #0C91F0;
+    position: fixed;
+    top: 20;
+    width: 100%;
+    height: 150px;
+}
+
+.imagem{
+    position: relative;
+    margin: auto;
+    left: 38.5vw;
+    height: 25vh;
+    width: 23%;
+    margin-top: 2vh;
+}
+
+.camera{
+    position: absolute;
+    margin-left: 25.5vw;
+    height: 6vh;
+    width: 18%;
+    top: 9vh;
+    left: 0px;
+}
+
+.cima{
+    font-size: 1vw;
+    font-weight: bold;
+}
+
+.camposesquerda{
+    margin-left: 2%;
+    position: fixed;
+    top: 37%;
+}
+
+.exemplo{
+    position: relative;
+    background-color: #E0E0E3;
+    border-radius: 7px;
+    width: 37vw;
+    height: 7vh;
+    font-weight: bold;
+    margin-bottom: 0.7vw;
+}
+
+span{
+    position: fixed;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    font-size: 1.2vw;
+}
+
+.camposdireita{
+    position: fixed;
+    top: 37%;
+    margin-left: 61%;
+}
+
+.lapiscolar{
+    position: fixed;
+}
+
+.lapisimg{
+    position: absolute;
+    width: 3.5vw;
+    top: 2.5vh;
+    margin-left: 35vw;
+    left: 0px;
+}
+
+.status{
+    margin-top: 6px;
+    position: fixed;
+    top: 74vh;
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.bola{
+    position: fixed;
+    background-color: #0BB326;
+    width: 1.8vw;
+    height: 3.5vh;
+    border-radius: 50%;
+    top: 75vh;
+    left: 79vw;
+}
+
+.ativo{
+    position: fixed;
+    top: 75vh;
+    left: 81.5vw;
+    font-weight: bold;
+    font-size: 1.3vw;
+}
+
+.acesso{
+    position: fixed;
+    margin-top: 4px;
+    top: 82%;
+    color: #007FDA;
+    font-size: 1.2vw;
+}
+
+footer{
+    position: fixed;
+    bottom: 1%;
+    left: 1%;   
+}
+
+input[type=submit]{
+    background-color: #0C91F0;
+    color: #F5F5F7;
+    font-family: "Poppins";
+    border-radius: 3px;
+    border: none;
+    width: 10vw;
+    height: 5vh;
+    font-weight: bold;
+    background-image: url(img/flecha\ esquerda.png);
+    background-size: 2vw;
+    background-position: left 3% center;
+    background-repeat: no-repeat;
+    font-size: 2.8vh;
+    text-align: center;
+    padding-left: 15px;
+}
+
+input[type=submit]:hover{
+    background-color: #1675b9;
+}

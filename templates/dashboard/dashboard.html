@@ -1,11 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>AUTENTICADO!</h1>
+    <header>
+        <h1 class="titulo">SOBREVIDAS - ACS</h1>
+        <h2 class="subtitulo">Dashboard</h2>
+        <div id="caixausuario">
+            <p class="usuario">U</p>
+            <p class="caixa">Usuário</p>
+            <a href="#"><img src="img/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
+        </div>
+        <a href="../telalogin/index.html"><img src="img/logout.png" alt="Icone de sair" class="sair"></a>
+    </header>
+    <nav>
+        <a href="#"><img src="img/LogoSOBREVIDAS-ACS-semtext.png" alt="Logo Sobrevidas" class="logo"></a>
+        <a href="dashboard.html" class="dashboard"><span class="posicionar1">Dashboard</span></a>
+        <a href="#" class="novocadastro"><span class="posicionar1">Novo Cadastro</span></a>
+        <br>
+        <p class="monitoramento">Monitoramento</p>
+        <a href="#" class="pacientesgerais"><span class="pag">Pacientes Gerais</span></a>
+        <br>
+        <a href="#" class="baixorisco">Baixo Risco</a>
+        <br>
+        <a href="#" class="mediorisco">Médio Risco</a>
+        <br>
+        <a href="#" class="altorisco">Alto Risco</a>
+        <br>
+        <a href="#" class="absenteistas">Absenteístas</a>
+        <br>
+        <p class="ajuda">Ajuda</p>
+        <br>
+        <a href="#" class="perguntas"><span class="pg">[?] Perguntas Frequentes</span></a>
+        <br>
+        <a href="/templates/central-usuario/centralusuario.html" class="central"><span class="c">Central do Usuário</span></a>
+    </nav>
+    <div class="Dados1">
+        <p class="monitoramento">Monitoramento de Pacientes com Risco de Câncer de Boca</p>
+        <a href="#"><p class="p1">Total de Pacientes Monitorados para Câncer de Boca</p></a>
+        <a href="#"><p class="dp1">106</p></a>
+        <a href="#"><p class="p2">Total de Pacientes a serem visitados na microárea</p></a>
+        <a href="#"><p class="dp2">54</p></a>
+        <a href="#"><p class="p3">Pacientes que cancelaram idas a UBS (absenteístas)</p></a>
+        <a href="#"><p class="dp3">7</p></a>
+        <a href="#"><p class="p4">Pacientes com <br><u>BAIXO</u><br> risco de câncer de <br>boca</p></a>
+        <a href="#"><p class="dp4">61</p></a>
+        <a href="#"><p class="p5">Pacientes com <br><u>MÉDIO</u><br> risco de câncer de <br>boca</p></a>
+        <a href="#"><p class="dp5">30</p></a>
+        <a href="#"><p class="p6">Pacientes com <br> <u>ALTO</u> <br> risco de câncer de <br> boca</p></a>
+        <a href="#"><p class="dp6">15</p></a>
+        <img src="img/linhavertical.png" alt="Separação vertical" class="vertical">
+        <img src="img/linhahorizontal.png" alt="Separação horizontal" class="horizontal">
+    </div>
+    <div class="Dados2">
+        <p class="analise">Análise da distribuição de pacientes em relação a risco</p>
+        <div class="grafico">
+            <div class="dividir" style="--precent: 57.5"></div>
+            <div class="dividir" style="--precent:85.8"></div>
+            <div class="dividir" style="--precent: 100"></div>
+        </div>
+        <p class="d1">Data de análise: De 01 - 31 Jul, 2024</p>
+        <div class="info">
+            <p class="bola1"></p>
+            <p class="d2">Baixo Risco </p>
+            <p class="d22">57,5%</p>
+            <p class="bola2"></p>
+            <p class="d3">Médio Risco</p>
+            <p class="d33">27,3%</p>
+            <p class="bola3"></p>
+            <p class="d4">Alto Risco</p>
+            <p class="d44">14,2%</p>
+        </div>
+    </div>
+    <div class="MapaMonitoramento">
+        <h2>Mapa de Monitoramento:</h2>
+        <p class="pnv">Pacientes ainda não visitados</p>
+        <p class="pbv">Pacientes de baixo risco visitados</p>
+        <p class="pmv">Pacientes de médio risco visitados</p>
+        <p class="pav">Pacientes de alto risco visitados</p>
+        <p class="pa">Pacientes absenteístas</p>
+        <div class="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1135.7998451987369!2d-49.33081944809181!3d-16.758751980557424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef79b4e646c55%3A0x267e8dbc9ec30892!2sUBS%20Garavelo%20Park!5e0!3m2!1spt-BR!2sbr!4v1716577007130!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
 </body>
 </html>
