@@ -31,7 +31,7 @@
 
         p.pf{
             font-size: 1.2vw;
-            margin-bottom: 0.8vh;
+            margin-bottom: 8vh;
         }
 
         .view{
@@ -83,10 +83,10 @@
             background-size: 2.3vw;
             padding: 12px 20px 12px 60px;
             color: #8B8FA8;
-            margin-top: 40px;
+            margin-top: 3px;
         }
 
-        .imgsenha{
+        #icon{
             position: absolute;
             left: 83.7vw;
             width: 4vw;
@@ -99,11 +99,19 @@
             background-position: center center;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
-            margin-top: 10px;
+            margin-top: 3px;
             padding: 12px 10px;
+            cursor: pointer;
         }
 
-        input[type=password]{
+        #icon.hide{
+            background-image: url(img/olhosenhafechado.png);
+            background-size: 2vw;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        input[type=password].senha{
             position: relative;
             width:51vw;
             height: 9vh;
@@ -119,7 +127,7 @@
             background-repeat: no-repeat;
             padding: 12px 20px 12px 60px;
             color: #8B8FA8;
-            margin-top: 10px;
+            margin-top: 3px;
         }
 
         button[type=submit]{
@@ -180,10 +188,20 @@
         a.criar:hover{
             color: #0172e4;
         }
-
+        .invalido{
+            margin-top: 1vh;
+            color: red;
+            font-size: 1.2vw;
+            font-family: "Inter";
+            background-color: rgba(255, 0, 0, 0.192);
+            margin-left: 50vw;
+            width: 30vw;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <p class="invalido">CPF e/ou senha inválido(os), tente novamente!</p>
     <main>
         <h1>Login</h1>
         <p class="pf">Por favor, Agente Comunitário de Saúde, coloque suas informações abaixo:</p>
@@ -197,7 +215,7 @@
             <p class="p1">
                 <label for="ipassword"></label>
                 <input type="password" name="senha" id="ipassword" required placeholder="Senha" class="mainLoginInput" minlength="1">
-                <a href="#" class="imgsenha"></a>
+                <a id="icon" onclick="showHide()"></a>
             </p>
             <p class="esenha"><a href="/esqueceusenha" class="esenha">Esqueceu a senha?</a></p>
             <p class="enviar"><button type="submit">Login</button></p>
@@ -211,6 +229,20 @@
         <h2>SOBREVIDAS - ACS</h2>
         <p class="login">Rastreamento e Monitoramento do câncer de boca</p>
     </div>
+    <script>
+        const password = document.getElementById('ipassword');
+        const icon = document.getElementById('icon')
 
+        function showHide(){
+            if(password.type === 'password'){
+                password.setAttribute('type', 'text');
+                icon.classList.add('hide');
+            }
+            else{
+                password.setAttribute('type', 'password');
+                icon.classList.remove('hide');
+            }
+        }
+    </script>
 </body>
 </html>
