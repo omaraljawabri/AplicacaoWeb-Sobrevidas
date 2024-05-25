@@ -806,6 +806,89 @@
     width:59%;
     position:fixed;
     }
+    #modal{
+        display: none;
+    }
+
+    #logout{
+        position: absolute;
+        top: 25vh;
+        left: 40vw; 
+    }
+
+    .fixar{
+        position: fixed;
+    }
+
+    div.relativa{
+        background-color: white;
+        position: relative;
+        border-radius: 10px;
+        width: 20vw;
+        height: 53vh;
+        font-family: "Inter";
+        border: 3px solid #00538E;
+    }
+
+    img.deslogar{
+        position: absolute;
+        width: 7vw;
+        left: 7vw;
+        top: 3vh;
+    }
+
+    .ctz{
+        position: absolute;
+        top: 23vh;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1vw;
+        left: 1.5vw;
+    }
+
+    .sim{
+        font-family: "Inter";
+        border-radius: 5px;
+        position: absolute;
+        background-color: #007FDA;
+        color: white;
+        border: none;
+        top: 32vh;
+        width: 16.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 1.5vw;
+        font-weight: bold;
+        font-size: 0.95vw;
+    }
+
+    .sim:hover{
+        background-color: #0662a3;
+    }
+
+    .nao{
+        border-radius: 5px;
+        position: absolute;
+        background-color: #007FDA;
+        color: white;
+        border: none;
+        top: 41vh;
+        width: 16.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 1.5vw;
+        font-weight: bold;
+        font-family: "Inter";
+        font-size: 0.95vw;
+    }
+
+    .nao:hover{
+        background-color: #0662a3;
+    }
+
+    #btnlogout{
+        cursor: pointer;
+    }
 </style>
 <body>
     <header>
@@ -816,7 +899,7 @@
             <p class="caixa">Usuário</p>
             <a href="#"><img src="/imgdashboard/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
         </div>
-        <a href="/templates/telalogin/login.html"><img src="/imgdashboard/logout.png" alt="Icone de sair" class="sair"></a>
+        <a id="btnlogout"><img src="/imgdashboard/logout.png" alt="Icone de sair" class="sair"></a>
     </header>
     <nav>
         <a href="#"><img src="/imgdashboard/LogoSOBREVIDAS-ACS-semtext.png" alt="Logo Sobrevidas" class="logo"></a>
@@ -888,5 +971,30 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1135.7998451987369!2d-49.33081944809181!3d-16.758751980557424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef79b4e646c55%3A0x267e8dbc9ec30892!2sUBS%20Garavelo%20Park!5e0!3m2!1spt-BR!2sbr!4v1716577007130!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
+    <div id="modal">
+        <div id="logout">
+            <div class="fixar">
+                <div class="relativa">
+                    <img src="/imgdashboard/logout icon.png" alt="Icone de Logout" class="deslogar">
+                    <p class="ctz">Tem certeza que deseja sair da <br> sua conta?</p>
+                    <a href="/telalogin"><button class="sim">Sim, deslogar.</button></a>
+                    <button class="nao">Não, continuar logado.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let btn = document.getElementById('btnlogout');
+        let modal = document.getElementById('modal');
+        let cancelbtn = document.querySelector('.nao');
+
+        btn.onclick = function(){
+            modal.style.display = 'block';
+        }
+
+        cancelbtn.onclick = function(){
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

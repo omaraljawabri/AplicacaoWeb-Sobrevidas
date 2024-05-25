@@ -23,7 +23,7 @@ func main() {
 	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
 	http.HandleFunc("/esqueceusenha", executarEsqueceuSenha)
 	http.HandleFunc("/atualizarinvalido", atualizarSenhaInvalido)
-	http.HandleFunc("/atualizarsenha", atualizarSenha)
+	http.HandleFunc("/telalogin", atualizarSenha)
 
 	log.Println("Server rodando na porta 8080")
 

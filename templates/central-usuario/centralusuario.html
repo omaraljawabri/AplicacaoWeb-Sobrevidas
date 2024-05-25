@@ -238,6 +238,89 @@
         input[type=submit]:hover{
             background-color: #1675b9;
         }
+        #modal{
+            display: none;
+        }
+
+        #logout{
+            position: absolute;
+            top: 25vh;
+            left: 40vw; 
+        }
+
+        .fixar{
+            position: fixed;
+        }
+
+        div.relativa{
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            width: 20vw;
+            height: 53vh;
+            font-family: "Inter";
+            border: 3px solid #00538E;
+        }
+
+        img.deslogar{
+            position: absolute;
+            width: 7vw;
+            left: 7vw;
+            top: 3vh;
+        }
+
+        .ctz{
+            position: absolute;
+            top: 23vh;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1vw;
+            left: 1.5vw;
+        }
+
+        .sim{
+            font-family: "Inter";
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 32vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-size: 0.95vw;
+        }
+
+        .sim:hover{
+            background-color: #0662a3;
+        }
+
+        .nao{
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 41vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-family: "Inter";
+            font-size: 0.95vw;
+        }
+
+        .nao:hover{
+            background-color: #0662a3;
+        }
+
+        #btnlogout{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -250,7 +333,7 @@
             <p class="caixa">Usuário</p>
             <a href="#"><img src="img/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
         </div>
-        <a href="../telalogin/index.html"><img src="img/logout.png" alt="Icone de sair" class="sair"></a>
+        <a id="btnlogout"><img src="img/logout.png" alt="Icone de sair" class="sair"></a>
     </header>
     <div class="view">
         <img src="img/telafundo.png" alt="Modificar foto do usuário" class="imagem">
@@ -283,8 +366,33 @@
         <p class="ativo">ATIVO</p>
         <p class="acesso">ULTIMO ACESSO HÁ 58 MINUTOS</p>
     </div>
+    <div id="modal">
+        <div id="logout">
+            <div class="fixar">
+                <div class="relativa">
+                    <img src="img/logout icon.png" alt="Icone de Logout" class="deslogar">
+                    <p class="ctz">Tem certeza que deseja sair da <br> sua conta?</p>
+                    <a href="/telalogin"><button class="sim">Sim, deslogar.</button></a>
+                    <button class="nao">Não, continuar logado.</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer>
         <input type="submit" value="Voltar">
     </footer>
+    <script>
+        let btn = document.getElementById('btnlogout');
+        let modal = document.getElementById('modal');
+        let cancelbtn = document.querySelector('.nao');
+
+        btn.onclick = function(){
+            modal.style.display = 'block';
+        }
+
+        cancelbtn.onclick = function(){
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
