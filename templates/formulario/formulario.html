@@ -551,6 +551,185 @@
     .borda{
         border: 2px solid black;
     }
+
+    #modal{
+      display: none;  
+    }
+
+    .alerta{
+        background-color: #ff000040;
+        margin-top: 0px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        text-align: center;
+        font-family: "Poppins";
+        font-weight: bold;
+        color: #491D1D;
+        font-size: 1.4vw;
+    }
+
+    #logout{
+        position: absolute;
+        top: 25vh;
+        left: 35vw; 
+    }
+
+    .fixar{
+        position: fixed;
+    }
+
+    div.relativa{
+        background-color: white;
+        position: relative;
+        border-radius: 10px;
+        width: 30vw;
+        height: 38vh;
+        font-family: "Inter";
+        border: 3px solid #737B8B;
+    }
+
+    img.atencao{
+        position: absolute;
+        width: 7vw;
+        left: 11vw;
+        top: 5.5vh;
+    }
+
+    .ctz{
+        position: absolute;
+        top: 22vh;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1vw;
+        left: 3vw;
+        color: #4B505A;
+        font-family: "Poppins";
+    }
+
+    .sim{
+        font-family: "Inter";
+        border-radius: 5px;
+        position: absolute;
+        background-color: #007FDA;
+        color: white;
+        border: none;
+        top: 30vh;
+        width: 11.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 17vw;
+        font-weight: bold;
+        font-size: 1.1vw;
+        background-image: url(imagens/setadireita.png);
+        background-repeat: no-repeat;
+        background-size: 0.6vw;
+        background-position: right 0.5vw center;
+    }
+
+    .sim:hover{
+        background-color: #0662a3;
+    }
+
+    .voltar{
+        border-radius: 5px;
+        position: absolute;
+        background-color: #007FDA;
+        color: white;
+        border: none;
+        top: 30vh;
+        width: 11.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 1.5vw;
+        font-weight: bold;
+        font-family: "Inter";
+        font-size: 1.1vw;
+        background-image: url(imagens/setaesquerda.png);
+        background-repeat: no-repeat;
+        background-size: 0.6vw;
+        background-position: left 0.5vw center;
+    }
+
+    .voltar:hover{
+        background-color: #0662a3;
+    }
+
+    #btnlogout{
+        cursor: pointer;
+    }
+    #modal2{
+        display: none;
+    }
+
+    .confirmado{
+        background-color: #00fa645b;
+        margin-top: 0px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        text-align: center;
+        font-family: "Poppins";
+        font-weight: bold;
+        color: #26491D;
+        font-size: 1.4vw;
+    }
+
+    #confirmacao{
+        position: absolute;
+        top: 25vh;
+        left: 35vw; 
+    }
+
+    .fixar2{
+        position: fixed;
+    }
+
+    div.relativa2{
+        background-color: white;
+        position: relative;
+        border-radius: 10px;
+        width: 30vw;
+        height: 38vh;
+        font-family: "Inter";
+        border: 3px solid #737B8B;
+    }
+
+    img.confirmed{
+        position: absolute;
+        width: 7vw;
+        left: 11.5vw;
+        top: 5.5vh;
+    }
+
+    .cadastradook{
+        position: absolute;
+        top: 22vh;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1vw;
+        left: 5vw;
+        color: #4B505A;
+        font-family: "Poppins";
+    }
+
+    .ok{
+        font-family: "Inter";
+        border-radius: 5px;
+        position: absolute;
+        background-color: #00AB30;
+        color: white;
+        border: none;
+        top: 30vh;
+        width: 11.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 9vw;
+        font-weight: bold;
+        font-size: 1.1vw;
+    }
+
+    .ok:hover{
+        background-color: #007421;
+    }
     </style>
 </head>
 <body>
@@ -747,24 +926,69 @@
                     <div class="risk-status">____ Risco</div>
                 </div>
             </div>
-            <div class="botoes">
-                <div class="form-section-voltar">
-                    <button type="submit">Voltar</button>
-                </div>
-                <div class="form-section-obrigatorio">
-                    <p>Os itens assinalados com <span class="asc">*</span> são de preenchimento obrigatório</p>
-                </div>
-                <div class="form-section-download">
-                    <img src="imagens/download.png" alt="Icone de Download">
-                </div>
-                <div class="form-section-validar-tel">
-                    <button type="submit">Validar o Telefone</button>
-                </div>
-                <div class="form-section-confirmar">
-                    <button type="submit">Confirmar</button>
+            <div id="modal2">
+                <div id="confirmacao">
+                    <div class="fixar2">
+                        <div class="relativa2">
+                            <p class="confirmado">CONFIRMADO</p>
+                            <img src="imagens/confirmado.png" alt="Icone de Atenção" class="confirmed">
+                            <p class="cadastradook">Paciente cadastrado com sucesso!</p>
+                            <a href="/dashboard"><button type="submit" class="ok">Ok</button></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
+        <div class="botoes">
+            <div class="form-section-voltar">
+                <button type="submit">Voltar</button>
+            </div>
+            <div class="form-section-obrigatorio">
+                <p>Os itens assinalados com <span class="asc">*</span> são de preenchimento obrigatório</p>
+            </div>
+            <div class="form-section-download">
+                <img src="imagens/download.png" alt="Icone de Download">
+            </div>
+            <div class="form-section-validar-tel">
+                <button type="submit">Validar o Telefone</button>
+            </div>
+            <div class="form-section-confirmar">
+                <button type="submit" id="confirmador">Confirmar</button>
+            </div>
+        </div>
     </div>
+    <div id="modal">
+        <div id="logout">
+            <div class="fixar">
+                <div class="relativa">
+                    <p class="alerta">ATENÇÃO</p>
+                    <img src="imagens/atencao.png" alt="Icone de Atenção" class="atencao">
+                    <p class="ctz">Todos dados cadastrados estão corretos?</p>
+                    <button class="sim">Sim</button>
+                    <button class="voltar">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let btn = document.getElementById('confirmador');
+        let modal = document.getElementById('modal');
+        let cancelbtn = document.querySelector('.voltar');
+        let simbtn = document.querySelector('.sim');
+        let modal2 = document.getElementById('modal2');
+
+        btn.onclick = function(){
+            modal.style.display = 'block';
+        }
+
+        cancelbtn.onclick = function(){
+            modal.style.display = 'none';
+        }
+
+        simbtn.onclick = function(){
+            modal.style.display = 'none';
+            modal2.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
