@@ -1,0 +1,1008 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOBREVIDAS - ACS</title>
+    <style>   
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .asc {
+        color: red;
+        display: inline-block;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .container {
+        background-color: white;
+        width: 100vw;
+        padding: 1px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        width: 100%;
+        margin-bottom: 12px;
+        background-color: #007bff;
+        border-radius: 10px 0px 10px 0px;
+        padding: 5px;
+    }
+
+    header > img{
+        display: inline-block;
+        width: 50px;
+    }
+
+    header > h1,h2 {
+        display: inline-block;
+        padding-left: 10px;
+        text-align: center;
+        transform: translateY(-50%);
+    }
+
+    header > h2 {
+        padding-left: -20px;
+    }
+
+    header h1 {
+        color: white;
+        margin-bottom: 5px;
+        font-size: 1.5em;
+    }
+
+    header h2 {
+        color: white;
+        font-size: 1em;
+        margin: auto;
+        padding-left: 50px;
+    }
+
+    .form-section-01 {
+        max-width: 1024px;
+        display: inline-block;
+        position: relative;
+        margin: -5px -5px 4px -5px;
+        max-height: 150px;
+        font-size: 0.6em;
+    }
+
+    .form-section-01 > .infoacs {
+        display: inline-block;
+        border: 1px solid black;
+        border-radius: 10px 0px 0px 10px;
+        padding: 3px 5px 2px 5px;
+        margin-right: -10px;
+        margin-left: 6px
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 2px 3px 2px 3px;
+    }
+
+    caption {
+        font-weight: bolder;
+        text-align: left;
+        display: inline-block;
+    }
+
+    #hifen {
+        border: 0;
+    }
+
+    .form-section-01 > #cbo {
+        padding-right: 10px;
+    }
+
+    .form-section-01 > #cbo {
+        border-radius: 0;
+
+    }
+
+    .form-section-01 > #cnes {
+        border-radius: 0;
+    }
+
+    .form-section-01 > #ine {
+        border-radius: 0;
+    }
+
+    .form-section-01 > #microarea {
+        border-radius: 0;
+    }
+
+    .form-section-01 > #datacadastro {
+        border-radius: 0px 10px 10px 0px;
+        width: 170px;
+    }
+
+    .form-section-one{
+        max-height: 824px;
+        max-width: 260px;
+        padding: 10px;
+        display: inline-block;
+        font-size: 0.7em;
+    }
+
+    .form-section-two{
+        max-height: 824px;
+        max-width: 260px;
+        padding: 10px;
+        display: inline-block;
+        font-size: 0.7em;
+    }
+
+    .form-section label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-section-one label{
+            font-weight: bold;
+            margin-bottom: 5px;
+            margin-top: -12px;
+            display: block;
+            padding-bottom: 5px;
+            padding-top: 10px;
+            color: gray;
+    }
+
+    .form-section-one > p {
+        padding-bottom: 3px;
+        margin-top: 3px;
+        margin-bottom: 5px;
+    }
+
+    .form-section-two {
+        position: absolute;
+    }
+
+
+    .form-section-two label{
+        font-weight: bold;
+        margin-bottom: 5px;
+        margin-top: -12px;
+        display: block;
+        padding-bottom: 5px;
+        padding-top: 10px;
+        color: gray;
+    }
+
+    .form-section-two > p {
+        padding-bottom: 3px;
+        margin-top: 3px;
+        margin-bottom: 5px;
+    }
+
+    .form-section input,
+    .form-section input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .form-section-one input,
+    .form-section-one input {
+        border: 2px solid black;
+        border-radius: 10px;
+        font-weight: bold;
+        padding: 10px;
+        width: 220px;
+        font-size: 0.7em;
+    }
+
+    .form-section-one > select{
+        margin-top: 30px;
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        width: 220px;
+        cursor: pointer;
+        font-size: 0.7em;
+    }
+
+    .form-section-one option{
+        font-size: 1.5em; 
+        color: black;
+        background-color: white;
+        padding: 5px;
+        border-bottom: 1px solid black;
+        transition: background-color 0.3s ease;
+    }
+
+    .form-section-one option:hover {
+        background-color: blue;
+    }
+
+    .form-section-one option:checked {
+        background-color: white;
+    }
+
+    .form-section-two input,
+    .form-section-two input {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        font-weight: bold;
+        width: 220px;
+        font-size: 0.7em;
+    }
+
+    .form-section input[type="text"]:disabled,
+    .form-section input[type="email"]:disabled {
+        background-color: #e9ecef;
+    }
+
+    #campo-endereco {
+        font-size: 1.7em; margin-bottom: 0px; margin-top: 5px;margin-bottom: -7px;
+    }
+
+    .form-section-three > div {
+        display: inline-block;
+        max-width: 256px;
+        max-height: 824px;
+    }
+
+    .form-section-three label {
+        margin-top: 1px;
+    }
+
+    #cep {
+        width: 100px;
+    }
+
+    #ibairro {
+        width: 120px;
+    }
+
+    #irua {
+        width: 90px;
+    }
+
+    #inum {
+        width: 50px;
+    }
+
+    #icomplemento {
+        width: 80px;
+    }
+
+    .radio-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        width: 100px;
+    }
+
+    .radio-group > p{
+        width: 100px;
+        color: rgb(0, 0, 0);
+        position: absolute;
+        float: left;
+        margin-top: 10px;
+    }
+
+    .radio-group button[type="submit"] {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        border-radius: 15px;
+        padding: 3px 10px 3px 10px;
+        display: inline-block;
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.301);
+        position: relative;
+        margin-left: 110px;
+        margin-right: -85px;
+        margin-bottom: -8px;
+        margin-top: 2px;
+        width: 50px;
+        font-size: 0.7em;
+    }
+
+    .radio-group button[type="submit"]:hover{
+        background-color: rgba(255, 0, 0, 0.342);
+    }
+
+    .radio-group button[type="submit"]:checked{
+        background-color: red;
+    }
+
+    .radio-group label {
+        margin-right: 0;
+    }
+
+    .risk-factors {
+        max-width: 250px;
+        max-height: 600px;
+        padding: 12px;
+        margin-top: 10px;
+        border-top: 1px solid #ddd;
+        position: relative;
+        display: inline-block;
+        float: right;
+        background-color: #49bbc691;
+        border-radius: 20px;
+        font-size: 0.7em;
+        transform: translateX(-5%);
+    }
+
+    .risk-factors h3 {
+        margin-bottom: 3px;
+        font-size: 1em;
+    }
+
+    .risk-factors > div {
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .risk-factors label {
+        padding: 7px;
+        width: 220px;
+        margin-bottom: 2px;
+        margin-top: 2px;
+        background-color: white;
+        border-radius: 20px;
+        font-size: 0.7em;
+    }
+
+    .risk-level {
+        margin-top: -5px;
+    }
+
+    .risk-level > label {
+        width: 200px;
+        margin: auto;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .risk-status {
+        display: inline-block;
+        background-color: white;
+        color: black;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin-left: 65px;
+        border: 1px solid black;
+        margin-bottom: -40px;
+        font-size: 0.8em;
+    }
+
+    .botoes {
+        display: inline-flex;
+        margin-top: -14px;
+    }
+
+    .form-section-voltar{
+        width: 150px;
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .form-section-voltar > [type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9em;
+        margin-top: 20px;
+        float: left;
+    }
+
+    .form-section-voltar > [type="submit"]:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
+
+    .form-section-obrigatorio {
+        border: 1px solid red;
+        border-radius: 10px;
+        width: 450px;
+        padding: 2px 2px 2px 2px;
+        margin-left: 20px;
+        margin-top: 70px;
+        font-size: 0.5em;
+        transform: translateY(-30px);
+    }
+
+    .form-section-download {
+        margin-left: 20px;
+        margin-right: 10px;
+        margin-top: 40px;
+    }
+
+    .form-section-download > img {
+        width: 20px;
+        height: 20px;
+        position: relative;
+    }
+
+    .form-section-validar-tel {
+        max-height: 50px;
+    }
+
+    .form-section-validar-tel > [type="submit"] {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        margin-top: 30px;
+        margin-right: 15px;
+        margin-left: 30px;
+        width: 150px;
+        font-size: 0.9em;
+    }
+
+    .form-section-validar-tel > [type="submit"]:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
+
+    .form-section-confirmar > [type="submit"] {
+        padding: 10px 20px 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9em;
+        margin-top: 30px;
+        margin-left: 50px;
+        margin-right: 10px;
+    }
+
+    .form-section-confirmar > [type="submit"]:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
+
+    .label1{
+        display: block;
+        padding: 5px;
+        position: relative;
+        left: 7.2vw;
+        top: 1vh;
+    }
+
+    .label1 input{
+        display: none;
+    }
+
+    .label1 span{
+        border: 1px solid black;
+        width: 4vw;
+        height: 15px;
+        position: absolute;
+        overflow: hidden;
+        line-height: 1;
+        text-align: center;
+        border-radius: 8px; 
+        font-size: 10pt; 
+        left: 0; 
+        top: 0;
+        background-color: white;
+        cursor: pointer;
+        box-shadow: 1px 1px rgba(0, 0, 0, 0.452);
+    }
+
+    .label2{
+        display: block;
+        padding: 5px;
+        position: relative;
+        left: 8vw;
+        top: 1vh;
+    }
+
+    .label2 input{
+        display: none;
+    }
+
+    .label2 span{
+        border: 1px solid black;
+        width: 4vw;
+        height: 15px;
+        position: absolute;
+        overflow: hidden;
+        line-height: 1;
+        text-align: center;
+        border-radius: 8px; 
+        font-size: 10pt; 
+        left: 0; 
+        top: 0;
+        background-color: white;
+        cursor: pointer;
+        box-shadow: 1px 1px rgba(0, 0, 0, 0.452);
+    }
+
+    input:checked + span {
+        border: 1px solid black;
+        background: #DE4242;
+        box-shadow: 1px 1px rgba(0, 0, 0, 0.452);
+    }
+
+    @media (max-width: 1024px) {
+        .form-section {
+            width: 100%;
+        }
+    }
+
+    .borda{
+        border: 2px solid black;
+    }
+
+    #modal{
+      display: none;  
+    }
+
+    .alerta{
+        background-color: #ff000040;
+        margin-top: 0px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        text-align: center;
+        font-family: "Poppins";
+        font-weight: bold;
+        color: #491D1D;
+        font-size: 1.4vw;
+    }
+
+    #logout{
+        position: absolute;
+        top: 25vh;
+        left: 35vw; 
+    }
+
+    .fixar{
+        position: fixed;
+    }
+
+    div.relativa{
+        background-color: white;
+        position: relative;
+        border-radius: 10px;
+        width: 30vw;
+        height: 38vh;
+        font-family: "Inter";
+        border: 3px solid #737B8B;
+    }
+
+    img.atencao{
+        position: absolute;
+        width: 7vw;
+        left: 11vw;
+        top: 5.5vh;
+    }
+
+    .ctz{
+        position: absolute;
+        top: 22vh;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1vw;
+        left: 3vw;
+        color: #4B505A;
+        font-family: "Poppins";
+    }
+
+    .sim{
+        font-family: "Inter";
+        border-radius: 5px;
+        position: absolute;
+        background-color: #007FDA;
+        color: white;
+        border: none;
+        top: 30vh;
+        width: 11.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 17vw;
+        font-weight: bold;
+        font-size: 1.1vw;
+        background-image: url(/imagens2/setadireita.png);
+        background-repeat: no-repeat;
+        background-size: 0.6vw;
+        background-position: right 0.5vw center;
+    }
+
+    .sim:hover{
+        background-color: #0662a3;
+    }
+
+    .voltar{
+        border-radius: 5px;
+        position: absolute;
+        background-color: #007FDA;
+        color: white;
+        border: none;
+        top: 30vh;
+        width: 11.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 1.5vw;
+        font-weight: bold;
+        font-family: "Inter";
+        font-size: 1.1vw;
+        background-image: url(/imagens2/setaesquerda.png);
+        background-repeat: no-repeat;
+        background-size: 0.6vw;
+        background-position: left 0.5vw center;
+    }
+
+    .voltar:hover{
+        background-color: #0662a3;
+    }
+
+    #btnlogout{
+        cursor: pointer;
+    }
+    #modal2{
+        display: none;
+    }
+
+    .confirmado{
+        background-color: #00fa645b;
+        margin-top: 0px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        text-align: center;
+        font-family: "Poppins";
+        font-weight: bold;
+        color: #26491D;
+        font-size: 1.4vw;
+    }
+
+    #confirmacao{
+        position: absolute;
+        top: 25vh;
+        left: 35vw; 
+    }
+
+    .fixar2{
+        position: fixed;
+    }
+
+    div.relativa2{
+        background-color: white;
+        position: relative;
+        border-radius: 10px;
+        width: 30vw;
+        height: 38vh;
+        font-family: "Inter";
+        border: 3px solid #737B8B;
+    }
+
+    img.confirmed{
+        position: absolute;
+        width: 7vw;
+        left: 11.5vw;
+        top: 5.5vh;
+    }
+
+    .cadastradook{
+        position: absolute;
+        top: 22vh;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1vw;
+        left: 5vw;
+        color: #4B505A;
+        font-family: "Poppins";
+    }
+
+    .ok{
+        font-family: "Inter";
+        border-radius: 5px;
+        position: absolute;
+        background-color: #00AB30;
+        color: white;
+        border: none;
+        top: 30vh;
+        width: 11.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 9vw;
+        font-weight: bold;
+        font-size: 1.1vw;
+    }
+
+    .ok:hover{
+        background-color: #007421;
+    }
+
+    #error{
+        position: absolute;
+        background-color: rgba(255, 0, 0, 0.493);
+        width: 35vw;
+        height: 3vh;
+        text-align: center;
+        top: 12vh;
+        left: 60vw;
+        font-family: "Inter";
+        font-weight: bold;
+        color: red;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <p id="error">Erro! Você deve marcar ao menos um fator de risco como presente!</p>
+            <img src="/imagens2/logo.png" alt="logo sobre-vidas">
+            <h1>SOBREVIDAS - ACS</h1>
+            <h2>PACIENTE João - Baixo Risco</h2>
+        </header>
+        <form method="post" action="/paciente-cadastrado">
+            <div class="form-section-01">
+                <table class="infoacs" id="cns">
+                    <tr>
+                        <caption>CNS DO PROFISSIONAL</caption>
+                        <tr>
+                            <td>6</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>7</td>
+                        </tr>
+                    </tr>
+                </table>
+
+                <table class="infoacs" id="cbo">
+                    <tr>
+                        <caption>CBO</caption>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td id="hifen">-</td>
+                        <td>5</td>
+                        <td>5</td>
+                    </tr>
+                </table>
+
+                <table class="infoacs" id="cnes">
+                        <tr>
+                            <caption>CNES</caption>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>7</td>
+                            <td>4</td>
+                        </tr>
+                </table>
+                        
+                <table class="infoacs" id="ine">
+                        <tr>
+                            <caption>INE</caption>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>5</td>
+                            <td>7</td>
+                            <td>6</td>
+                            <td>5</td>
+                        </tr>
+                </table>
+                        
+                <table class="infoacs" id="microarea">
+                        <tr>
+                            <caption>MICROÁREA</caption>
+                            <td>0</td>
+                            <td>2</td>
+                        </tr>
+                </table>
+
+                <table class="infoacs" id="datacadastro">
+                    <tr>
+                        <caption>DATA DO CADASTRO <div class="asc">*</div></caption>
+                        <td style="border: none; font-size: 1.21em;">__/__/____</td>
+                    </tr>
+                </table>
+            </div>
+
+            <hr>
+
+            <div class="form-section-one">
+                <label for="nome">NOME <div class="asc">*</div></label>
+                <input type="text" id="nome" name="nome" placeholder="Ex.: João da Silva">
+                <p>Digite o nome completo</p>
+
+                <label for="data-nascimento">DATA DE NASCIMENTO <div class="asc">*</div></label>
+                <input type="date" id="data-nascimento" name="datanascimento" placeholder="Ex.:DD/MM/AAAA">
+                <p>Digite a data de nascimento</p>
+
+                <label for="cpf">CPF <div class="asc">*</div></label>
+                <input type="text" id="cpf" name="cpfpaciente" placeholder="Ex.:123.456.789-09">
+                <p>Digite o CPF &#40Cadastro de Pessoa Física&#41</p>
+
+                <label for="mae">NOME DA MÃE <div class="asc">*</div></label>
+                <input type="text" id="mae" name="nomemae" placeholder="Ex.: Maria da Silva">
+                <p>Digite o nome completo da mãe</p>
+
+                <label for="isexo" style="margin-bottom: -30px;margin-top: 10px;">SEXO</label>
+                <select name="sexo" id="isexo">
+                    <option value="">Selecione</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+
+            </div>
+            <div class="form-section-two">
+                <label for="isus">CARTÃO DO SUS</label>
+                <input type="text" id="isus" name="cartaosus" placeholder="Ex.: 999 9999 9999 9999">
+                <p>Digite o número do cartão do SUS</p>
+
+
+                <label for="itel">TELEFONE <div class="asc">*</div></label>
+                <input type="tel" id="itel" name="telefone" pattern="^\(\d{2}\)\d{4,5}-\d{4}$" placeholder="Ex.: (99)99999-9999">
+                <p>Digite o número de telefone</p>
+
+                <label for="imail">E-MAIL</label>
+                <input type="text" id="imail" name="email" placeholder="Ex.: joaodasilva@gmail.com">
+                <p>Digite o email</p>
+
+                <p id="campo-endereco">Endereço</p>
+
+                <div class="form-section-three">
+                        <div id="cep">
+                            <label for="icep">CEP</label>
+                            <input type="text" name="cep" id="cep" pattern="^\d{5}-\d{3}$" placeholder="Ex.: 12345-678">
+                        </div>
+                        <div id="ibairro">
+                            <label for="ibairro">BAIRRO</label>
+                            <input type="text" name="bairro" id="ibairro" placeholder="Ex.: Bela Vista">
+                        </div>
+                        <div id="irua">
+                            <label for="irua">RUA</label>
+                            <input type="text" name="rua" id="irua" placeholder="Ex.: Av. Brasil">
+                        </div>
+                        <div id="inum">
+                            <label for="inum">NÚMERO</label>
+                            <input type="number" name="numero" id="inum" placeholder="Ex.: 99">
+                        </div>
+                        <div id="complemento">
+                            <label for="icomplemento">COMPLEMENTO</label>
+                            <input type="text" name="complemento" id="icomplemento" placeholder="Ex.: Apto,casa...">
+                        </div>
+                </div>
+            </div>
+            <div class="form-section risk-factors">
+                <h3>Fatores de Risco para Câncer de Boca</h3>
+                <div>
+                    <label class="borda">Homem <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
+                    <div class="radio-group">
+                        <p>Marque sim ou não: </p>
+                        <label class="label1"><input type="radio" name="tipo1" id="sim1" value="Sim"><span>Sim</span></label>
+                        <label class="label2"><input type="radio" name="tipo1" id="nao1" value="Não"><span>Não</span></label>
+                    </div>
+                </div>
+                <div>
+                    <label class="borda">Etilista <div class="asc">*</div> &#40consome álcool regurlamente&#41</label>
+                    <div class="radio-group">
+                        <p>Marque sim ou não: </p>
+                        <label class="label1"><input type="radio" name="tipo2" id="sim2" value="Sim"><span>Sim</span></label>
+                        <label class="label2"><input type="radio" name="tipo2" id="nao2" value="Não"><span>Não</span></label>
+                    </div>
+                </div>
+                <div>
+                    <label class="borda">Tabagista <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
+                    <div class="radio-group">
+                        <p>Marque sim ou não: </p>
+                        <label class="label1"><input type="radio" name="tipo3" id="sim3" value="Sim"><span>Sim</span></label>
+                        <label class="label2"><input type="radio" name="tipo3" id="nao3" value="Não"><span>Não</span></label>
+                    </div>
+                </div>
+                <div>
+                    <label class="borda">Com lesão bucal suspeita <div class="asc">*</div></label>
+                    <div class="radio-group">
+                        <p>Marque sim ou não: </p>
+                        <label class="label1"><input type="radio" name="tipo4" id="sim4" value="Sim"><span>Sim</span></label>
+                        <label class="label2"><input type="radio" name="tipo4" id="nao4" value="Não"><span>Não</span></label>
+                    </div>
+                </div>
+                <div class="risk-level">
+                    <label class="borda">Grau de Risco para Câncer de Boca</label>
+                    <div class="risk-status">____ Risco</div>
+                </div>
+            </div>
+            <div id="modal2">
+                <div id="confirmacao">
+                    <div class="fixar2">
+                        <div class="relativa2">
+                            <p class="confirmado">CONFIRMADO</p>
+                            <img src="/imagens2/confirmado.png" alt="Icone de Atenção" class="confirmed">
+                            <p class="cadastradook">Paciente cadastrado com sucesso!</p>
+                            <a href="/dashboard"><button type="submit" class="ok">Ok</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="botoes">
+            <div class="form-section-voltar">
+                <button type="submit">Voltar</button>
+            </div>
+            <div class="form-section-obrigatorio">
+                <p>Os itens assinalados com <span class="asc">*</span> são de preenchimento obrigatório</p>
+            </div>
+            <div class="form-section-download">
+                <img src="/imagens2/download.png" alt="Icone de Download">
+            </div>
+            <div class="form-section-validar-tel">
+                <button type="submit">Validar o Telefone</button>
+            </div>
+            <div class="form-section-confirmar">
+                <button type="submit" id="confirmador">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    <div id="modal">
+        <div id="logout">
+            <div class="fixar">
+                <div class="relativa">
+                    <p class="alerta">ATENÇÃO</p>
+                    <img src="/imagens2/atencao.png" alt="Icone de Atenção" class="atencao">
+                    <p class="ctz">Todos dados cadastrados estão corretos?</p>
+                    <button class="sim">Sim</button>
+                    <button class="voltar">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let btn = document.getElementById('confirmador');
+        let modal = document.getElementById('modal');
+        let cancelbtn = document.querySelector('.voltar');
+        let simbtn = document.querySelector('.sim');
+        let modal2 = document.getElementById('modal2');
+
+        btn.onclick = function(){
+            modal.style.display = 'block';
+        }
+
+        cancelbtn.onclick = function(){
+            modal.style.display = 'none';
+        }
+
+        simbtn.onclick = function(){
+            modal.style.display = 'none';
+            modal2.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

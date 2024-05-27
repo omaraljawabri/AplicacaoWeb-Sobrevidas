@@ -14,7 +14,7 @@ import (
 )
 
 var db = fazConexaoComBanco()
-var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html"))
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
@@ -249,13 +249,18 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 	tabagista := r.FormValue("tipo3")
 	lesao_bucal := r.FormValue("tipo4")
 
-	if homem != "" && etilista != "" && tabagista != "" && lesao_bucal != "" && sexo != "" && homem != "Não" || etilista != "Não" || tabagista != "Não" || lesao_bucal != "Não"{
+	if homem != "" && etilista != "" && tabagista != "" && lesao_bucal != "" && sexo != ""{
 		_, err := db.Exec("INSERT INTO pacientes(nome_completo, data_nasc, cpf, nome_mae, sexo, cartao_sus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)", nome, datanascimento, cpf, nomemae, sexo, cartaosus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal)
 		if err != nil{
 			log.Println(err.Error())
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 		err = templates.ExecuteTemplate(w, "dashboard.html", "a")
+		if err != nil{
+			return
+		}
+	} else{
+		err := templates.ExecuteTemplate(w, "cadastroinvalido1.html", "a")
 		if err != nil{
 			return
 		}
