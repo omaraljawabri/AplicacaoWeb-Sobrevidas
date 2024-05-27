@@ -743,6 +743,39 @@
         font-weight: bold;
         color: red;
     }
+    .voltando{
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        margin-top: 20px;
+        margin-right: 15px;
+        margin-left: 30px;
+        width: 150px;
+        font-size: 0.9em;
+    }
+
+    .voltando:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
+
+    .voltando {
+        padding: 10px 20px 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9em;
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+
+    .voltando:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
     </style>
 </head>
 <body>
@@ -940,14 +973,15 @@
                     <div class="risk-status">____ Risco</div>
                 </div>
             </div>
-            <div id="modal2">
-                <div id="confirmacao">
-                    <div class="fixar2">
-                        <div class="relativa2">
-                            <p class="confirmado">CONFIRMADO</p>
-                            <img src="/imagens2/confirmado.png" alt="Icone de Atenção" class="confirmed">
-                            <p class="cadastradook">Paciente cadastrado com sucesso!</p>
-                            <a href="/dashboard"><button type="submit" class="ok">Ok</button></a>
+            <div id="modal">
+                <div id="logout">
+                    <div class="fixar">
+                        <div class="relativa">
+                            <p class="alerta">ATENÇÃO</p>
+                            <img src="/imagens2/atencao.png" alt="Icone de Atenção" class="atencao">
+                            <p class="ctz">Todos dados cadastrados estão corretos?</p>
+                            <button class="sim">Sim</button>
+                            <button class="voltar">Voltar</button>
                         </div>
                     </div>
                 </div>
@@ -955,7 +989,7 @@
         </form>
         <div class="botoes">
             <div class="form-section-voltar">
-                <button type="submit">Voltar</button>
+                <a href="/dashboard"><button type="submit" class="voltando">Voltar</button></a>
             </div>
             <div class="form-section-obrigatorio">
                 <p>Os itens assinalados com <span class="asc">*</span> são de preenchimento obrigatório</p>

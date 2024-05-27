@@ -625,6 +625,39 @@
     .ok:hover{
         background-color: #007421;
     }
+    .voltando{
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        margin-top: 20px;
+        margin-right: 15px;
+        margin-left: 30px;
+        width: 150px;
+        font-size: 0.9em;
+    }
+
+    .voltando:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
+
+    .voltando {
+        padding: 10px 20px 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9em;
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+
+    .voltando:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
     </style>
 </head>
 <body>
@@ -824,7 +857,7 @@
         </form>
         <div class="botoes">
             <div class="form-section-voltar">
-                <button type="submit">Voltar</button>
+                <a href="/dashboard"><button type="submit" class="voltando">Voltar</button></a>
             </div>
             <div class="form-section-obrigatorio">
                 <p>Os itens assinalados com <span class="asc">*</span> são de preenchimento obrigatório</p>
