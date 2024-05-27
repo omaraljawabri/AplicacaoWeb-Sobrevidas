@@ -7,13 +7,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 var db = fazConexaoComBanco()
-var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html"))
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
@@ -24,6 +25,7 @@ func main() {
 	http.HandleFunc("/esqueceusenha", executarEsqueceuSenha)
 	http.HandleFunc("/atualizarinvalido", atualizarSenhaInvalido)
 	http.HandleFunc("/telalogin", atualizarSenha)
+	http.HandleFunc("/paciente-cadastrado", cadastrarPaciente)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -49,6 +51,11 @@ func fazConexaoComBanco() *sql.DB{
 	}
 
 	_, err = database.Query("CREATE TABLE IF NOT EXISTS cadastro(id SERIAL PRIMARY KEY, nome_completo VARCHAR(255) UNIQUE NOT NULL, cpf VARCHAR(15) UNIQUE NOT NULL, cns VARCHAR(15), cbo VARCHAR(15), cnes VARCHAR(15), ine VARCHAR(15), senha VARCHAR(20))")
+	if err != nil{
+		log.Fatal(err)
+	}
+
+	_, err = database.Query("CREATE TABLE IF NOT EXISTS pacientes(id SERIAL PRIMARY KEY, nome_completo VARCHAR(255) UNIQUE NOT NULL, data_nasc VARCHAR(30), cpf VARCHAR(15) UNIQUE NOT NULL, nome_mae VARCHAR(255) UNIQUE NOT NULL, sexo VARCHAR(30), cartao_sus VARCHAR(55) UNIQUE NOT NULL, telefone VARCHAR(55) UNIQUE NOT NULL, email VARCHAR(255) UNIQUE NOT NULL, cep VARCHAR(15) UNIQUE NOT NULL, bairro VARCHAR(255), rua VARCHAR(255), numero VARCHAR(255), complemento VARCHAR(255), homem VARCHAR(15) NOT NULL, etilista VARCHAR(15) NOT NULL, tabagista VARCHAR(15) NOT NULL, lesao_bucal VARCHAR(15) NOT NULL)")
 	if err != nil{
 		log.Fatal(err)
 	}
@@ -217,4 +224,41 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 		}	
 	}
 	http.Redirect(w, r, "atualizarinvalido", http.StatusSeeOther)
+}
+
+func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
+	if r.Method != http.MethodPost{
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+	nome := r.FormValue("nome")
+	datanascimento := r.FormValue("datanascimento")
+	cpf := r.FormValue("cpfpaciente")
+	nomemae := r.FormValue("nomemae")
+	sexo := r.FormValue("sexo")
+	cartaosus := r.FormValue("cartaosus")
+	telefone := r.FormValue("telefone")
+	email := r.FormValue("email")
+	cep := r.FormValue("cep")
+	bairro := r.FormValue("bairro")
+	rua := r.FormValue("rua")
+	numero, _ := strconv.Atoi(r.FormValue("numero"))
+	complemento := r.FormValue("complemento")
+	homem := r.FormValue("tipo1")
+	etilista := r.FormValue("tipo2")
+	tabagista := r.FormValue("tipo3")
+	lesao_bucal := r.FormValue("tipo4")
+
+	if homem != "" && etilista != "" && tabagista != "" && lesao_bucal != "" && sexo != ""{
+		_, err := db.Exec("INSERT INTO pacientes(nome_completo, data_nasc, cpf, nome_mae, sexo, cartao_sus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)", nome, datanascimento, cpf, nomemae, sexo, cartaosus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal)
+		if err != nil{
+			log.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		}
+	}
+
+	err := templates.ExecuteTemplate(w, "formulario.html", "a")
+	if err != nil{
+		return
+	}
 }
