@@ -73,7 +73,7 @@
             margin-top: 1.3vh;
             margin-left: 0.5vw;
             width: 2%;
-            height: 3.7%;
+            height: 3.9%;
             text-align: center;
             font-size: 2.5vh;
         }
@@ -330,8 +330,8 @@
         <h2 class="subtitulo">Central do Usuário</h2>
         <div id="caixausuario">
             <p class="usuario">{{.PrimeiraLetra}}</p>
-            <p class="caixa">{{.NomeCompleto}}</p>
-            <a href="#"><img src="/img/img/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
+            <p class="caixa">{{.User}}</p>
+            <a href="/pagina-absenteista"><img src="/img/img/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
         </div>
         <a id="btnlogout"><img src="/img/img/logout.png" alt="Icone de sair" class="sair"></a>
     </header>
@@ -379,7 +379,7 @@
         </div>
     </div>
     <footer>
-        <a href="/dashboard"><input type="submit" value="Voltar"></a>
+        <a href="/dashboard/voltar"><input type="submit" value="Voltar"></a>
     </footer>
     <script>
         let btn = document.getElementById('btnlogout');

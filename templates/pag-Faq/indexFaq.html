@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOBREVIDAS ACS - FAQ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+        body {
+            background-color: #f0f0f0;
+            margin: 0px;
+        }
+
+        .barraSuperior {
+            width: 1460px;
+            height: 30px;
+            padding: 20px;
+            background-color: #007FDA;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+            position: fixed;
+        }
+
+        h1 {
+            z-index: 1;
+            font-family: Arial, sans-serif;
+            color: #f0f0f0;
+            position: fixed;
+            top: 0px;
+            margin-left: 220px;
+        }
+        h2 {
+            z-index: 1;
+            font-family: Arial, sans-serif;
+            color: #f0f0f0;
+            font-size: 28px;
+            position: fixed;
+            top: 0px;
+            margin-left: 670px;
+        }
+
+        .usuario {
+            font-family: "Poppins";
+            text-decoration: none;
+            background-color: #0C91F0;
+            padding: 10px 40px 10px 50px;
+            border-radius: 20px;
+            color: #f0f0f0;
+            font-size: 20px;
+            position: fixed;
+            top: 10px;
+            right: 132px;
+        }
+
+
+        .posicaoImgU {
+            position: fixed;
+            top: 20px;
+            right: 262px;
+        }
+
+        .posicaoImgSino {
+            position: fixed;
+            top: 17px;
+            right: 142px;
+        }
+
+        .posicaoImgSaida {
+            position: fixed;
+            top: 14px;
+            right: 32px;
+        }
+
+        .abaAzul {
+            width: 300px;
+            height: 700px;
+            padding: 0px;
+            background-color: #007FDA;
+            border-bottom-left-radius: 10px;
+            position: fixed;
+            z-index: -1;
+            top: 20px;
+
+        }
+
+        .posicaoLogo {
+            position: absolute;
+            top: 70px;
+            margin-left: 90px;
+        }
+
+        .posicaoImgFaq {
+            position: absolute;
+            top: 220px;
+            margin-left: 50px;
+        }
+
+        .Voltar {
+            background-color: #0C91F0;
+            padding: 8px 30px 8px 50px;
+            border-radius: 10px;
+            font-family: "Poppins";
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            position: absolute;
+            top: 88vh;
+            left: 12px;
+        }
+        .posicaoImgSetaVoltar {
+            position: absolute;
+            top: 88.5vh;
+            left: 20px;
+        }
+
+        .accordion {
+            margin: 60px auto;
+            width: 700px;
+            height: 730px;
+            position: absolute;
+            top: 100px;
+            right: 350px;
+            z-index: -2;
+        }
+
+        .accordion li {
+        list-style: none; 
+        width: 100%;
+        margin: 20px;
+        padding: 10px;
+        border-radius: 15px;
+        background: #ffffff;
+        box-shadow: 0px 3px 2px 0px rgba(75, 72, 72, 0.712),
+                        -7px 0px 0px -2px #007FDA;
+        }
+
+        .accordion li label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            font-family: "Space Grotesk";
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        label::after {
+            content: url('img/vector1.png');
+            font-family: "Space Grotesk";
+            font-size: 20px;
+            font-weight: 600;
+            position: absolute;
+            right: -20px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .accordion .content {
+            color: #555;
+            padding: 2px 10px;
+            line-height: 26px;
+            font-size: 26px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s, padding 0.5s;
+        }
+
+        .accordion input[type="radio"]:checked + label + .content {
+            max-height: 400px;
+            padding: 10px 10px 10px;
+
+        }
+
+        .accordion input[type="radio"]:checked + label::after {
+            content: url('img/vector2.png');
+        }
+
+        .space {
+            height: 20px;
+        }
+        #modal{
+            display: none;
+        }
+
+        #logout{
+            position: absolute;
+            top: 25vh;
+            left: 40vw; 
+        }
+
+        .fixar{
+            position: fixed;
+        }
+
+        div.relativa{
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            width: 20vw;
+            height: 53vh;
+            font-family: "Inter";
+            border: 3px solid #00538E;
+        }
+
+        img.deslogar{
+            position: absolute;
+            width: 7vw;
+            left: 7vw;
+            top: 3vh;
+        }
+
+        .ctz{
+            position: absolute;
+            top: 21vh;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1vw;
+            left: 0vw;
+            width: 20vw;
+        }
+
+        .sim{
+            font-family: "Inter";
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 32vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-size: 0.95vw;
+        }
+
+        .sim:hover{
+            background-color: #0662a3;
+        }
+
+        .nao{
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 41vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-family: "Inter";
+            font-size: 0.95vw;
+        }
+
+        .nao:hover{
+            background-color: #0662a3;
+        }
+
+        #btnlogout{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="barraSuperior">
+        <h1>SOBREVIDAS - ACS</h1>
+        <h2>Perguntas Frequentes</h2>
+        <a id="btnlogout" class="posicaoImgSaida"> <img src="/img/imgfaq/iconeSaida.png" width="40" height="40"></a>
+        <a href="" class="usuario"><b>Usuário</b></a>
+        <a href="" class="posicaoImgU"> <img src="/img/imgfaq/iconeU.png" width="30" height="30"></a>
+        <a href="/pagina-absenteista" class="posicaoImgSino"> <img src="/img/imgfaq/iconeSino.png" width="25" height="40"></a>
+    </div>
+    </div>
+    <div class="abaAzul">
+        <img src="/img/imgfaq/LogoSOBREVIDAS-ACS-semtext.png" width="100" height="100" class="posicaoLogo">
+        <img src="/img/imgfaq/iconeFAQ.png" width="200" height="200" class="posicaoImgFaq">
+        <a href="/dashboard/voltar" class="Voltar">Voltar</a>
+        <a href="/dashboard/voltar" class="posicaoImgSetaVoltar"> <img src="/img/imgfaq/iconeSetaVoltar1.png" width="35" height="35"></a>
+    </div>
+    
+    <ul class="accordion">
+        <li>
+            <input type="radio" name="accordion" id="first">
+            <label for="first">Como realizar o cadastro do paciente?<span style="width: 177px;"></span></label>
+            <div class="content">
+                <p>Na aba lateral no lado esquerdo da página do Dashboard e de Pacientes, há uma opção de "Novo Cadastro", sendo que ao clicar nesse espaço, irá se abrir uma página de formulário em branco para ser completado com os dados do novo paciente a ser monitorado pela aplicação.</p>
+            </div>
+        </li>
+        <div class="space"></div>
+        <li>
+            <input type="radio" name="accordion" id="second">
+            <label for="second">Não consigo finalizar o cadastro de um novo paciente na página do formulário. O que pode estar me impedindo?</label>
+            <div class="content">
+                <p>Abaixo da opção a ser preenchida no formulário, há uma indicação do que deve ser escrito em cada espaço. Os itens marcados com um * são de preenchimento obrigatório para que o cadastro seja realizado com sucesso. Os itens sem essa marcação são opcionais. Além disso, na aba de "Fatores de Risco para Câncer de Boca", para que seja possível finalizar o cadastro de pacientes nesta aplicação, ele deve possuir no mínimo um fator de risco para câncer de boca.</p>
+            </div>
+        </li>
+        <div class="space"></div>
+        <li>
+            <input type="radio" name="accordion" id="third">
+            <label for="third">Como acessar os formulários já preenchidos dos pacientes monitorados?
+            </label>
+            <div class="content">
+                <p>Na aba lateral no lado esquerdo da página do Dashboard, há as páginas de "Pacientes Gerais", "Baixo Risco", "Médio Risco", "Alto Risco" e "Absenteístas". Ao clicar em cada uma dessas opções, será aberta a página na qual haverá a lista completa em ordem alfabética de pacientes cadastrados, separados em cada página de acordo com o grau de risco para câncer de boca, baseando-se nos fatores de risco marcados no formulário. </p>
+            </div>
+        </li>
+        <div class="space"></div>
+        <li>
+            <input type="radio" name="accordion" id="fourth">
+            <label for="fourth">Como saber o grau de risco do paciente para câncer de boca?</label>
+            <div class="content">
+                <p>O grau de risco para câncer de boca de cada paciente baseia-se na quantidade de fatores de risco que ele apresenta. Para ser de "Baixo Risco", o paciente deve ser do gênero masculino com idade igual ou superior a 40 anos e que seja, ou não, etilista (consumidor de álcool). Para ser de "Médio Risco", o paciente deve ser do gênero masculino com idade igual ou superior a 40 anos e deve ser tabagista (consumidor de cigarro), além de ser, ou não, etilista. Para ser de "Alto Risco", o paciente deve apresentar lesões bucais suspeitas, podendo ser cadastrado um paciente do gênero feminino que apresente esse fator, além de um paciente do gênero masculino que possua os 4 fatores de risco se encaixará nessa categoria. A determinação do grau de risco é feita automaticamente pela aplicação, sendo colocado na página respectiva ao grau.</p>
+            </div>
+        </li>
+        <div class="space"></div>
+        <li>
+            <input type="radio" name="accordion" id="fifth">
+            <label for="fifth">Como visualizar a localização de um paciente a ser visitado?</label>
+            <div class="content">
+                <p>Na página do Dashboard, na parte inferior, há um mapa interativo no qual os "pins" azuis (de formato esférico) indicam a localização de pacientes ainda não visitados e não cadastrados nesta aplicação. É possível puxar um novo "pin" desse tipo e fixá-lo em uma localidade no mapa referente à microárea monitorada para acrescentar uma nova visita a ser realizada.</p>
+            </div>
+        </li>
+        <div class="space"></div>
+        <li>
+            <input type="radio" name="accordion" id="sixth">
+            <label for="sixth">Como visualizar a localização de pacientes que já foram visitados e cadastrados?</label>
+            <div class="content">
+                <p>Na página do Dashboard, na parte inferior, há um mapa interativo no qual os "pins" das cores rosa, laranja e verme (em formato de bandeira) indicam a localização de pacientes já visitados e já cadastrados nesta aplicação. A cor rosa refere-se a pacientes de "Baixo risco", a cor laranjada refere-se a pacientes de "Médio Risco" e a cor vermelha refere-se a pacientes de "Alto Risco". É possível puxar um novo "pin" desse tipo e fixá-lo em uma localidade no mapa referente à microárea monitorada para atualizar a situação de visita e cadastro realizados.</p>            
+            </div>
+        </li>
+        <div class="space"></div>
+        <li>
+            <input type="radio" name="accordion" id="seventh">
+            <label for="seventh">O que indica o padrão de cores nas páginas da aplicação?</label>
+            <div class="content">
+                <p>As cores definem uma diferença entre os graus de risco para câncer de boca dos pacientes cadastrados na aplicação. A cor rosa refere-se a pacientes de "Baixo risco", a cor laranjada refere-se a pacientes de "Médio Risco" e a cor vermelha refere-se a pacientes de "Alto Risco". Esse padrão está presente no Dashboard (nos "cards" e nos "pins" do mapa interativo) e nas páginas de monitoramento referentes a cada grau de risco.</p>            
+            </div>
+        </li>
+        <div class="space"></div>
+        <li>
+            <input type="radio" name="accordion" id="eighth">
+            <label for="eighth">O que é um paciente absenteísta?</label>
+            <div class="content">
+                <p>Paciente absenteísta é aquele não comparece a uma consulta na Unidade Básica de Saúde, sendo que ele já foi visitado, cadastrado e indicado para comparecer à UBS para que fosse realizado um monitoramento com um profissional da saúde relacionado à prevenção do câncer de boca. O usuário será notificado quando essa falta à consulta ocorrer, para que o Agente Comunitário de Saúde responsável por monitorar esse paciente em específico entre em contato com ele ou visite-o para realizar uma intervenção.</p>            
+            </div>
+        </li>
+     </ul>
+     <div id="modal">
+        <div id="logout">
+            <div class="fixar">
+                <div class="relativa">
+                    <img src="/imgdashboard/logout icon.png" alt="Icone de Logout" class="deslogar">
+                    <p class="ctz">Tem certeza que deseja sair da <br> sua conta?</p>
+                    <a href="/telalogin"><button class="sim">Sim, deslogar.</button></a>
+                    <button class="nao">Não, continuar logado.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let btn = document.getElementById('btnlogout');
+        let modal = document.getElementById('modal');
+        let cancelbtn = document.querySelector('.nao');
+
+        btn.onclick = function(){
+            modal.style.display = 'block';
+        }
+
+        cancelbtn.onclick = function(){
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

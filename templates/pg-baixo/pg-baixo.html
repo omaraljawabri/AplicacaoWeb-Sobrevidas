@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <!--CABEÇALHO-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baixo-Risco</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family:"Poppins",sans-serif;
+            font-size:72%;
+            background-color:white;
+            margin: auto;
+            padding:10px;
+            min-width: 920px;
+            max-width: 1100px;
+        }
+        Header{
+            font-family:"Inter",sans-serif !important;
+            font-weight: 500;
+        }
+        /* BARRA DO TOPO */
+        .top-bar {
+            font-size: 200%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-width: 920px;
+            height: 50px;
+            background-color:#007fda;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            z-index: 1000;
+            white-space: nowrap;
+        }
+        /* TABELA DE INFORMAÇÕES */
+        .cabeca{
+            color:black;
+            margin-top: 8%;
+            margin-bottom: 1%;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            height: 50px;
+            max-width: 1100px;
+            min-width: 920px;
+            left:0 2%;
+            align-items: center;
+            display: flex;
+            font-weight: bold;
+            justify-content:space-between;
+            position: relative;
+        }
+        /*EXEMPLOS DE PACIENTES*/
+        .exemplos{
+            font-weight: normal;
+            font-size: 140%;
+            color:#3a3b3c;
+            margin-top: 7px;
+            padding: 10px;
+            border-radius: 10px;
+            border:solid 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            height: 40px;
+            max-width: 1100px;
+            min-width: 920px;
+            left:0 2%;
+            align-items: center;
+            display: flex;
+            font-weight: bold;
+            justify-content:space-between;
+            position: relative;
+        }
+        .exemplos:hover {
+            color:#171717;
+            font-size: 145%;
+        }
+        /*MECANISMO DE BUSCA COM INTERAÇÃO*/
+        .busca{
+            color:gray;
+            padding: 10px;
+            background-color: #ffffff !important;
+            border-radius: 25px;
+            border:solid 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            height: 15px;
+            width: 22%;
+            align-items: center;
+            display: flex;
+            justify-content:center;
+            font-weight: normal;
+            position:relative;
+            left: 0%;
+            white-space: nowrap;
+        }
+        .busca img{
+            width:10%;
+            margin-left:5%;
+        }
+        /*MECANISMO DE FILTRAGEM POR ATRIBUTOS*/
+        .filtro{
+            color:rgb(0, 0, 0);
+            padding: 10px;
+            border-radius: 25px;
+            border:none;
+            height: 15px;
+            width: 10%;
+            text-align: center;
+            align-items: center !important;
+            display: flex;
+            justify-content: center !important;
+            font-weight: normal;
+            position:relative;
+            margin-left:4%;
+            font-size:150%;
+            font-weight: bold;
+            cursor:pointer;
+            }
+        .filtro img{
+            margin-left:10%;
+            width:20%;
+        }
+        .filtro:hover{
+            width: 10.9%;
+            height:20px
+        }
+        /*ORGANIZADOR DA BARRA DE BUSCA E FILTRAGEM*/
+        .org{
+            max-width: 1100px;
+            min-width: 920px;
+            left:0 2%;
+            align-items: center;
+            display: flex;
+            font-weight: bold;
+            justify-content:center;
+            position: relative;
+        }
+        /*SEQUÊNCIA DE REDIMENSIONAMENTO DE IMAGENS*/
+        .imagem1 img{
+            display: flex;
+            position: relative;
+            width:55%;
+        }
+        .imagem2 img{
+            display: flex;
+            position: relative;
+            width:50%;
+            left:62%;
+        }
+        .imagem3 img{
+            display: flex;
+            position: relative;
+            width:55%;
+        }
+        .imagem4 img{
+            display: flex;
+            position: relative;
+            width:55%;
+        }
+        .imagem2 img:hover{
+            width:52%;
+            left: 60%;
+        }
+        .imagem3 img:hover{
+            width: 65%;
+        }
+        .imagem4 img:hover{
+            width:60%;
+        }
+        .groupimage{
+            align-items: center;
+            display: flex;
+            justify-content:center;
+            position: relative;
+        }
+        /*ESPAÇAMENTO DOS CORPOS DE TEXTO*/
+        .space11{
+            width:17%;
+            height: auto;
+            text-align: center;
+        }
+        .space21{
+            width:23%;
+            height: auto;
+            text-align: center;
+        }
+        .space31{
+            width:15%;
+            height: auto;
+            text-align: center;
+        }
+        .space41{
+            width:8%;
+            height: auto;
+            text-align: center;
+        }
+        .space51{
+            width:25%;
+            height: auto;
+            text-align: center;
+        }
+        .titulo1{
+        margin-left:5%;
+        font-weight: 700;
+        }
+        /*RETIRADA DA ESTILIZAÇÃO DOS LINKS*/
+        .no-link{
+            text-decoration: none !important;
+        }
+        /*TABELA DE CORES*/
+        .color-red{
+            background-color:#ff0000;
+        }
+        .color-light-red{
+            background-color: #ff6363;
+            border-color: #ff0000;
+        }
+        .color-yellow{
+            background-color: #ffa100;
+        }
+        .color-light-yellow{
+            background-color: #ffbe4d;
+            border-color: #ffa100;
+        }
+        .color-pink{
+            background-color: #ff71e5;
+        }
+        .color-light-pink{
+            background-color: #fa9be8;
+            border-color: #ff71e5;
+        }
+        .color-purple{
+            background-color: #A712E5;
+        }
+        .color-light-purple{
+            background-color: #b649e4;
+            border-color: #A712E5;
+        }
+        /*BOTÃO DE VOLTA À PAGINA ANTERIOR*/
+        .return{
+            display:flex;
+            background-color: #007fda;
+            width: 17%;
+            height: 45px;
+            border-radius: 15px;
+            margin-top: 10px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            justify-content:space-around;
+            align-items: center;
+        }
+        .return img{
+            width:15%;
+            margin-left:5%;
+        }
+        .return:hover{
+            width:17.7%;
+            height: 50px;
+            margin-top: 5px;
+        }
+        /*INPUT DE TEXTO*/
+        input[type="text"]{
+            border: none !important;
+            width: 80%;
+        }
+        input[type="text"]:focus{
+            outline: none;
+        }
+        input[type="text"]:hover{
+            font-size:125%;
+        }
+        /*POPUP DE FILTRAGEM*/
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .popup-conteudo {
+            background-color: #ffffff;
+            width: 450px;
+            height:220px ;
+            padding-right: 4px;
+            border-radius: 13px;
+            border: solid 2px ;
+            border-top: none;
+        }
+
+        .popup-link {
+            display: inline-flex;
+            color: #ffffff;
+            border-radius: 4px;
+            width: 65px;
+            height:25px ;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .popup-link:hover {
+            width: 65px;
+            height:30px ; 
+            margin-top:48px;   
+        }
+
+        .popup-link:active {
+            font-weight: bold;
+        }
+
+        .popup:target{
+            opacity: 1;
+            visibility: visible;
+        }
+        .barra{
+            width:450px;
+            height: 35px;
+            border: solid 3px;
+            border-top-left-radius:10px;
+            border-top-right-radius:10px;
+            font-size: 20px;
+        }
+        .space-between{
+            justify-content: space-around;
+            position: relative;
+            display: flex;
+            width: 101%;
+            border-bottom:solid 2px;
+            color:#3a3b3c
+        }
+        h2{
+            margin: 0;
+        }
+        .popup-box{
+            width:15px;
+            height: 15px;
+            border:solid 1.5px #171717;
+        }
+        .popup-box:hover{
+            width:18px;
+            height:18px;
+            left:2px;
+        }
+        #modal{
+            display: none;
+        }
+
+        #logout{
+            position: absolute;
+            top: 25vh;
+            left: 40vw; 
+        }
+
+        .fixar{
+            position: fixed;
+        }
+
+        div.relativa{
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            width: 20vw;
+            height: 53vh;
+            font-family: "Inter";
+            border: 3px solid #00538E;
+        }
+
+        img.deslogar{
+            position: absolute;
+            width: 7vw;
+            left: 7vw;
+            top: 3vh;
+        }
+
+        .ctz{
+            position: absolute;
+            top: 21vh;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1vw;
+            left: 0vw;
+            width: 20vw;
+        }
+
+        .sim{
+            font-family: "Inter";
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 32vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-size: 0.95vw;
+        }
+
+        .sim:hover{
+            background-color: #0662a3;
+        }
+
+        .nao{
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 41vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-family: "Inter";
+            font-size: 0.95vw;
+        }
+
+        .nao:hover{
+            background-color: #0662a3;
+        }
+
+        #btnlogout{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<!--CORPO DA PÁGINA-->
+<body>
+    <!--BARRA NO TOPO-->
+    <header class="top-bar">
+        <div class="imagem1"><img src="/imagenspg/logo projeto 2.png"></div>
+        <div>SOBREVIDAS-ACS</div>
+        <div class="titulo1">PACIENTES-Baixo risco</div>
+        <div class="imagem2"><a href="#"><img src="/imagenspg/Frame 11.png"></a></div>
+        <div class="imagem3"><a href="/pagina-absenteista"><img src="/imagenspg/Component 24.png"></a></div>
+        <div class="imagem4"><a id="btnlogout"><img src="/imagenspg/logout 1.png"></a></div>
+    </header>
+    <!--TABELA DE INFORMAÇÕES-->
+    <div class="cabeca color-pink">
+        <h1 class="space11">Nome</h1>
+        <h1 class="space21">Endereço</h1>
+        <h1 class="space31">Contato</h1>
+        <h1 class="space41">Idade</h1>
+        <h1 class="space51">Fatores de risco</h1>
+    </div>
+    <!--FILTRO DE BUSCA-->
+    <div class="org">
+        <div class="busca color-light-pink"><input type="text" id="campo-texto" placeholder="Digite o nome do(a) paciente"><img src="/imagenspg/🦆 icon _search_.png"></div>
+        <!--POP-UP-->
+        <a href="#popup-1" class="filtro color-light-pink no-link">Filtrar<img src="/imagenspg/🦆 icon _filter_.png"></a>
+            <div id="popup-1" class="popup">
+                
+                <div class=" popup-conteudo">
+                    <div class="barra color-light-pink">FILTRAR</div>
+                    <div class="space-between">
+                        <h2>Sexo:</h2>
+                        <h2>Feminino</h2>
+                        <h2>Masculino</h2>
+                    </div>
+                    <div class="space-between">
+                        <h2>Idade:</h2>
+                        <h2>51-60
+                            <h1 class="popup-box"></h1></h2>
+                        <h2>40-50
+                            <h1 class="popup-box"></h1></h2>
+                    <h2>70+
+                            <h1 class="popup-box"></h1></h2>
+                        <h2>61-70
+                            <h1 class="popup-box"></h1></h2>
+                    </div>
+                    <div class="space-between">
+                        <h2>Fatores de risco</h2>
+                        <h2>Etilista<br>Tabagista<br>Feridas Bucais</h2>
+                    <a href="#" class="popup-link no-link color-light-pink">Filtrar</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!--EXEMPLOS DE PACIENTES-->
+    <!--1-->
+    <a href="#" class="no-link">
+        <div class="exemplos color-light-pink ">
+            <div class="space11">Alexandre Newman</div>
+            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
+            <div class="space31">(62) 9 4002-8922</div>
+            <div class="space41">67</div>
+            <div class="space51">Homem/Etilista</div>
+        </div>
+    </a>
+    <!--2-->
+    <a href="#" class="no-link">
+        <div class="exemplos color-light-pink ">
+            <div class="space11">Eduardo Felipe Cardoso</div>
+            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
+            <div class="space31">(62) 9 4002-8922</div>
+            <div class="space41">68</div>
+            <div class="space51">Homem/Etilista</div>
+        </div>
+    </a>
+    <!--3-->
+    <a href="#" class="no-link">
+        <div class="exemplos color-light-pink ">
+            <div class="space11">Fernando Kordova Vladmir</div>
+            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
+            <div class="space31">(62) 9 4002-8922</div>
+            <div class="space41">53</div>
+            <div class="space51">Homem</div>
+        </div>
+    </a>
+    <!--4-->
+    <a href="#" class="no-link">
+        <div class="exemplos color-light-pink ">
+            <div class="space11">Joaquim Edson de Camargo</div>
+            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
+            <div class="space31">(62) 9 4002-8922</div>
+            <div class="space41">47</div>
+            <div class="space51">Homem/Etilista</div>
+        </div>
+    </a>
+    <!--5-->
+    <a href="#" class="no-link">
+        <div class="exemplos color-light-pink ">
+            <div class="space11">Paulo Saulo Romano Silva</div>
+            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
+            <div class="space31">(62) 9 4002-8922</div>
+            <div class="space41">45</div>
+            <div class="space51">Homem</div>
+        </div>
+    </a>
+    <!--6-->
+    <a href="#" class="no-link">
+        <div class="exemplos color-light-pink ">
+            <div class="space11">Sérgio Gabriel</div>
+            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
+            <div class="space31">(62) 9 4002-8922</div>
+            <div class="space41">72</div>
+            <div class="space51">Homem/Etilista</div>
+        </div>
+    </a>
+    <!--7-->
+    <a href="#" class="no-link">
+        <div class="exemplos color-light-pink ">
+            <div class="space11">Valdir Sanderson Nogueira</div>
+            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
+            <div class="space31">(62) 9 4002-8922</div>
+            <div class="space41">59</div>
+            <div class="space51">Homem/Etilista</div>
+        </div>
+    </a>
+    <div><a href="/pacientesgerais" class="return no-link"><img src="/imagenspg/Seta.png">Voltar</a></div>
+    <div id="modal">
+        <div id="logout">
+            <div class="fixar">
+                <div class="relativa">
+                    <img src="/imgdashboard/logout icon.png" alt="Icone de Logout" class="deslogar">
+                    <p class="ctz">Tem certeza que deseja sair da <br> sua conta?</p>
+                    <a href="/telalogin"><button class="sim">Sim, deslogar.</button></a>
+                    <button class="nao">Não, continuar logado.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let btn = document.getElementById('btnlogout');
+        let modal = document.getElementById('modal');
+        let cancelbtn = document.querySelector('.nao');
+
+        btn.onclick = function(){
+            modal.style.display = 'block';
+        }
+
+        cancelbtn.onclick = function(){
+            modal.style.display = 'none';
+        }
+    </script>
+    </body>
+</html>

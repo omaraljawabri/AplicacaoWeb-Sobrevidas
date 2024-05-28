@@ -15,7 +15,7 @@ import (
 )
 
 var db = fazConexaoComBanco()
-var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html", "./templates/formulario/formulariofeito.html", "./templates/central-usuario/centralusuario.html"))
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html", "./templates/formulario/formulariofeito.html", "./templates/central-usuario/centralusuario.html", "./templates/pacientesgerais/indexPacGerais.html", "./templates/pg-baixo/pg-baixo.html", "./templates/dashboard/dashboardv2.html", "./templates/pg-medio/pg-medio.html", "./templates/pg-alto/pg-alto.html", "./templates/pg-absenteista/pg-absenteista.html", "./templates/pag-Faq/indexFaq.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
@@ -23,11 +23,19 @@ func main() {
 	http.HandleFunc("/login", autenticaCadastroELevaAoLogin)
 	http.HandleFunc("/logininvalido", loginInvalido)
 	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
+	http.HandleFunc("/dashboard/voltar", dashboard)
 	http.HandleFunc("/esqueceusenha", executarEsqueceuSenha)
 	http.HandleFunc("/atualizarinvalido", atualizarSenhaInvalido)
 	http.HandleFunc("/telalogin", atualizarSenha)
+	http.HandleFunc("/cadastrar-paciente", executarFormulario)
 	http.HandleFunc("/paciente-cadastrado", cadastrarPaciente)
 	http.HandleFunc("/central-usuario", executarCentralUsuario)
+	http.HandleFunc("/pagina-faq", executarPagFaq)
+	http.HandleFunc("/pacientesgerais", executarPacGerais)
+	http.HandleFunc("/pagina-baixo-risco", executarPgBaixo)
+	http.HandleFunc("/pagina-medio-risco", executarPgMedio)
+	http.HandleFunc("/pagina-alto-risco", executarPgAlto)
+	http.HandleFunc("/pagina-absenteista", executarPgAbsenteista)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -115,7 +123,7 @@ func loginInvalido(w http.ResponseWriter, _ *http.Request){
 	}
 }
 
-var cpfLogin, senhaLogin string
+var cpfLogin, senhaLogin, usuarioLogin, primeiraletraLogin string
 
 func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	if r.Method != http.MethodGet{
@@ -154,7 +162,13 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	}
 	for _, armazenado := range armazenamento{
 		if armazenado.Cpf == cpfLogin && armazenado.Senha == senhaLogin{
+			armazenador := &primeiraletraLogin
+			armazenador2 := &usuarioLogin
 			armazenado.PrimeiraLetra = string(armazenado.Usuario[0])
+			*armazenador = string(armazenado.Usuario[0])
+			*armazenador2 = armazenado.Usuario
+			quebrado := strings.Split(armazenado.Usuario, " ")
+			armazenado.Usuario = quebrado[0]
 			err = templates.ExecuteTemplate(w, "dashboard.html", armazenado)
 			if err != nil{
 				return
@@ -163,6 +177,19 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 		}
 	}
 	http.Redirect(w, r, "/logininvalido", http.StatusSeeOther)
+}
+
+type UsuarioNoDashboard struct{
+	Usuario string
+	Primeira string
+}
+
+func dashboard(w http.ResponseWriter, r *http.Request){
+	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin}
+	err := templates.ExecuteTemplate(w, "dashboardv2.html", u)
+	if err != nil{
+		return
+	}
 }
 
 type validarCpf struct{
@@ -236,6 +263,7 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 }
 
 type ACS struct{
+	User string
 	NomeCompleto string
 	CPF string
 	CNS string
@@ -274,6 +302,8 @@ func executarCentralUsuario(w http.ResponseWriter, r *http.Request){
 			armazenado.CPF = strings.ReplaceAll(armazenado.CPF, armazenado.CPF[:5], "*****")
 			armazenado.CNS = strings.ReplaceAll(armazenado.CNS, armazenado.CNS[:5], "*****")
 			armazenado.CNES = strings.ReplaceAll(armazenado.CNES, armazenado.CNES[:3], "***")
+			quebrado2 := strings.Split(armazenado.NomeCompleto, " ")
+			armazenado.User = quebrado2[0]
 			quebrado := strings.Split(armazenado.SenhaACS, "")
 			for i := 0; i < len(quebrado); i++ {
 				armazenado.SenhaACS = strings.Replace(armazenado.SenhaACS, quebrado[i], "*", -1)
@@ -286,6 +316,13 @@ func executarCentralUsuario(w http.ResponseWriter, r *http.Request){
 		}
 	}
 
+}
+
+func executarFormulario (w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "formulario.html", "a")
+	if err != nil{
+		return
+	}
 }
 
 func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
@@ -326,5 +363,47 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 		if err != nil{
 			return
 		}
+	}
+}
+
+func executarPagFaq(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "indexFaq.html", "a")
+	if err != nil{
+		return
+	}
+}
+
+func executarPacGerais(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "indexPacGerais.html", "a")
+	if err != nil{
+		return
+	}
+}
+
+func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "pg-baixo.html", "a")
+	if err != nil{
+		return
+	}
+}
+
+func executarPgMedio(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "pg-medio.html", "a")
+	if err != nil{
+		return
+	}
+}
+
+func executarPgAlto(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "pg-alto.html", "a")
+	if err != nil{
+		return
+	}
+}
+
+func executarPgAbsenteista(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "pg-absenteista.html", "a")
+	if err != nil{
+		return
 	}
 }
