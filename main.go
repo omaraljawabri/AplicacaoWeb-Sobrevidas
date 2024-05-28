@@ -249,7 +249,7 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 	tabagista := r.FormValue("tipo3")
 	lesao_bucal := r.FormValue("tipo4")
 
-	if homem != "" && etilista != "" && tabagista != "" && lesao_bucal != "" && sexo != ""{
+	if homem != "" && etilista != "" && tabagista != "" && lesao_bucal != "" && sexo != "" && (homem != "Não" || etilista != "Não" || tabagista != "Não" || lesao_bucal != "Não"){
 		_, err := db.Exec("INSERT INTO pacientes(nome_completo, data_nasc, cpf, nome_mae, sexo, cartao_sus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)", nome, datanascimento, cpf, nomemae, sexo, cartaosus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal)
 		if err != nil{
 			log.Println(err.Error())
