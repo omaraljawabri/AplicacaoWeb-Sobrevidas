@@ -330,7 +330,7 @@
         <h2 class="subtitulo">Central do Usuário</h2>
         <div id="caixausuario">
             <p class="usuario">{{.PrimeiraLetra}}</p>
-            <p class="caixa">{{.Usuario}}</p>
+            <p class="caixa">{{.NomeCompleto}}</p>
             <a href="#"><img src="/img/img/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
         </div>
         <a id="btnlogout"><img src="/img/img/logout.png" alt="Icone de sair" class="sair"></a>
@@ -341,24 +341,24 @@
     </div>
     <div class="camposesquerda">
         <p class="cima">NOME COMPLETO</p>
-        <p class="exemplo"><span>João da Silva</span></p>
+        <p class="exemplo"><span>{{.NomeCompleto}}</span></p>
         <p class="cima">CPF</p>
-        <p class="exemplo"><span>***.***.429-32</span></p>
+        <p class="exemplo"><span>{{.CPF}}</span></p>
         <p class="cima">CNS DO PROFISSIONAL (Carteira Nacional de Saúde)</p>
-        <p class="exemplo"><span>*** *** 4567 8900</span></p>
+        <p class="exemplo"><span>{{.CNS}}</span></p>
         <p class="cima">CBO (Código da Classificação Brasileira de Ocupação)</p>
-        <p class="exemplo"><span>5151-05</span></p>
+        <p class="exemplo"><span>{{.CBO}}</span></p>
         <p class="cima">CNES (Código do Cadastro Nacional de Estabelecimento de Saúde)</p>
-        <p class="exemplo"><span>**********12345</span></p>
+        <p class="exemplo"><span>{{.CNES}}</span></p>
     </div>
     <div class="camposdireita">
         <p class="cima">INE (Código Nacional Identificador de Equipes)</p>
-        <p class="exemplo"><span>0000001234</span></p>
+        <p class="exemplo"><span>{{.INE}}</span></p>
         <p class="cima">MICROÁREA</p>
         <p class="exemplo"><span>02</span></p>
         <p class="cima">SENHA</p>
         <div class="lapiscolar">
-            <p class="exemplo"><span>********</span></p>
+            <p class="exemplo"><span>{{.SenhaACS}}</span></p>
             <a href="#"><p class="lapis"><img src="/img/img/lapis.png" alt="Lapis de edição" class="lapisimg"></p></a>
         </div>
         <p class="status">STATUS DE USUÁRIO: </p>

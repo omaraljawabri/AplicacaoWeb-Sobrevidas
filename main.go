@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -114,6 +115,8 @@ func loginInvalido(w http.ResponseWriter, _ *http.Request){
 	}
 }
 
+var cpfLogin, senhaLogin string
+
 func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	if r.Method != http.MethodGet{
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
@@ -124,8 +127,10 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 		return
 	}
-	cpf := r.FormValue("cpf")
-	senha := r.FormValue("senha")
+	cpf := &cpfLogin
+	senha := &senhaLogin
+	*cpf = r.FormValue("cpf")
+	*senha = r.FormValue("senha")
 	cpfsenha, err := db.Query("SELECT nome_completo, cpf, senha FROM cadastro")
 	if err != nil{
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
@@ -148,7 +153,7 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	for _, armazenado := range armazenamento{
-		if armazenado.Cpf == cpf && armazenado.Senha == senha{
+		if armazenado.Cpf == cpfLogin && armazenado.Senha == senhaLogin{
 			armazenado.PrimeiraLetra = string(armazenado.Usuario[0])
 			err = templates.ExecuteTemplate(w, "dashboard.html", armazenado)
 			if err != nil{
@@ -230,11 +235,57 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 	http.Redirect(w, r, "atualizarinvalido", http.StatusSeeOther)
 }
 
-func executarCentralUsuario(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "centralusuario.html", "a")
+type ACS struct{
+	NomeCompleto string
+	CPF string
+	CNS string
+	CBO string
+	CNES string
+	INE string
+	SenhaACS string
+	PrimeiraLetra string
+}
+
+func executarCentralUsuario(w http.ResponseWriter, r *http.Request){
+	cpfsenha, err := db.Query("SELECT nome_completo, cpf, cns, cbo, cnes, ine, senha FROM cadastro")
 	if err != nil{
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	defer cpfsenha.Close()
+	armazenamento := make([]ACS, 0)
+
+	for cpfsenha.Next(){
+		armazenar := ACS{}
+		err := cpfsenha.Scan(&armazenar.NomeCompleto, &armazenar.CPF, &armazenar.CNS, &armazenar.CBO, &armazenar.CNES, &armazenar.INE, &armazenar.SenhaACS)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		armazenamento = append(armazenamento, armazenar)
+	}
+	if err = cpfsenha.Err(); err != nil{
+		http.Error(w, http.StatusText(500), 500)
 		return
 	}
+	for _, armazenado := range armazenamento{
+		if armazenado.CPF == cpfLogin && armazenado.SenhaACS == senhaLogin{
+			armazenado.PrimeiraLetra = string(armazenado.NomeCompleto[0])
+			armazenado.CPF = strings.ReplaceAll(armazenado.CPF, armazenado.CPF[:5], "*****")
+			armazenado.CNS = strings.ReplaceAll(armazenado.CNS, armazenado.CNS[:5], "*****")
+			armazenado.CNES = strings.ReplaceAll(armazenado.CNES, armazenado.CNES[:3], "***")
+			quebrado := strings.Split(armazenado.SenhaACS, "")
+			for i := 0; i < len(quebrado); i++ {
+				armazenado.SenhaACS = strings.Replace(armazenado.SenhaACS, quebrado[i], "*", -1)
+			}
+			err = templates.ExecuteTemplate(w, "centralusuario.html", armazenado)
+			if err != nil{
+				return
+			}
+			return
+		}
+	}
+
 }
 
 func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
