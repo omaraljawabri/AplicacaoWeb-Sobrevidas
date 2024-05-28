@@ -14,7 +14,7 @@ import (
 )
 
 var db = fazConexaoComBanco()
-var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html", "./templates/formulario/formulariofeito.html"))
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html", "./templates/formulario/formulariofeito.html", "./templates/central-usuario/centralusuario.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
@@ -26,6 +26,7 @@ func main() {
 	http.HandleFunc("/atualizarinvalido", atualizarSenhaInvalido)
 	http.HandleFunc("/telalogin", atualizarSenha)
 	http.HandleFunc("/paciente-cadastrado", cadastrarPaciente)
+	http.HandleFunc("/central-usuario", executarCentralUsuario)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -100,8 +101,10 @@ func autenticaCadastroELevaAoLogin(w http.ResponseWriter, r *http.Request){
 }
 
 type validarlogin struct{
+	Usuario string
 	Cpf string
 	Senha string
+	PrimeiraLetra string
 }
 
 func loginInvalido(w http.ResponseWriter, _ *http.Request){
@@ -123,7 +126,7 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	}
 	cpf := r.FormValue("cpf")
 	senha := r.FormValue("senha")
-	cpfsenha, err := db.Query("SELECT cpf, senha FROM cadastro")
+	cpfsenha, err := db.Query("SELECT nome_completo, cpf, senha FROM cadastro")
 	if err != nil{
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 	}
@@ -132,7 +135,7 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 
 	for cpfsenha.Next(){
 		armazenar := validarlogin{}
-		err := cpfsenha.Scan(&armazenar.Cpf, &armazenar.Senha)
+		err := cpfsenha.Scan(&armazenar.Usuario, &armazenar.Cpf, &armazenar.Senha)
 		if err != nil{
 			log.Println(err)
 			http.Error(w, http.StatusText(500), 500)
@@ -146,7 +149,8 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	}
 	for _, armazenado := range armazenamento{
 		if armazenado.Cpf == cpf && armazenado.Senha == senha{
-			err = templates.ExecuteTemplate(w, "dashboard.html", "a")
+			armazenado.PrimeiraLetra = string(armazenado.Usuario[0])
+			err = templates.ExecuteTemplate(w, "dashboard.html", armazenado)
 			if err != nil{
 				return
 			}
@@ -224,6 +228,13 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 		}	
 	}
 	http.Redirect(w, r, "atualizarinvalido", http.StatusSeeOther)
+}
+
+func executarCentralUsuario(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "centralusuario.html", "a")
+	if err != nil{
+		return
+	}
 }
 
 func cadastrarPaciente(w http.ResponseWriter, r *http.Request){

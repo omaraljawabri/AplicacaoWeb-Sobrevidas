@@ -226,7 +226,7 @@
             width: 10vw;
             height: 5vh;
             font-weight: bold;
-            background-image: url(img/flecha\ esquerda.png);
+            background-image: url(/img/img/flecha\ esquerda.png);
             background-size: 2vw;
             background-position: left 3% center;
             background-repeat: no-repeat;
@@ -325,19 +325,19 @@
 </head>
 <body>
     <header>
-        <img src="img/LogoSobrevidas.png" alt="Logo Sobrevidas" class="posicionar">
+        <img src="/img/img/LogoSobrevidas.png" alt="Logo Sobrevidas" class="posicionar">
         <h1 class="titulo">SOBREVIDAS - ACS</h1>
         <h2 class="subtitulo">Central do Usuário</h2>
         <div id="caixausuario">
-            <p class="usuario">U</p>
-            <p class="caixa">Usuário</p>
-            <a href="#"><img src="img/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
+            <p class="usuario">{{.PrimeiraLetra}}</p>
+            <p class="caixa">{{.Usuario}}</p>
+            <a href="#"><img src="/img/img/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
         </div>
-        <a id="btnlogout"><img src="img/logout.png" alt="Icone de sair" class="sair"></a>
+        <a id="btnlogout"><img src="/img/img/logout.png" alt="Icone de sair" class="sair"></a>
     </header>
     <div class="view">
-        <img src="img/telafundo.png" alt="Modificar foto do usuário" class="imagem">
-        <a href="#" class="camera"><img src="img/camera.png" alt="Icone de camera para trocar foto" class="camera"></a>
+        <img src="/img/img/telafundo.png" alt="Modificar foto do usuário" class="imagem">
+        <a href="#" class="camera"><img src="/img/img/camera.png" alt="Icone de camera para trocar foto" class="camera"></a>
     </div>
     <div class="camposesquerda">
         <p class="cima">NOME COMPLETO</p>
@@ -359,7 +359,7 @@
         <p class="cima">SENHA</p>
         <div class="lapiscolar">
             <p class="exemplo"><span>********</span></p>
-            <a href="#"><p class="lapis"><img src="img/lapis.png" alt="Lapis de edição" class="lapisimg"></p></a>
+            <a href="#"><p class="lapis"><img src="/img/img/lapis.png" alt="Lapis de edição" class="lapisimg"></p></a>
         </div>
         <p class="status">STATUS DE USUÁRIO: </p>
         <p class="bola"></p>
@@ -370,7 +370,7 @@
         <div id="logout">
             <div class="fixar">
                 <div class="relativa">
-                    <img src="img/logout icon.png" alt="Icone de Logout" class="deslogar">
+                    <img src="/img/img/logout icon.png" alt="Icone de Logout" class="deslogar">
                     <p class="ctz">Tem certeza que deseja sair da <br> sua conta?</p>
                     <a href="/telalogin"><button class="sim">Sim, deslogar.</button></a>
                     <button class="nao">Não, continuar logado.</button>
@@ -379,7 +379,7 @@
         </div>
     </div>
     <footer>
-        <input type="submit" value="Voltar">
+        <a href="/dashboard"><input type="submit" value="Voltar"></a>
     </footer>
     <script>
         let btn = document.getElementById('btnlogout');
