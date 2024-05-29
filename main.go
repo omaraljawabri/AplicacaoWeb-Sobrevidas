@@ -9,6 +9,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -380,8 +381,64 @@ func executarPacGerais(w http.ResponseWriter, _ *http.Request){
 	}
 }
 
+type Pacientes struct{
+	Nome string
+	Rua string
+	Numero string
+	Bairro string
+	Complemento string
+	Telefone string
+	DataNasc string
+	Homem string
+	Etilista string
+	Tabagista string
+	LesaoBucal string
+	Endereco string
+	Idade int
+	Fatores string
+}
+
 func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "pg-baixo.html", "a")
+	pesquisa, err := db.Query("SELECT nome_completo, data_nasc, telefone, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal FROM pacientes ORDER BY nome_completo")
+	if err != nil{
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	defer pesquisa.Close()
+	var armazenamento []Pacientes
+	for pesquisa.Next(){
+		armazenar := Pacientes{}
+		err := pesquisa.Scan(&armazenar.Nome, &armazenar.DataNasc, &armazenar.Telefone, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		quebrar := strings.Split(armazenar.DataNasc, "-")
+		if armazenar.Complemento != ""{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro + "," + armazenar.Complemento
+		} else{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro
+		}
+		if armazenar.Tabagista == "Não" && armazenar.LesaoBucal == "Não"{
+			if armazenar.Homem == "Sim" && armazenar.Etilista == "Sim" {
+				armazenar.Fatores = "Homem/Etilista"
+			} else if armazenar.Homem == "Sim" && armazenar.Etilista == "Não"{
+				armazenar.Fatores = "Homem"
+			} else if armazenar.Homem == "Não" && armazenar.Etilista == "Sim"{
+				armazenar.Fatores = "Etilista"
+			}
+			now := time.Now()
+			ano, _ := strconv.Atoi(quebrar[0])
+			mes, _ := strconv.Atoi(quebrar[1])
+			dia, _ := strconv.Atoi(quebrar[2])
+			armazenar.Idade = now.Year() - ano
+			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
+				armazenar.Idade--
+			}
+			armazenamento = append(armazenamento, armazenar)
+		}
+	}
+	err = templates.ExecuteTemplate(w, "pg-baixo.html", armazenamento)
 	if err != nil{
 		return
 	}
