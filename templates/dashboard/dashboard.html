@@ -932,11 +932,11 @@
         <a href="/pagina-absenteista"><p class="p3">Pacientes que cancelaram idas a UBS (absenteístas)</p></a>
         <a href="/pagina-absenteista"><p class="dp3">7</p></a>
         <a href="/pagina-baixo-risco"><p class="p4">Pacientes com <br><u>BAIXO</u><br> risco de câncer de <br>boca</p></a>
-        <a href="/pagina-baixo-risco"><p class="dp4">61</p></a>
+        <a href="/pagina-baixo-risco"><p class="dp4">{{.QtdBaixo}}</p></a>
         <a href="/pagina-medio-risco"><p class="p5">Pacientes com <br><u>MÉDIO</u><br> risco de câncer de <br>boca</p></a>
-        <a href="/pagina-medio-risco"><p class="dp5">30</p></a>
+        <a href="/pagina-medio-risco"><p class="dp5">{{.QtdMedio}}</p></a>
         <a href="/pagina-alto-risco"><p class="p6">Pacientes com <br> <u>ALTO</u> <br> risco de câncer de <br> boca</p></a>
-        <a href="/pagina-alto-risco"><p class="dp6">15</p></a>
+        <a href="/pagina-alto-risco"><p class="dp6">{{.QtdAlto}}</p></a>
         <img src="/imgdashboard/linhavertical.png" alt="Separação vertical" class="vertical">
         <img src="/imgdashboard/linhahorizontal.png" alt="Separação horizontal" class="horizontal">
     </div>
@@ -951,13 +951,13 @@
         <div class="info">
             <p class="bola1"></p>
             <p class="d2">Baixo Risco </p>
-            <p class="d22">57,5%</p>
+            <p class="d22">{{.PorcBaixo}}%</p>
             <p class="bola2"></p>
             <p class="d3">Médio Risco</p>
-            <p class="d33">27,3%</p>
+            <p class="d33">{{.PorcMedio}}%</p>
             <p class="bola3"></p>
             <p class="d4">Alto Risco</p>
-            <p class="d44">14,2%</p>
+            <p class="d44">{{.PorcAlto}}%</p>
         </div>
     </div>
     <div class="MapaMonitoramento">

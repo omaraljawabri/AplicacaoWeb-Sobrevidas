@@ -502,82 +502,17 @@
     </div>
     <!--EXEMPLOS DE PACIENTES-->
     <!--1-->
+    {{range .}}
     <a href="#" class="no-link">
         <div class="exemplos color-light-red">
-            <div class="space11">Jatobá Pinto Filho</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">69</div>
-            <div class="space51">Homem/Feridas
- Bucais/Etilista/Tabagista</div>
+            <div class="space11">{{.Nome}}</div>
+            <div class="space21">{{.Endereco}}</div>
+            <div class="space31">{{.Telefone}}</div>
+            <div class="space41">{{.Idade}}</div>
+            <div class="space51">{{.Fatores}}</div>
         </div>
     </a>
-    <!--2-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-red ">
-            <div class="space11">Emílio dos Santos Sandes</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">74</div>
-            <div class="space51">Homem/Feridas
- Bucais/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--3-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-red ">
-            <div class="space11">Helena Portilho Neto</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">80</div>
-            <div class="space51">Feridas
- Bucais/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--4-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-red ">
-            <div class="space11">Ivan Augusto de Souza</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">42</div>
-            <div class="space51">Homem/Feridas
- Bucais/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--5-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-red">
-            <div class="space11">Leonardo Pereira</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">60</div>
-            <div class="space51">Homem/Feridas
- Bucais/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--6-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-red ">
-            <div class="space11">Lúcio Queiroz</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">54</div>
-            <div class="space51">Homem/Feridas
- Bucais/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--7-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-red">
-            <div class="space11">Roberto da Cunha Silveira Oliveira</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">53</div>
-            <div class="space51">Homem/Feridas
- Bucais/Etilista/Tabagista</div>
-        </div>
-    </a>
+    {{end}}
     <div><a href="/pacientesgerais" class="return no-link"><img src="/imagenspg/Seta.png">Voltar</a></div>
     <div id="modal">
         <div id="logout">

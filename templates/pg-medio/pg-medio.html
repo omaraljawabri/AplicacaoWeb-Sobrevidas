@@ -502,75 +502,17 @@
     </div>
     <!--EXEMPLOS DE PACIENTES-->
     <!--1-->
+    {{range .}}
     <a href="#" class="no-link">
         <div class="exemplos color-light-yellow ">
-            <div class="space11">Anderson Soares</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">80</div>
-            <div class="space51">Homem/Tabagista</div>
+            <div class="space11">{{.Nome}}</div>
+            <div class="space21">{{.Endereco}}</div>
+            <div class="space31">{{.Telefone}}</div>
+            <div class="space41">{{.Idade}}</div>
+            <div class="space51">{{.Fatores}}</div>
         </div>
     </a>
-    <!--2-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-yellow ">
-            <div class="space11">Bernardo Alves</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">67</div>
-            <div class="space51">Homem/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--3-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-yellow ">
-            <div class="space11">Hélio Célio Gomes</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">40</div>
-            <div class="space51">Homem/Tabagista</div>
-        </div>
-    </a>
-    <!--4-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-yellow ">
-            <div class="space11">Lúcio Alencar</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">41</div>
-            <div class="space51">Homem/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--5-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-yellow ">
-            <div class="space11">Sílvio Eduardo Santos</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">96</div>
-            <div class="space51">Homem/Tabagista</div>
-        </div>
-    </a>
-    <!--6-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-yellow ">
-            <div class="space11">Waldemar Edson Lustosa</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">50</div>
-            <div class="space51">Homem/Etilista/Tabagista</div>
-        </div>
-    </a>
-    <!--7-->
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-yellow ">
-            <div class="space11">Mário José Ferreira</div>
-            <div class="space21">Rua 35 E , 115, St. Garavelo Res. Park</div>
-            <div class="space31">(62) 9 4002-8922</div>
-            <div class="space41">75</div>
-            <div class="space51">Homem/Etilista/Tabagista</div>
-        </div>
-    </a>
+    {{end}}
     <div><a href="/pacientesgerais" class="return no-link"><img src="/imagenspg/Seta.png">Voltar</a></div>
     <div id="modal">
         <div id="logout">

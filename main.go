@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"math"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -30,6 +31,7 @@ func main() {
 	http.HandleFunc("/telalogin", atualizarSenha)
 	http.HandleFunc("/cadastrar-paciente", executarFormulario)
 	http.HandleFunc("/paciente-cadastrado", cadastrarPaciente)
+	colocarDados()
 	http.HandleFunc("/central-usuario", executarCentralUsuario)
 	http.HandleFunc("/pagina-faq", executarPagFaq)
 	http.HandleFunc("/pacientesgerais", executarPacGerais)
@@ -115,6 +117,12 @@ type validarlogin struct{
 	Cpf string
 	Senha string
 	PrimeiraLetra string
+	QtdBaixo int
+	QtdMedio int
+	QtdAlto int
+	PorcBaixo float64
+	PorcMedio float64
+	PorcAlto float64
 }
 
 func loginInvalido(w http.ResponseWriter, _ *http.Request){
@@ -125,6 +133,50 @@ func loginInvalido(w http.ResponseWriter, _ *http.Request){
 }
 
 var cpfLogin, senhaLogin, usuarioLogin, primeiraletraLogin string
+var qtdBaixo, qtdMedio, qtdAlto, qtdTotal int
+
+type PegarDados struct{
+	Homem string
+	Etilista string
+	Tabagista string
+	LesaoBucal string
+}
+
+func colocarDados(){
+	pegardados, err := db.Query("SELECT homem, etilista, tabagista, lesao_bucal FROM pacientes")
+	if err != nil{
+		return
+	}
+	defer pegardados.Close()
+	armazenamento := make([]PegarDados, 0)
+
+	for pegardados.Next(){
+		armazenar := PegarDados{}
+		err := pegardados.Scan(&armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
+		if err != nil{
+			log.Println(err)
+			return
+		}
+		armazenamento = append(armazenamento, armazenar)
+	}
+	if err = pegardados.Err(); err != nil{
+		return
+	}
+	pgbaixo := &qtdBaixo
+	pgmedio := &qtdMedio
+	pgalto := &qtdAlto
+	pgtotal := &qtdTotal
+	for _, armazenado := range armazenamento{
+		if armazenado.Tabagista == "Não" && armazenado.LesaoBucal == "Não"{
+			*pgbaixo++
+		} else if armazenado.Tabagista == "Sim" && armazenado.LesaoBucal == "Não"{
+			*pgmedio++
+		} else if armazenado.LesaoBucal == "Sim"{
+			*pgalto++
+		}
+	}
+	*pgtotal = *pgbaixo + *pgmedio + *pgalto
+}
 
 func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	if r.Method != http.MethodGet{
@@ -155,6 +207,15 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 			http.Error(w, http.StatusText(500), 500)
 			return
 		}
+		armazenar.QtdBaixo = qtdBaixo
+		armazenar.QtdMedio = qtdMedio
+		armazenar.QtdAlto = qtdAlto
+		porcbaixo := (float64(qtdBaixo)/float64(qtdTotal))*100
+		porcmedio := (float64(qtdMedio)/float64(qtdTotal))*100
+		porcalto := (float64(qtdAlto)/float64(qtdTotal))*100
+		armazenar.PorcBaixo = math.Round((porcbaixo*100)/100)
+		armazenar.PorcMedio = math.Round((porcmedio*100)/100)
+		armazenar.PorcAlto = math.Round((porcalto*100)/100)
 		armazenamento = append(armazenamento, armazenar)
 	}
 	if err = cpfsenha.Err(); err != nil{
@@ -174,6 +235,7 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 			if err != nil{
 				return
 			}
+			fmt.Println(armazenado)
 			return
 		}
 	}
@@ -183,10 +245,19 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 type UsuarioNoDashboard struct{
 	Usuario string
 	Primeira string
+	QtdBaixo int
+	QtdMedio int
+	QtdAlto int
+	PorcBaixo float64
+	PorcMedio float64
+	PorcAlto float64
 }
 
 func dashboard(w http.ResponseWriter, r *http.Request){
-	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin}
+	porcbaixo := (float64(qtdBaixo)/float64(qtdTotal))*100
+	porcmedio := (float64(qtdMedio)/float64(qtdTotal))*100
+	porcalto := (float64(qtdAlto)/float64(qtdTotal))*100
+	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin, QtdBaixo: qtdBaixo, QtdMedio: qtdMedio, QtdAlto: qtdAlto, PorcBaixo: math.Round((porcbaixo*100)/100), PorcMedio:  math.Round((porcmedio*100)/100), PorcAlto:  math.Round((porcalto*100)/100)}
 	err := templates.ExecuteTemplate(w, "dashboardv2.html", u)
 	if err != nil{
 		return
@@ -365,6 +436,18 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 			return
 		}
 	}
+	pgbaixo := &qtdBaixo
+	pgmedio := &qtdMedio
+	pgalto := &qtdAlto
+	pgtotal := &qtdTotal
+	if tabagista == "Não" && lesao_bucal == "Não"{
+		*pgbaixo++
+	} else if tabagista == "Sim" && lesao_bucal == "Não"{
+		*pgmedio++
+	} else if lesao_bucal == "Sim"{
+		*pgalto++
+	}
+	*pgtotal = *pgalto + *pgmedio + *pgbaixo
 }
 
 func executarPagFaq(w http.ResponseWriter, _ *http.Request){
@@ -445,14 +528,105 @@ func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
 }
 
 func executarPgMedio(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "pg-medio.html", "a")
+	pesquisa, err := db.Query("SELECT nome_completo, data_nasc, telefone, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal FROM pacientes ORDER BY nome_completo")
+	if err != nil{
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	defer pesquisa.Close()
+	var armazenamento []Pacientes
+	for pesquisa.Next(){
+		armazenar := Pacientes{}
+		err := pesquisa.Scan(&armazenar.Nome, &armazenar.DataNasc, &armazenar.Telefone, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		quebrar := strings.Split(armazenar.DataNasc, "-")
+		if armazenar.Complemento != ""{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro + "," + armazenar.Complemento
+		} else{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro
+		}
+		if armazenar.Tabagista == "Sim" && armazenar.LesaoBucal == "Não"{
+			if armazenar.Homem == "Sim" && armazenar.Etilista == "Sim" && armazenar.Tabagista == "Sim" {
+				armazenar.Fatores = "Homem/Etilista/Tabagista"
+			} else if armazenar.Homem == "Sim" && armazenar.Etilista == "Não" && armazenar.Tabagista == "Sim"{
+				armazenar.Fatores = "Homem/Tabagista"
+			} else if armazenar.Homem == "Não" && armazenar.Tabagista == "Sim"{
+				armazenar.Fatores = "Tabagista"
+			} else if armazenar.Tabagista == "Sim" && armazenar.Etilista == "Sim"{
+				armazenar.Fatores = "Etilista/Tabagista"
+			}
+			now := time.Now()
+			ano, _ := strconv.Atoi(quebrar[0])
+			mes, _ := strconv.Atoi(quebrar[1])
+			dia, _ := strconv.Atoi(quebrar[2])
+			armazenar.Idade = now.Year() - ano
+			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
+				armazenar.Idade--
+			}
+			armazenamento = append(armazenamento, armazenar)
+		}
+	}
+	err = templates.ExecuteTemplate(w, "pg-medio.html", armazenamento)
 	if err != nil{
 		return
 	}
 }
 
 func executarPgAlto(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "pg-alto.html", "a")
+	pesquisa, err := db.Query("SELECT nome_completo, data_nasc, telefone, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal FROM pacientes ORDER BY nome_completo")
+	if err != nil{
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	defer pesquisa.Close()
+	var armazenamento []Pacientes
+	for pesquisa.Next(){
+		armazenar := Pacientes{}
+		err := pesquisa.Scan(&armazenar.Nome, &armazenar.DataNasc, &armazenar.Telefone, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		quebrar := strings.Split(armazenar.DataNasc, "-")
+		if armazenar.Complemento != ""{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro + "," + armazenar.Complemento
+		} else{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro
+		}
+		if armazenar.LesaoBucal == "Sim"{
+			if armazenar.Homem == "Sim"{
+				if armazenar.Etilista == "Sim" && armazenar.Tabagista == "Sim"{
+					armazenar.Fatores = "Homem/Etilista/Tabagista/Lesão Bucal"
+				} else if armazenar.Etilista == "Não" && armazenar.Tabagista == "Sim"{
+					armazenar.Fatores = "Homem/Tabagista/Lesão Bucal"
+				} else if armazenar.Etilista == "Sim" && armazenar.Tabagista == "Não"{
+					armazenar.Fatores = "Homem/Etilista/Lesão Bucal"
+				}
+			}
+			if armazenar.Homem == "Não"{
+				if armazenar.Etilista == "Sim" && armazenar.Tabagista == "Sim"{
+					armazenar.Fatores = "Etilista/Tabagista/Lesão Bucal"
+				} else if armazenar.Etilista == "Não" && armazenar.Tabagista == "Sim"{
+					armazenar.Fatores = "Tabagista/Lesão Bucal"
+				} else if armazenar.Etilista == "Sim" && armazenar.Tabagista == "Não"{
+					armazenar.Fatores = "Etilista/Lesão Bucal"
+				}
+			}
+			now := time.Now()
+			ano, _ := strconv.Atoi(quebrar[0])
+			mes, _ := strconv.Atoi(quebrar[1])
+			dia, _ := strconv.Atoi(quebrar[2])
+			armazenar.Idade = now.Year() - ano
+			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
+				armazenar.Idade--
+			}
+			armazenamento = append(armazenamento, armazenar)
+		}
+	}
+	err = templates.ExecuteTemplate(w, "pg-alto.html", armazenamento)
 	if err != nil{
 		return
 	}
