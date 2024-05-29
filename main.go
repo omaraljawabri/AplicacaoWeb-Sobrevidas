@@ -235,7 +235,6 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 			if err != nil{
 				return
 			}
-			fmt.Println(armazenado)
 			return
 		}
 	}
