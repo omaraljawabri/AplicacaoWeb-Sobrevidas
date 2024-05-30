@@ -564,7 +564,7 @@ func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
 			} else if armazenar.Homem == "Sim" && armazenar.Etilista == "Não"{
 				armazenar.Fatores = "Homem"
 			} else if armazenar.Homem == "Não" && armazenar.Etilista == "Sim"{
-				armazenar.Fatores = "Etilista"
+				armazenar.Fatores = "Mulher/Etilista"
 			}
 			now := time.Now()
 			ano, _ := strconv.Atoi(quebrar[0])
@@ -612,9 +612,9 @@ func executarPgMedio(w http.ResponseWriter, _ *http.Request){
 			} else if armazenar.Homem == "Sim" && armazenar.Etilista == "Não" && armazenar.Tabagista == "Sim"{
 				armazenar.Fatores = "Homem/Tabagista"
 			} else if armazenar.Homem == "Não" && armazenar.Tabagista == "Sim"{
-				armazenar.Fatores = "Tabagista"
+				armazenar.Fatores = "Mulher/Tabagista"
 			} else if armazenar.Tabagista == "Sim" && armazenar.Etilista == "Sim"{
-				armazenar.Fatores = "Etilista/Tabagista"
+				armazenar.Fatores = "Mulher/Etilista/Tabagista"
 			}
 			now := time.Now()
 			ano, _ := strconv.Atoi(quebrar[0])
@@ -668,11 +668,11 @@ func executarPgAlto(w http.ResponseWriter, _ *http.Request){
 			}
 			if armazenar.Homem == "Não"{
 				if armazenar.Etilista == "Sim" && armazenar.Tabagista == "Sim"{
-					armazenar.Fatores = "Etilista/Tabagista/Lesão Bucal"
+					armazenar.Fatores = "Mulher/Etilista/Tabagista/Lesão Bucal"
 				} else if armazenar.Etilista == "Não" && armazenar.Tabagista == "Sim"{
-					armazenar.Fatores = "Tabagista/Lesão Bucal"
+					armazenar.Fatores = "Mulher/Tabagista/Lesão Bucal"
 				} else if armazenar.Etilista == "Sim" && armazenar.Tabagista == "Não"{
-					armazenar.Fatores = "Etilista/Lesão Bucal"
+					armazenar.Fatores = "Mulher/Etilista/Lesão Bucal"
 				}
 			}
 			now := time.Now()
