@@ -10,14 +10,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"math"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 var db = fazConexaoComBanco()
-var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html", "./templates/formulario/formulariofeito.html", "./templates/central-usuario/centralusuario.html", "./templates/pacientesgerais/indexPacGerais.html", "./templates/pg-baixo/pg-baixo.html", "./templates/dashboard/dashboardv2.html", "./templates/pg-medio/pg-medio.html", "./templates/pg-alto/pg-alto.html", "./templates/pg-absenteista/pg-absenteista.html", "./templates/pag-Faq/indexFaq.html"))
+var Cns, Cbo, Cnes, Ine string
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html", "./templates/formulario/formulariofeito.html", "./templates/central-usuario/centralusuario.html", "./templates/pacientesgerais/indexPacGerais.html", "./templates/pg-baixo/pg-baixo.html", "./templates/dashboard/dashboardv2.html", "./templates/pg-medio/pg-medio.html", "./templates/pg-alto/pg-alto.html", "./templates/pg-absenteista/pg-absenteista.html", "./templates/pag-Faq/indexFaq.html", "./templates/formulario-preenchido/formpreenchido.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
@@ -39,6 +39,7 @@ func main() {
 	http.HandleFunc("/pagina-medio-risco", executarPgMedio)
 	http.HandleFunc("/pagina-alto-risco", executarPgAlto)
 	http.HandleFunc("/pagina-absenteista", executarPgAbsenteista)
+	http.HandleFunc("/formulario/preenchido", executarFormPreenchdio)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -123,6 +124,10 @@ type validarlogin struct{
 	PorcBaixo float64
 	PorcMedio float64
 	PorcAlto float64
+	Cns string
+	Cbo string
+	Cnes string
+	Ine string
 }
 
 func loginInvalido(w http.ResponseWriter, _ *http.Request){
@@ -192,7 +197,7 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 	senha := &senhaLogin
 	*cpf = r.FormValue("cpf")
 	*senha = r.FormValue("senha")
-	cpfsenha, err := db.Query("SELECT nome_completo, cpf, senha FROM cadastro")
+	cpfsenha, err := db.Query("SELECT nome_completo, cpf, senha, cns, cbo, cnes, ine FROM cadastro")
 	if err != nil{
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 	}
@@ -201,7 +206,7 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 
 	for cpfsenha.Next(){
 		armazenar := validarlogin{}
-		err := cpfsenha.Scan(&armazenar.Usuario, &armazenar.Cpf, &armazenar.Senha)
+		err := cpfsenha.Scan(&armazenar.Usuario, &armazenar.Cpf, &armazenar.Senha, &armazenar.Cns, &armazenar.Cbo, &armazenar.Cnes, &armazenar.Ine)
 		if err != nil{
 			log.Println(err)
 			http.Error(w, http.StatusText(500), 500)
@@ -213,9 +218,12 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 		porcbaixo := (float64(qtdBaixo)/float64(qtdTotal))*100
 		porcmedio := (float64(qtdMedio)/float64(qtdTotal))*100
 		porcalto := (float64(qtdAlto)/float64(qtdTotal))*100
-		armazenar.PorcBaixo = math.Round((porcbaixo*100)/100)
-		armazenar.PorcMedio = math.Round((porcmedio*100)/100)
-		armazenar.PorcAlto = math.Round((porcalto*100)/100)
+		porcbaixo = float64(int(porcbaixo * 100)) / 100
+		porcmedio = float64(int(porcmedio * 100)) / 100
+		porcalto = float64(int(porcalto * 100)) / 100
+		armazenar.PorcBaixo = porcbaixo
+		armazenar.PorcMedio = porcmedio
+		armazenar.PorcAlto = porcalto
 		armazenamento = append(armazenamento, armazenar)
 	}
 	if err = cpfsenha.Err(); err != nil{
@@ -228,9 +236,17 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 			armazenador2 := &usuarioLogin
 			armazenado.PrimeiraLetra = string(armazenado.Usuario[0])
 			*armazenador = string(armazenado.Usuario[0])
-			*armazenador2 = armazenado.Usuario
 			quebrado := strings.Split(armazenado.Usuario, " ")
 			armazenado.Usuario = quebrado[0]
+			*armazenador2 = armazenado.Usuario
+			cns := &Cns
+			cbo := &Cbo
+			cnes := &Cnes
+			ine := &Ine
+			*ine = armazenado.Ine
+			*cns = armazenado.Cns
+			*cnes = armazenado.Cnes
+			*cbo = armazenado.Cbo
 			err = templates.ExecuteTemplate(w, "dashboard.html", armazenado)
 			if err != nil{
 				return
@@ -256,7 +272,10 @@ func dashboard(w http.ResponseWriter, r *http.Request){
 	porcbaixo := (float64(qtdBaixo)/float64(qtdTotal))*100
 	porcmedio := (float64(qtdMedio)/float64(qtdTotal))*100
 	porcalto := (float64(qtdAlto)/float64(qtdTotal))*100
-	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin, QtdBaixo: qtdBaixo, QtdMedio: qtdMedio, QtdAlto: qtdAlto, PorcBaixo: math.Round((porcbaixo*100)/100), PorcMedio:  math.Round((porcmedio*100)/100), PorcAlto:  math.Round((porcalto*100)/100)}
+	porcbaixo = float64(int(porcbaixo * 100)) / 100
+	porcmedio = float64(int(porcmedio * 100)) / 100
+	porcalto = float64(int(porcalto * 100)) / 100
+	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin, QtdBaixo: qtdBaixo, QtdMedio: qtdMedio, QtdAlto: qtdAlto, PorcBaixo: porcbaixo, PorcMedio: porcmedio, PorcAlto: porcalto}
 	err := templates.ExecuteTemplate(w, "dashboardv2.html", u)
 	if err != nil{
 		return
@@ -389,8 +408,31 @@ func executarCentralUsuario(w http.ResponseWriter, r *http.Request){
 
 }
 
+type DadosForm struct{
+	Cns []string
+	Cbo1 string
+	Cbo2 string
+	Cbo3 string
+	Cbo4 string
+	Cbo5 string
+	Cbo6 string
+	Cnes []string
+	Ine []string
+}
+
 func executarFormulario (w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "formulario.html", "a")
+	cnsq := strings.Split(Cns, "")
+	cboq := strings.Split(Cbo, "")
+	cnesq := strings.Split(Cnes, "")
+	ineq := strings.Split(Ine, "")
+	cbo1 := cboq[0]
+	cbo2 := cboq[1]
+	cbo3 := cboq[2]
+	cbo4 := cboq[3]
+	cbo5 := cboq[4]
+	cbo6 := cboq[5]
+	d := DadosForm{Cns: cnsq, Cbo1: cbo1, Cbo2: cbo2, Cbo3: cbo3, Cbo4: cbo4, Cbo5: cbo5, Cbo6: cbo6, Cnes: cnesq, Ine: ineq}
+	err := templates.ExecuteTemplate(w, "formulario.html", d)
 	if err != nil{
 		return
 	}
@@ -418,6 +460,17 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 	etilista := r.FormValue("tipo2")
 	tabagista := r.FormValue("tipo3")
 	lesao_bucal := r.FormValue("tipo4")
+	cnsq := strings.Split(Cns, "")
+	cboq := strings.Split(Cbo, "")
+	cnesq := strings.Split(Cnes, "")
+	ineq := strings.Split(Ine, "")
+	cbo1 := cboq[0]
+	cbo2 := cboq[1]
+	cbo3 := cboq[2]
+	cbo4 := cboq[3]
+	cbo5 := cboq[4]
+	cbo6 := cboq[5]
+	d := DadosForm{Cns: cnsq, Cbo1: cbo1, Cbo2: cbo2, Cbo3: cbo3, Cbo4: cbo4, Cbo5: cbo5, Cbo6: cbo6, Cnes: cnesq, Ine: ineq}
 
 	if homem != "" && etilista != "" && tabagista != "" && lesao_bucal != "" && sexo != "" && (homem != "Não" || etilista != "Não" || tabagista != "Não" || lesao_bucal != "Não"){
 		_, err := db.Exec("INSERT INTO pacientes(nome_completo, data_nasc, cpf, nome_mae, sexo, cartao_sus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)", nome, datanascimento, cpf, nomemae, sexo, cartaosus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal)
@@ -425,12 +478,12 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 			log.Println(err.Error())
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
-		err = templates.ExecuteTemplate(w, "formulariofeito.html", "a")
+		err = templates.ExecuteTemplate(w, "formulariofeito.html", d)
 		if err != nil{
 			return
 		}
 	} else{
-		err := templates.ExecuteTemplate(w, "cadastroinvalido1.html", "a")
+		err := templates.ExecuteTemplate(w, "cadastroinvalido1.html", d)
 		if err != nil{
 			return
 		}
@@ -450,14 +503,16 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 }
 
 func executarPagFaq(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "indexFaq.html", "a")
+	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin}
+	err := templates.ExecuteTemplate(w, "indexFaq.html", u)
 	if err != nil{
 		return
 	}
 }
 
 func executarPacGerais(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "indexPacGerais.html", "a")
+	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin, QtdBaixo: qtdBaixo, QtdMedio: qtdMedio, QtdAlto: qtdAlto}
+	err := templates.ExecuteTemplate(w, "indexPacGerais.html", u)
 	if err != nil{
 		return
 	}
@@ -478,6 +533,8 @@ type Pacientes struct{
 	Endereco string
 	Idade int
 	Fatores string
+	Usuario string
+	Primeira string
 }
 
 func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
@@ -517,6 +574,8 @@ func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
 			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
 				armazenar.Idade--
 			}
+			armazenar.Usuario = usuarioLogin
+			armazenar.Primeira = primeiraletraLogin
 			armazenamento = append(armazenamento, armazenar)
 		}
 	}
@@ -565,6 +624,8 @@ func executarPgMedio(w http.ResponseWriter, _ *http.Request){
 			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
 				armazenar.Idade--
 			}
+			armazenar.Usuario = usuarioLogin
+			armazenar.Primeira = primeiraletraLogin
 			armazenamento = append(armazenamento, armazenar)
 		}
 	}
@@ -622,6 +683,8 @@ func executarPgAlto(w http.ResponseWriter, _ *http.Request){
 			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
 				armazenar.Idade--
 			}
+			armazenar.Usuario = usuarioLogin
+			armazenar.Primeira = primeiraletraLogin
 			armazenamento = append(armazenamento, armazenar)
 		}
 	}
@@ -632,7 +695,15 @@ func executarPgAlto(w http.ResponseWriter, _ *http.Request){
 }
 
 func executarPgAbsenteista(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "pg-absenteista.html", "a")
+	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin}
+	err := templates.ExecuteTemplate(w, "pg-absenteista.html", u)
+	if err != nil{
+		return
+	}
+}
+
+func executarFormPreenchdio(w http.ResponseWriter, _ *http.Request){
+	err := templates.ExecuteTemplate(w, "formpreenchido.html", "a")
 	if err != nil{
 		return
 	}

@@ -1,0 +1,1550 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOBREVIDAS - ACS</title>
+    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Passion+One:wght@400;700;900&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sriracha&display=swap');
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kaushan+Script&family=Passion+One:wght@400;700;900&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sriracha&display=swap');
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .asc {
+            color: red;
+            display: inline-block;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .container {
+            background-color: white;
+            width: 100vw;
+            height: 100vh;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header{
+            background-color: #007FDA;
+            border-radius: 10px 10px 0px 0px;
+            width: 100%;
+            height: 9vh;
+            display: flex;
+        }
+
+        .posicionar{
+            display: block;
+            margin-left: 1%;
+        }
+
+        .titulo{
+            font-size: 5vh;
+            position: absolute;
+            font-family: "Inter";
+            margin-top: 0.5%;
+            left: 12%;
+            color: white;
+            font-weight: 600;
+        }
+
+        .subtitulo{
+            font-size: 4vh;
+            position: absolute;
+            font-family: "Inter";
+            color: white;
+            margin-top: 1%;
+            left: 42%;
+            font-weight: 600;
+        }
+
+        #caixausuario{
+            position: absolute;
+            display: flex;
+            background-color: #0C91F0;
+            border-radius: 8px;
+            height: 6.5%;
+            width: 13%;
+            top: 2.8%;
+            left: 80%;
+            box-shadow: 1px 1px rgba(0, 0, 0, 0.226);
+        }
+
+        .usuario{
+            display: block;
+            background-color: #5A67BA;
+            border-radius: 50%;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            margin-top: 1.3vh;
+            margin-left: 0.5vw;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            font-size: 2.5vh;
+            position: relative;
+        }
+
+        .caixa{
+            position: relative;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            top: 20%;
+            left: 83%;
+            font-size: 2.5vh;
+            transform: translateX(-180%);
+            text-align: center;
+        }
+
+
+        .sinoimg{
+            position: relative;
+            left: 60%;
+            top: 15%;
+            width: 35px;
+        }
+
+        .sair{
+            position: relative;
+            left: 60%;
+            top: 25%;
+            width: 30px;
+            transform: translateX(3680%);
+        }
+        /*
+        header > img{
+            display: inline-block;
+            width: 100px;
+        }
+
+        header > h1,h2 {
+            display: inline-block;
+            padding-left: 10px;
+            text-align: center;
+            transform: translateY(-50%);
+        }
+
+        header > h2 {
+            padding-left: -20px;
+        }
+
+        header h1 {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 2.0em;
+        }
+
+        header h2 {
+            color: white;
+            font-size: 1em;
+            margin: auto;
+            padding-left: 50px;
+        }
+        */
+
+
+        .form-section-01 {
+            width: 100vw;
+            margin-top: 5px;
+            padding: 10px;
+            display: inline-block;
+            position: static;
+            font-size: 1.1em;
+        }
+
+        .form-section-01 > .infoacs {
+            display: inline-block;
+            border: 1px solid black;
+            border-radius: 10px 0px 0px 10px;
+            padding: 3px 10px 2px 10px;
+            margin-left: -5px;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 2px 5px 2px 5px;
+        }
+
+        caption {
+            font-weight: bolder;
+            text-align: left;
+            display: inline-block;
+        }
+
+        #hifen {
+            border: 0;
+        }
+
+        .form-section-01 > #cbo {
+            padding-right: 10px;
+        }
+
+        .form-section-01 > #cbo {
+            border-radius: 0;
+
+        }
+
+        .form-section-01 > #cnes {
+            border-radius: 0;
+        }
+
+        .form-section-01 > #ine {
+            border-radius: 0;
+        }
+
+        .form-section-01 > #microarea {
+            border-radius: 0;
+        }
+
+        .form-section-01 > #datacadastro {
+            border-radius: 0px 10px 10px 0px;
+            width: 230px;
+        }
+
+        .form-section-voltar{
+            width: 150px;
+            padding: 10px;
+            display: inline-block;
+        }
+
+        .form-section-one{
+            height: 50%;
+            width: 33%;
+            padding: 10px;
+            display: inline-block;
+            float: left;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        .form-section-two{
+            height: 50%;
+            width: 33%;
+            padding: 10px;
+            display: inline-block;
+            float: center;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        .form-section label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-section-one label{
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: block;
+                padding-bottom: 5px;
+                padding-top: 10px;
+                color: gray;
+        }
+
+        .form-section-one > p {
+            padding-bottom: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        .form-section-two label{
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            padding-bottom: 5px;
+            padding-top: 10px;
+            color: gray;
+        }
+
+        .form-section-two > p {
+            padding-bottom: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-section input,
+        .form-section input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-section-one input,
+        .form-section-one input {
+            border: 3px solid black;
+            border-radius: 10px;
+            padding: 12px;
+            width: calc(100% - 20px);
+            font-weight: bold;
+        }
+
+        .form-section-one > select{
+            margin-top: 20px;
+            border: 3px solid black;
+            border-radius: 10px;
+            padding: 12px;
+            width: calc(100% - 20px);
+            cursor: pointer;
+        }
+
+        .form-section-one option{
+            font-size: 1.5em; 
+            color: black;
+            background-color: white;
+            padding: 5px;
+            border-bottom: 1px solid black;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section-one option:hover {
+            background-color: blue;
+        }
+
+        .form-section-one option:checked {
+            background-color: white;
+        }
+
+        .form-section-two input,
+        .form-section-two input {
+            border: 3px solid black;
+            border-radius: 10px;
+            padding: 12px;
+            width: calc(100% - 20px);
+            font-weight: bold;
+        }
+
+        .form-section input[type="text"]:disabled,
+        .form-section input[type="email"]:disabled {
+            background-color: #e9ecef;
+        }
+
+        #campo-endereco {
+            font-size: 1.7em; margin-bottom: 0px; margin-top: 20px;
+        }
+
+        .form-section-three > div {
+            display: inline-block;
+        }
+
+        #cep {
+            width: 100px;
+        }
+
+        #ibairro {
+            width: 280px;
+        }
+
+        #irua {
+            width: 150px;
+        }
+
+        #inum {
+            width: 85px;
+        }
+
+        #icomplemento {
+            width: 140px;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100px;
+            position: static;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        .radio-group > p{
+            width: 180px;
+            color: rgb(0, 0, 0);
+            position: absolute;
+            float: left;
+            margin-top: 20px;
+            font-size: 1em;
+        }
+
+        .radio-group button[type="submit"] {
+            background-color: white;
+            color: black;
+            border: 3px solid black;
+            border-radius: 15px;
+            padding: 3px 15px 3px 15px;
+            display: inline-block;
+            box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.301);
+            position: relative;
+            margin-left: 110px;
+            margin-right: -85px;
+            margin-top: 2px;
+            margin-bottom: -8px;
+            width: 50px;
+            font-size: 0.7em;
+        }
+
+
+        .radio-group button[type="submit"]:hover{
+            background-color: rgba(255, 0, 0, 0.342);
+        }
+
+        .radio-group button[type="submit"]:checked{
+            background-color: red;
+        }
+
+        .radio-group label {
+            margin-right: 0px;
+        }
+
+        .div-factors {
+            display: block;
+            text-align: justify;
+        }
+
+        .risk-factors {
+            width: 33%;
+            padding: 10px;
+            padding-bottom: 1.5%;
+            margin-top: 48px;
+            border-top: 1px solid #ddd;
+            position: relative;
+            display: inline-block;
+            float: right;
+            background-color: #49bbc691;
+            border-radius: 20px;
+            transform: translateX(-4%);
+            margin-top: -540px;
+        }
+
+        .div-factors > h3 {
+            display: block;
+            float: inline-end;
+            color: 	rgba(87, 4, 4, 0.685);
+            margin-top: -575px;
+            font-size: 1.37em;
+            padding-right: 28px;
+        }
+
+        .risk-factors > div {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .risk-factors label {
+            width: 380px;
+            margin: auto;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            background-color: white;
+            border: 1px solid black;
+            padding: 5px;
+            border-radius: 20px;
+            font-size: 1em;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        .risk-level {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .risk-level >  label {
+            width: 315px;
+            margin-bottom: 15px;
+            margin-left: 36px;
+            margin-right: 36px;
+            margin-top: 20px;
+        }
+
+        .risk-status {
+            display: inline-block;
+            background-color: white;
+            color: black;
+            padding: 12px 17px;
+            border-radius: 10px;
+            font-weight: 600;
+            border: 1px solid black;
+        }
+
+        .botoes {
+            display: inline-flex;
+            height: 60px;
+        }
+
+        .form-section-voltar > [type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-top: 20px;
+            float: left;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            align-content: center;
+        }
+
+        .form-section-voltar > [type="submit"]:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        .form-section-voltar > [type="submit"]::before {
+            content: '<ㅤㅤㅤ';
+        }
+
+        .form-section-obrigatorio {
+            border: 2px solid red;
+            border-radius: 10px;
+            width: 490px;
+            padding: 2px 2px 4px 4px;
+            margin-left: 50px;
+            margin-top: 30px;
+            font-family: "Poppins", sans-serif;
+            font-size: 0.9em;
+            transform: translateY(25%);
+        }
+
+        .form-section-download {
+            margin-left: 60px;
+            margin-right: 30px;
+            margin-top: 25px;
+        }
+
+        .form-section-download > img {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .form-section-validar-tel > [type="submit"] {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-top: 30px;
+            margin-right: 20px;
+            margin-left: 30px;
+            width: 170px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+        }
+
+        .form-section-validar-tel > [type="submit"]:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        .form-section-confirmar > [type="submit"] {
+            padding: 10px 20px 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-top: 30px;
+            margin-left: 25px;
+            margin-right: 20px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+        }
+
+        .form-section-confirmar > [type="submit"]::after {
+            content: 'ㅤㅤ>';
+        }
+
+        .form-section-confirmar > [type="submit"]:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        .borda {
+            margin: 20px;
+        }
+
+        .label1{
+            display: block;
+            padding: 5px;
+            position: relative;
+            left: 8vw;
+            top: 1vh;
+            transform: translateX(120%);
+        }
+
+        .label1 input{
+            display: block;
+            width: 1px;
+            height: 10px;
+            background-color: #49bbc691;
+            text-align: center;
+        }
+
+        .label1 span{
+            border: 1px solid black;
+            font-family: "Noto Sans", sans-serif;
+            width: 4vw;
+            height: 22px;
+            position: absolute;
+            overflow: hidden;
+            line-height: 1;
+            text-align: center;
+            border-radius: 15px; 
+            font-size: 10pt; 
+            left: 0; 
+            top: 0;
+            background-color: white;
+            cursor: pointer;
+            box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.301);
+            font-size: 1em;
+            font-weight: normal;
+        }
+
+        .label2{
+            display: block;
+            padding: 5px;
+            position: relative;
+            left: 10vw;
+            top: 1vh;
+            transform: translateX(120%);
+        }
+
+        .label2 input{
+            display: block;
+            width: 1px;
+            height: 10px;
+            background-color: #49bbc691;
+            text-align: center;
+        }
+
+        .label2 span{
+            border: 1px solid black;
+            font-family: "Noto Sans", sans-serif;
+            width: 4vw;
+            height: 22px;
+            position: absolute;
+            overflow: hidden;
+            line-height: 1;
+            text-align: center;
+            border-radius: 15px; 
+            font-size: 10pt; 
+            left: 0; 
+            top: 0;
+            background-color: white;
+            cursor: pointer;
+            box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.301);
+            font-size: 1em;
+            font-weight: normal;
+        }
+
+        input:checked + span {
+            border: 1px solid black;
+            background: #DE4242;
+            box-shadow: 1px 1px rgba(0, 0, 0, 0.452);
+
+        }
+        
+        @media screen and (max-width: 835px) {
+        
+            body,.container{
+            height: 100%;
+            }
+        
+            body, .container, header {
+                max-width: 100%;
+            }
+
+            header {
+                display: flex;
+                align-items: center;
+            }
+        
+            .titulo {
+                font-size: 1.6em;
+                margin-left: 20px;
+            }
+
+            .subtitulo {
+                font-size: 1.2em;
+                padding-left: 35px;
+            }
+
+            .posicionar {
+                width: 119px;
+                height: 76px;
+            }
+
+            #caixausuario {
+                margin-left: -60px;
+                margin-top: -0.6%;
+                width: 160px;
+                height: 60px;
+                text-align: center;
+            }
+
+            .usuario {
+                width: 35px;
+                height: 35px;
+            }
+
+            .caixa {
+                font-size: 1em;
+                left: 120px;
+                margin-top: 5px;
+            }
+
+            .sinoimg {
+                margin-top: 7px;
+            }
+
+            .sair {
+            margin-left: -225px;
+            }
+
+
+            .form-section-01 {
+                max-width: 100%;
+                font-size: 0.9em;
+                overflow-x: auto;
+                text-align: center;
+            }
+
+            .form-section-01 > table {
+                width: 100%;
+                font-size: 0.9em;
+            }
+            
+            .form-section-01 > #cns {
+            border-radius: 10px 0px 0px 0px;
+            width: 400px;
+            }
+            
+            .form-section-01 > #cbo {
+            border-radius: 0;
+            width: 160px;
+            }
+
+            .form-section-01 > #cnes {
+            border-radius: 0px 10px 0px 0px;
+            width: 170px;
+            }
+
+            .form-section-01 > #ine {
+            border-radius: 0px 0px 0px 10px;
+            width: 300px;
+            }
+
+            .form-section-01 > #microarea {
+            border-radius: 0px 0px 0px 0px;
+            width: 150px;
+            }
+
+            .form-section-01 > #datacadastro {
+            border-radius: 0px 0px 10px 0px;
+            width: 280px;
+            height: 49px;
+            text-align: center;
+            }
+
+            #datacadastro td {
+            width: 5%;
+            }
+
+            .form-section-one {
+            float: center;
+            width: 50%;
+            margin: auto;
+            height: 50%;
+            padding: 10px;
+            display: block;
+            font-size: 1.5em;
+            }
+            
+            .form-section-one label {
+            margin-top: 10px;
+            }
+            
+            .form-section-two{
+            float: center;
+            width: 50%;
+            height: 50%;
+            padding: 10px;
+            display: inline-block;
+            font-size: 1.5em;
+            margin-top: 10px;
+            }
+            
+            .form-section-three {
+            display: block;
+            width: 100%;
+            height: 100%;
+            float: inline-start;
+            font-size: 1.15em;
+            }
+
+            #campo-endereco {
+            margin-top: 15px;
+            font-size: 1em;
+            }
+            
+            .form-section-three > #cep {
+            width: 100px;
+            }
+
+            #cep {
+            width: 100px;
+            }
+            
+            #ibairro {
+            width: 130px;
+            }
+
+            #irua {
+            width: 100px;
+            }
+
+            #inum {
+            width: 70px;
+            margin-right: 66px;
+            }
+
+            #icomplemento {
+            width: 150px;
+            }
+            
+            .risk-factors {
+            width: 750px;
+            height: 100%;
+            margin: auto;
+            float: unset;
+            display: block;
+            margin-top: 65px;
+            text-align: center;
+            font-size: 1.1em;
+            }
+
+            .div-factors > h3 {
+            position: absolute;
+            transform: translateY(47vh);
+            left: 22%;
+            font-size: 1.5em;
+            }
+            
+            .risk-factors label {
+            width: 700px;
+            font-size: 1.3em;
+            }
+
+            .label1{
+            left: 15vw;
+            }
+        
+            .label1 input{
+            
+            }
+        
+            .label1 span{
+            font-size: 1.2em;
+            height: 30px;
+            width: 8vw;
+            }
+
+            .label2{
+            left: 22vw;
+            }
+        
+            .label2 input{
+            
+            }
+        
+            .label2 span{
+            font-size: 1.2em;
+            height: 30px;
+            width: 8vw;
+            }
+
+            .risk-level {
+            margin-left: -15px;
+            }
+
+            .botoes {
+            height: 60px;
+            }
+
+            .form-section-voltar > [type="submit"] {
+            font-size: 1em;
+            margin-left: 5px;
+            }
+
+            .form-section-obrigatorio {
+            width: 210px;
+            margin-left: 50px;
+            margin-top: 2px;
+            }
+
+            .form-section-download {
+            margin-left: 20px;
+            }
+
+            .form-section-validar-tel > [type="submit"] {
+            font-size: 1em;
+            margin-right: 5px;
+            }
+
+            .form-section-confirmar > [type="submit"] {
+            font-size: 1em;
+            }
+
+        }
+    
+    @media screen and (min-width: 1026px) and (max-width: 1195px) {
+
+    body,.container{
+        width: 1180px;
+        margin: auto;
+        height: 100%;
+    }
+
+    header {
+        width: 100%;
+    }
+
+    .titulo {
+        margin-top: 10px;
+    }
+
+    .subtitulo {
+        left: 45vw;
+        font-size: 1.4em;
+        margin-top: 15pt;
+    }
+
+    #caixausuario {
+        margin-top: 0%;
+        left: 79%;
+    }
+
+    .caixa {
+        left: 88%;
+    }
+
+    .sinoimg {
+        left: 35%;
+    }
+    .sair {
+        transform: translateX(3335%);
+    }
+
+    .form-section-01 {
+        width: 100%;
+        font-size: 0.94em;
+    }
+
+    .form-section-01 > #datacadastro {
+    border-radius: 0px 10px 10px 0px;
+    width: 197px;
+    }
+
+    .form-section-one {
+    font-size: 0.8em;
+    }
+
+    .form-section-two {
+    font-size: 0.8em;
+    }
+
+    #campo-endereco {
+    font-size: 1.6em; margin-bottom: 0px; margin-top: 20px;
+    }
+
+    #cep {
+    width: 100px;
+    }
+
+    #ibairro {
+    width: 250px;
+    }
+
+    #irua {
+    width: 150px;
+    }
+
+    #inum {
+    width: 85px;
+    }
+
+    #icomplemento {
+    width: 115px;
+    }
+
+    .div-factors > h3 {
+    margin-top: -570px;
+    font-size: 1.2em;
+    padding-right: 40px;
+    }
+
+    .risk-factors {
+    margin-top: -540px;
+    padding-bottom: 0%;
+    }
+
+    .risk-factors label{
+    width: 370px;
+    }
+
+    .radio-group > p {
+    margin-top: 4%;
+    }
+
+    .botoes {
+    height: 60px;
+    margin-bottom: 20px;
+    }
+
+
+    .risk-level >  label {
+    width: 300px;
+    }
+
+    .form-section-voltar > [type="submit"] {
+    font-size: 0.9em;
+    }
+
+    .form-section-obrigatorio {
+    width: 420px;
+    font-size: 0.8em;
+    }
+
+    .form-section-download {
+    margin-left: 45px;
+    margin-top: 35px;
+    }
+
+    .form-section-download > img {
+    width: 40px;
+    height: 40px;
+    }
+
+    .form-section-validar-tel > [type="submit"] {
+    font-size: 0.9em;
+    margin-right: 40px;
+    margin-left: 15px;
+    }
+
+    .form-section-confirmar > [type="submit"] {
+    font-size: 0.9em;
+    }
+
+    }
+
+        @media screen and (max-width: 1025px) {
+            body,.container{
+            width: 1024px;
+            margin: auto;
+            height: 100%;
+            }
+        
+            header {
+            width: 100%;
+            margin: auto;
+            }
+            .titulo {
+            font-size: 4vh;
+            margin-top: 15px;
+            }
+        
+            .subtitulo {
+            left: 45%;
+            font-size: 3vh;
+            margin-top: 20px;
+            }
+        
+            #caixausuario {
+            left: 80%;
+            margin-top: 0%;
+            }
+
+            .usuario {
+            font-size: 2vh;
+            width: 25px;
+            height: 25px;
+            }
+        
+            .caixa {
+            left: 78%;
+            font-size: 2vh;
+            }
+        
+            .sinoimg {
+            left: 60%;
+            width: 28px;
+        }
+            .sair {
+                transform: translateX(2850%);
+            }
+        
+            .form-section-01 {
+            width: 100%;
+            font-size: 0.709em;
+        }
+        
+        .form-section-01 > #datacadastro {
+            border-radius: 0px 10px 10px 0px;
+            width: 148px;
+        }
+        
+        .form-section-one {
+            font-size: 0.7em;
+        }
+        
+        .form-section-two {
+            font-size: 0.7em;
+        }
+        
+        #campo-endereco {
+            font-size: 1.45em; margin-bottom: 0px; margin-top: 20px;
+        }
+        
+        #cep {
+            width: 100px;
+        }
+        
+        #ibairro {
+            width: 200px;
+        }
+        
+        #irua {
+            width: 125px;
+        }
+        
+        #inum {
+            width: 75px;
+        }
+        
+        #icomplemento {
+            width: 105px;
+        }
+        
+        .div-factors > h3 {
+            margin-top: -555px;
+            font-size: 1em;
+            padding-right: 40px;
+        }
+        
+        .risk-factors {
+            margin-top: -530px;
+            padding-bottom: 1.25%;
+            left: 10px;
+        }
+        
+        .risk-factors label{
+            font-size: 0.8em;
+            width: 310px;
+        }
+
+        .radio-group > p {
+            font-size: 0.9em;
+            margin-top: 4%;
+        }
+        
+        .botoes {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        
+        .risk-level >  label {
+            width: 240px;
+        }
+        
+        .form-section-voltar > [type="submit"] {
+            font-size: 0.8em;
+        }
+        
+        .form-section-obrigatorio {
+            width: 380px;
+            font-size: 0.7em;
+            margin-left: 25px;
+        }
+        
+        .form-section-download {
+            margin-left: 20px;
+            margin-top: 30px;
+            margin-right: 15px;
+        }
+        
+        .form-section-download > img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .form-section-validar-tel > [type="submit"] {
+            font-size: 0.8em;
+            margin-right: 13px;
+            margin-left: 12px;
+        }
+        
+        .form-section-confirmar > [type="submit"] {
+            font-size: 0.8em;
+            margin-left: 20px;
+        }
+        
+        .label1{
+            left: 8vw;
+        }
+
+        .label1 span{
+            width: 5vw;
+        }
+
+        .label2 span{
+            width: 5vw;
+        }
+
+
+        }
+
+    @media screen and (min-width: 1281px) {
+        body {
+            max-width: 75vw;
+            background-image: url('/imgfm/fundo.jpg');
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.473);
+        }
+
+        .form-section-01 {
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        .posicionar {
+        width: 100px;
+        }
+
+        .container {
+        max-width: 75vw;
+        height: 102%;
+        margin: auto;
+        }
+
+        header {
+        display: flex;
+        text-align: center;
+        padding: 10px;
+        align-items: center;
+        }
+
+        .posicionar {
+        top: 5vh;
+        right: 2px;
+        }
+
+        .titulo {
+        left: 19vw;
+        }
+
+        .subtitulo {
+        margin-top: 5pt;
+        left: 47vw;
+        font-size: 1.6em;
+        }
+
+        #caixausuario {
+        left: 70vw;
+        margin-top: 0%;
+        }
+
+        .usuario {
+        font-size: 3vh;
+        width: 40px;
+        height: 40px;
+        }
+    
+        .caixa {
+        font-size: 3vh;
+        margin-left: 4px;
+        }
+    
+        .sinoimg {
+        width: 32px;
+        margin-left: 11px;
+        margin-top: 4px;
+        }
+        .sair {
+        transform: translateX(4120%);
+        }
+
+        .form-section-01 {
+            margin-top: -2px;
+        }
+
+        .risk-level {
+        padding: auto;
+        }
+
+        .div-factors > h3 {
+        margin-right: 50px;
+        }
+
+        .risk-factors {
+        text-align: center;
+        }
+
+        .botoes {
+        margin-top: -5px;
+        }
+
+        .form-section-validar-tel > [type="submit"] {
+            margin-right: 110px;
+            margin-left: 100px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/imgfm/logo.png" alt="Logo Sobrevidas" class="posicionar">
+            <h1 class="titulo">SOBREVIDAS - ACS</h1>
+            <h2 class="subtitulo">PACIENTE João - Baixo Risco</h2>
+            <div id="caixausuario">
+                <p class="usuario">U</p>
+                <p class="caixa">Usuário</p>
+                <a href="#"><img src="/imgfm/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
+            </div>
+            <a href="/telalogin"><img src="/imgfm/logout.png" alt="Icone de sair" class="sair"></a>
+        </header>
+        <form>
+            <div class="form-section-01">
+                <table class="infoacs" id="cns">
+                    <tr>
+                        <caption>CNS DO PROFISSIONAL</caption>
+                        <tr>
+                            <td>6</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>7</td>
+                        </tr>
+                    </tr>
+                </table>
+
+                <table class="infoacs" id="cbo">
+                    <tr>
+                        <caption>CBO</caption>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td id="hifen">-</td>
+                        <td>5</td>
+                        <td>5</td>
+                    </tr>
+                </table>
+
+                <table class="infoacs" id="cnes">
+                        <tr>
+                            <caption>CNES</caption>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>7</td>
+                            <td>4</td>
+                        </tr>
+                </table>
+                        
+                <table class="infoacs" id="ine">
+                        <tr>
+                            <caption>INE</caption>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>5</td>
+                            <td>7</td>
+                            <td>6</td>
+                            <td>5</td>
+                        </tr>
+                </table>
+                        
+                <table class="infoacs" id="microarea">
+                        <tr>
+                            <caption>MICROÁREA</caption>
+                            <td>0</td>
+                            <td>2</td>
+                        </tr>
+                </table>
+
+                <table class="infoacs" id="datacadastro">
+                    <tr>
+                        <caption>DATA DO CADASTRO <div class="asc">*</div></caption>
+                        <td style="border: none; font-size: 1.08em;">10/07/2024</td>
+                    </tr>
+                </table>
+            </div>
+
+            <hr>
+
+            <div class="form-section-one">
+                <label for="nome">NOME <div class="asc">*</div></label>
+                <input type="text" id="nome" required placeholder="Ex.: João da Silva" value="Alexandre da Silva Santos">
+                <p>Digite o nome completo</p>
+
+                <label for="data-nascimento">DATA DE NASCIMENTO <div class="asc">*</div></label>
+                <input type="text" id="data-nascimento" required placeholder="Ex.:DD/MM/AAAA" value="03/02/1957">
+                <p>Digite a data de nascimento</p>
+
+                <label for="cpf">CPF <div class="asc">*</div></label>
+                <input type="text" id="cpf" required placeholder="Ex.:123.456.789-09" value="065.768.933-08">
+                <p>Digite o CPF &#40Cadastro de Pessoa Física&#41</p>
+
+                <label for="mae">NOME DA MÃE <div class="asc">*</div></label>
+                <input type="text" id="mae" placeholder="Ex.: Maria da Silva" value="Maria Benedita da Silva Santos">
+                <p>Digite o nome completo da mãe</p>
+
+                <label for="isexo" style="margin-bottom: -15px;">SEXO</label>
+                <select name="sexo" id="isexo">
+                    <option value="">Selecione</option>
+                    <option value="MASC" selected>Masculino</option>
+                    <option value="FEM">Feminino</option>
+                </select>
+
+            </div>
+            <div class="form-section-two">
+                <label for="isus">CARTÃO DO SUS</label>
+                <input type="text" id="isus" placeholder="Ex.: 999 9999 9999 9999" value="534 7687 4365 0029">
+                <p>Digite o número do cartão do SUS</p>
+
+
+                <label for="itel">TELEFONE <div class="asc">*</div></label>
+                <input type="tel" id="itel" pattern="^\(\d{2}\)\d{4,5}-\d{4}$" placeholder="Ex.: (99)99999-9999" value="(62) 98834-9993">
+                <p>Digite o número de telefone</p>
+
+                <label for="imail">E-MAIL</label>
+                <input type="text" id="imail" placeholder="Ex.: joaodasilva@gmail.com" value="alexsilvasantos@gmail.com">
+                <p>Digite o email</p>
+
+                <p id="campo-endereco">Endereço</p>
+
+                <div class="form-section-three">
+                        <div id="cep">
+                            <label for="icep">CEP</label>
+                            <input type="text" id="cep" pattern="^\d{5}-\d{3}$" placeholder="Ex.: 12345-678" value="74932580">
+                        </div>
+                        <div id="ibairro">
+                            <label for="ibairro">BAIRRO</label>
+                            <input type="text" id="ibairro" placeholder="Ex.: Bela Vista" value="Garavelo Residencial Park">
+                        </div>
+                        <div id="irua">
+                            <label for="irua">RUA</label>
+                            <input type="text" id="irua" placeholder="Ex.: Av. Brasil" value="37 E">
+                        </div>
+                        <div id="inum">
+                            <label for="inum">NÚMERO</label>
+                            <input type="number" id="inum" placeholder="Ex.: 99" value="123">
+                        </div>
+                        <div id="complemento">
+                            <label for="icomplemento">COMPLEMENTO</label>
+                            <input type="text" id="icomplemento" placeholder="Ex.: Apto,casa...">
+                        </div>
+                </div>
+            </div>
+            <div class="div-factors">
+                <h3>Fatores de Risco para Câncer de Boca</h3>
+                <div class="form-section risk-factors">
+                    <div>
+                        <label class="borda">Homem <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
+                        <div class="radio-group">
+                            <p>Marque sim ou não: </p>
+                            <label class="label1"><input type="radio" name="tipo1" id="sim1" checked><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo1" id="nao1"><span>Não</span></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="borda">Etilista <div class="asc">*</div> &#40consome álcool regurlamente&#41</label>
+                        <div class="radio-group">
+                            <p>Marque sim ou não: </p>
+                            <label class="label1"><input type="radio" name="tipo2" id="sim2" checked><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo2" id="nao2"><span>Não</span></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="borda">Tabagista <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
+                        <div class="radio-group">
+                            <p>Marque sim ou não: </p>
+                            <label class="label1"><input type="radio" name="tipo3" id="sim3"><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo3" id="nao3" checked><span>Não</span></label>
+                        </div>
+                    </div>
+                <div>
+                    <label class="borda">Com lesão bucal suspeita <div class="asc">*</div></label>
+                    <div class="radio-group">
+                        <p>Marque sim ou não: </p>
+                        <label class="label1"><input type="radio" name="tipo4" id="sim4"><span>Sim</span></label>
+                        <label class="label2"><input type="radio" name="tipo4" id="nao4" checked><span>Não</span></label>
+                    </div>
+                </div>
+                <div class="risk-level">
+                    <label>Grau de Risco para Câncer de Boca</label>
+                    <div class="risk-status">Baixo Risco</div>
+                </div>
+            </div>
+            </div>
+        </form>
+            <div class="botoes">
+                <div class="form-section-voltar">
+                    <button type="submit">Voltar</button>
+                </div>
+                <div class="form-section-obrigatorio">
+                    <p>Os itens assinalados com <span class="asc">*</span> são de preenchimento obrigatório</p>
+                </div>
+                <div class="form-section-download">
+                    <img src="/imgfm/download.png" alt="Icone de Download">
+                </div>
+                <div class="form-section-validar-tel">
+                    <button type="submit">Validar o Telefone</button>
+                </div>
+                <div class="form-section-confirmar">
+                    <button type="submit">Confirmar</button>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

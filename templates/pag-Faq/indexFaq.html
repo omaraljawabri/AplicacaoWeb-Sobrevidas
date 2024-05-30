@@ -268,6 +268,51 @@
         #btnlogout{
             cursor: pointer;
         }
+
+        #caixausuario{
+            position: absolute;
+            display: flex;
+            background-color: #0C91F0;
+            border-radius: 15px;
+            height: 70%;
+            width: 12.5%;
+            top: 18%;
+            left: 70%;
+            box-shadow: 1px 1px rgba(0, 0, 0, 0.226);
+        }
+
+        .user{
+            position: fixed;
+            background-color: #5A67BA;
+            border-radius: 50%;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            margin-top: 1.7vh;
+            left: 78vw;
+            width: 2.5%;
+            height: 5%;
+            text-align: center;
+            font-size: 3vh;
+        }
+
+        .caixa{
+            position: fixed;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            top: 1vh;
+            left: 82%;
+            font-size: 3vh;
+        }
+
+        .sinoimg{
+            position: absolute;
+            left: 11vw;
+            top: 1.0vh;
+            width: 2vw;
+            height: 3vw;
+        }
     </style>
 </head>
 <body>
@@ -275,10 +320,11 @@
         <h1>SOBREVIDAS - ACS</h1>
         <h2>Perguntas Frequentes</h2>
         <a id="btnlogout" class="posicaoImgSaida"> <img src="/img/imgfaq/iconeSaida.png" width="40" height="40"></a>
-        <a href="" class="usuario"><b>Usuário</b></a>
-        <a href="" class="posicaoImgU"> <img src="/img/imgfaq/iconeU.png" width="30" height="30"></a>
-        <a href="/pagina-absenteista" class="posicaoImgSino"> <img src="/img/imgfaq/iconeSino.png" width="25" height="40"></a>
-    </div>
+        <div id="caixausuario">
+            <p class="user">{{.Primeira}}</p>
+            <p class="caixa">{{.Usuario}}</p>
+            <a href="/pagina-absenteista"><img src="/imagenspg/Component 24.png" class="sinoimg"></a>
+        </div>
     </div>
     <div class="abaAzul">
         <img src="/img/imgfaq/LogoSOBREVIDAS-ACS-semtext.png" width="100" height="100" class="posicaoLogo">

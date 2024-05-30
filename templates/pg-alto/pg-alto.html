@@ -211,7 +211,7 @@
             text-align: center;
         }
         .titulo1{
-        margin-left:5%;
+        margin-left:0%;
         font-weight: 700;
         }
         /*RETIRADA DA ESTILIZAÇÃO DOS LINKS*/
@@ -446,6 +446,55 @@
         #btnlogout{
             cursor: pointer;
         }
+        #caixausuario{
+            position: absolute;
+            display: flex;
+            background-color: #0C91F0;
+            border-radius: 15px;
+            height: 78%;
+            width: 12.5%;
+            top: 10%;
+            left: 80%;
+            box-shadow: 1px 1px rgba(0, 0, 0, 0.226);
+        }
+
+        .usuario{
+            position: absolute;
+            background-color: #5A67BA;
+            border-radius: 50%;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            margin-top: 2.0vh;
+            margin-left: 0.5vw;
+            width: 20%;
+            height: 55%;
+            text-align: center;
+            font-size: 3vh;
+        }
+
+        .caixa{
+            position: fixed;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            top: 1.2vh;
+            left: 86%;
+            font-size: 2.5vh;
+        }
+
+        .sinoimg{
+            position: absolute;
+            left: 10vw;
+            top: 1.2vh;
+            width: 2vw;
+            height: 3vw;
+        }
+
+        .sobrevidas{
+            position: absolute;
+            left: 16.5vw;
+        }
     </style>
 </head>
 <!--CORPO DA PÁGINA-->
@@ -453,10 +502,15 @@
     <!--BARRA NO TOPO-->
     <header class="top-bar">
         <div class="imagem1"><img src="/imagenspg/logo projeto 2.png"></div>
-        <div>SOBREVIDAS-ACS</div>
-        <div class="titulo1">PACIENTES-Alto risco</div>
-        <div class="imagem2"><a href="#"><img src="/imagenspg/Frame 11.png"></a></div>
-        <div class="imagem3"><a href="/pagina-absenteista"><img src="/imagenspg/Component 24.png"></a></div>
+        <div class="sobrevidas">SOBREVIDAS-ACS</div>
+        <div class="titulo1">PACIENTES-Baixo risco</div>
+        <div id="caixausuario">
+            {{range .}}
+            <p class="usuario">{{.Primeira}}</p>
+            <p class="caixa">{{.Usuario}}</p>
+            {{end}}
+            <a href="/pagina-absenteista"><img src="/imagenspg/Component 24.png" class="sinoimg"></a>
+        </div>
         <div class="imagem4"><a id="btnlogout"><img src="/imagenspg/logout 1.png"></a></div>
     </header>
     <!--TABELA DE INFORMAÇÕES-->

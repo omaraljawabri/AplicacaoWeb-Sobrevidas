@@ -677,21 +677,9 @@
                     <tr>
                         <caption>CNS DO PROFISSIONAL</caption>
                         <tr>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>5</td>
-                            <td>7</td>
+                            {{range .Cns}}
+                            <td>{{.}}</td>
+                            {{end}}
                         </tr>
                     </tr>
                 </table>
@@ -699,41 +687,31 @@
                 <table class="infoacs" id="cbo">
                     <tr>
                         <caption>CBO</caption>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>2</td>
+                        <td>{{.Cbo1}}</td>
+                        <td>{{.Cbo2}}</td>
+                        <td>{{.Cbo3}}</td>
+                        <td>{{.Cbo4}}</td>
                         <td id="hifen">-</td>
-                        <td>5</td>
-                        <td>5</td>
+                        <td>{{.Cbo5}}</td>
+                        <td>{{.Cbo6}}</td>
                     </tr>
                 </table>
 
                 <table class="infoacs" id="cnes">
                         <tr>
                             <caption>CNES</caption>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>3</td>
-                            <td>5</td>
-                            <td>7</td>
-                            <td>4</td>
+                            {{range .Cnes}}
+                            <td>{{.}}</td>
+                            {{end}}
                         </tr>
                 </table>
                         
                 <table class="infoacs" id="ine">
                         <tr>
                             <caption>INE</caption>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>5</td>
-                            <td>7</td>
-                            <td>6</td>
-                            <td>5</td>
+                            {{range .Ine}}
+                            <td>{{.}}</td>
+                            {{end}}
                         </tr>
                 </table>
                         

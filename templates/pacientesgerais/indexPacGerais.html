@@ -14,7 +14,7 @@
         }
 
         .barraSuperior {
-            width: 1460px;
+            width: 95.8vw;
             height: 30px;
             padding: 20px;
             background-color: #007FDA;
@@ -47,9 +47,8 @@
             border-radius: 20px;
             color: #f0f0f0;
             font-size: 20px;
-            position: absolute;
-            top: 10px;
-            right: 132px;
+            position: relative;
+            left: 76.5vw;
         }
 
 
@@ -61,8 +60,8 @@
 
         .posicaoImgSino {
             position: absolute;
-            top: 17px;
-            right: 142px;
+            top: 2.5vh;
+            left: 91vw;
         }
 
 
@@ -142,8 +141,8 @@
         }
         .posicaoIconePessoa1 {
             position: absolute;
-            top: 310px;
-            right: 600px;
+            top: 51.5vh;
+            left: 62vw;
         }
         p {
             font-family: "Poppins";
@@ -178,8 +177,8 @@
         }
         .posicaoIconePessoa2 {
             position: absolute;
-            top: 430px;
-            right: 600px;
+            top: 71.5vh;
+            left: 62vw;
         }
         .acessarMedio {
             font-family: "Poppins";
@@ -207,8 +206,8 @@
         }
         .posicaoIconePessoa3 {
             position: absolute;
-            top: 550px;
-            right: 600px;
+            top: 90.5vh;
+            left: 62vw;
         }
         .acessarAlto {
             font-family: "Poppins";
@@ -236,8 +235,8 @@
         }
         .posicaoIconePessoa4 {
             position: absolute;
-            top: 670px;
-            right: 600px;
+            top: 110.5vh;
+            left: 62vw;
         }
         .acessarAbs {
             font-family: "Poppins";
@@ -496,6 +495,49 @@
         #btnlogout{
             cursor: pointer;
         }
+        #caixausuario{
+            position: absolute;
+            display: flex;
+            background-color: #0C91F0;
+            border-radius: 15px;
+            height: 7.8%;
+            width: 13.5%;
+            top: 2%;
+            left: 80%;
+            box-shadow: 1px 1px rgba(0, 0, 0, 0.226);
+        }
+        .user{
+            position: absolute;
+            background-color: #5A67BA;
+            border-radius: 50%;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            margin-top: 0.5vh;
+            left: 1vw;
+            width: 17%;
+            height: 60%;
+            text-align: center;
+            font-size: 3vh;
+        }
+
+        .caixa{
+            position: absolute;
+            color: white;
+            font-family: "Poppins";
+            font-weight: bold;
+            top: -1.5vh;
+            left: 4vw;
+            font-size: 3vh;
+        }
+
+        .sinoimg{
+            position: absolute;
+            left: 11vw;
+            top: 0.5vh;
+            width: 2vw;
+            height: 3vw;
+        }
     </style>
 </head>
 <body>
@@ -503,9 +545,11 @@
         <h1>SOBREVIDAS - ACS</h1>
         <h2>Pacientes Gerais</h2>
         <a class="posicaoImgSaida" id="btnlogout"> <img src="/imagens/iconeSaida.png" width="40" height="40"></a>
-        <a href="" class="usuario"><b>Usuário</b></a>
-        <a href="" class="posicaoImgU"> <img src="/imagens/iconeU.png" width="30" height="30"></a>
-        <a href="/pagina-absenteista" class="posicaoImgSino"> <img src="/imagens/iconeSino.png" width="25" height="40"></a>
+        <div id="caixausuario">
+            <p class="user">{{.Primeira}}</p>
+            <p class="caixa">{{.Usuario}}</p>
+            <a href="/pagina-absenteista"><img src="/imagenspg/Component 24.png" class="sinoimg"></a>
+        </div>
 
     </div>
     <div class="barraMonitoramento">
@@ -513,17 +557,17 @@
     </div>
     <div class="barrasPacientes1">
         <h4>Pacientes de Baixo Risco</h4>
-        <p><b>61</b></p>
+        <p><b>{{.QtdBaixo}}</b></p>
         <a href="/pagina-baixo-risco" class="acessarBaixo"><b>Acessar</b></a>
     </div>
     <div class="barrasPacientes2">
         <h4>Pacientes de Médio Risco</h4>
-        <p><b>30</b></p>
+        <p><b>{{.QtdMedio}}</b></p>
         <a href="/pagina-medio-risco" class="acessarMedio"><b>Acessar</b></a>
     </div>
     <div class="barrasPacientes3">
         <h4>Pacientes de Alto Risco</h4>
-        <p><b>15</b></p>
+        <p><b>{{.QtdAlto}}</b></p>
         <a href="/pagina-alto-risco" class="acessarAlto"><b>Acessar</b></a>
     </div>
     <div class="barrasPacientes4">
