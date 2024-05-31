@@ -167,6 +167,7 @@
             display: flex;
             position: relative;
             width:55%;
+            left: 0vw;
         }
         .imagem2 img:hover{
             width:52%;
@@ -300,8 +301,8 @@
 
         .popup-conteudo {
             background-color: #ffffff;
-            width: 450px;
-            height:220px ;
+            width: 500px;
+            height:300px ;
             padding-right: 4px;
             border-radius: 13px;
             border: solid 2px ;
@@ -312,17 +313,18 @@
             display: inline-flex;
             color: #ffffff;
             border-radius: 4px;
-            width: 65px;
-            height:25px ;
+            width: 8vw;
+            height:5vh ;
             justify-content: center;
             align-items: center;
-            margin-top: 50px;
+            margin-top: 15vh;
+            margin-left: 20vw;
         }
 
         .popup-link:hover {
-            width: 65px;
-            height:30px ; 
-            margin-top:48px;   
+            width: 8.5vw;
+            height:5.5vh ; 
+            margin-top:16vh;   
         }
 
         .popup-link:active {
@@ -334,7 +336,7 @@
             visibility: visible;
         }
         .barra{
-            width:450px;
+            width:500px;
             height: 35px;
             border: solid 3px;
             border-top-left-radius:10px;
@@ -342,7 +344,6 @@
             font-size: 20px;
         }
         .space-between{
-            justify-content: space-around;
             position: relative;
             display: flex;
             width: 101%;
@@ -350,7 +351,10 @@
             color:#3a3b3c
         }
         h2{
-            margin: 0;
+            font-family: "Poppins";
+            font-size: 1.2vw;
+            margin-left: 8px;
+
         }
         .popup-box{
             width:15px;
@@ -495,6 +499,161 @@
             position: absolute;
             left: 16.5vw;
         }
+        .sexo{
+            font-size: 1.1vw;
+            margin-left: 10px;
+        }
+        input[type=radio]{
+            margin-top: 3vh;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 1.2vw;
+            height: 1.2vw;
+            margin-left: 15px;
+        }
+        input[type=radio]:checked{
+            background-color: #0C91F0;
+        }
+        input[type=radio].idade{
+            margin-top: 1vh;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 0.8vw;
+            height: 0.8vw;
+            margin-left: 15px;
+        }
+        input[type=radio].idade:checked{
+            background-color: #0C91F0;
+        }
+        .quarenta{
+            margin-top: 0;
+            font-size: 1.2vw;
+            margin-left: 2.5vw;
+        }
+        input[type=radio].idade2{
+            position: absolute;
+            top: 2.8vh;
+            left: 14.35vw;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 0.8vw;
+            height: 0.8vw;
+        }
+        input[type=radio].idade2:checked{
+            background-color: #0C91F0;
+        }
+        .cinquenta{
+            position: absolute;
+            font-size: 1.2vw;
+            top:2vh;
+            left: 10.7vw;
+        }
+        input[type=radio].idade3{
+            position: absolute;
+            top: -2vh;
+            left: 21vw;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 0.8vw;
+            height: 0.8vw;
+        }
+        input[type=radio].idade3:checked{
+            background-color: #0C91F0;
+        }
+        .sessenta{
+            position: absolute;
+            font-size: 1.2vw;
+            top: -2.8vh;
+            left: 18vw;
+        }
+        input[type=radio].idade4{
+            position: absolute;
+            top: 2.8vh;
+            left: 21vw;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 0.8vw;
+            height: 0.8vw;
+        }
+        input[type=radio].idade4:checked{
+            background-color: #0C91F0;
+        } 
+        .setenta{
+            position: absolute;
+            font-size:1.2vw;
+            top: 2vh;
+            left: 18vw;
+        }
+        input[type=checkbox].input1{
+            top: 2.8vh;
+            left: 10.5vw;
+            position: absolute;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 0.8vw;
+            height: 0.8vw;
+        }
+        input[type=checkbox].input1:checked{
+            background-color: #0C91F0;
+        }
+        .etilista{
+            font-size: 1.1vw;
+            position: absolute;
+            top: 0vh;
+            left: 13vw;
+        }
+        input[type=checkbox].input2{
+            position: absolute;
+            top: 7.8vh;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 0.8vw;
+            height: 0.8vw;
+            left: 10.55vw;
+        }
+        input[type=checkbox]:checked.input2{
+            background-color: #0C91F0;
+        }
+        .tabagista{
+            font-size: 1vw;
+            position: absolute;
+            top: 5.5vh;
+            left: 13vw;
+        }
+        input[type=checkbox].input3{
+            position: absolute;
+            top: 13.3vh;
+            box-sizing: border-box;
+            appearance: none;
+            background: white;
+            outline: 2px solid #333;
+            width: 0.8vw;
+            height: 0.8vw;
+            left: 10.55vw;
+        }
+        input[type=checkbox]:checked.input3{
+            background-color: #0C91F0;
+        }
+        .feridasbucais{
+            font-size: 1vw;
+            position: absolute;
+            left: 13vw;
+            top: 11vh;
+        }
     </style>
 </head>
 <!--CORPO DA PÁGINA-->
@@ -526,30 +685,40 @@
         <div class="busca color-light-red"><input type="text" id="campo-texto" placeholder="Digite o nome do(a) paciente"><img src="/imagenspg/🦆 icon _search_.png"></div>
         <!--POP-UP-->
         <a href="#popup-1" class="filtro color-light-red no-link">Filtrar<img src="/imagenspg/🦆 icon _filter_.png"></a>
+        <form action="/pagina-alto-risco/filtrar">
             <div id="popup-1" class="popup">
-                
+            
                 <div class=" popup-conteudo">
                     <div class="barra color-light-red">FILTRAR</div>
                     <div class="space-between">
                         <h2>Sexo:</h2>
-                        <h2>Feminino</h2>
-                        <h2>Masculino</h2>
+                        <input type="radio" value="Masculino" name="tipo1">
+                        <p class="sexo"><label for="">Masculino</label></p>
+                        <input type="radio" value="Feminino" name="tipo1">
+                        <p class="sexo"><label for="">Feminino</label></p>
                     </div>
                     <div class="space-between">
-                        <h2>Idade:</h2>
-                        <h2>51-60
-                            <h1 class="popup-box"></h1></h2>
-                        <h2>40-50
-                            <h1 class="popup-box"></h1></h2>
-                    <h2>70+
-                            <h1 class="popup-box"></h1></h2>
-                        <h2>61-70
-                            <h1 class="popup-box"></h1></h2>
+                        <h2>Faixa etária:</h2>
+                        <p class="quarenta"><label for="">40-50</label></p>
+                        <input type="radio" name="tipo2" value="40-50" class="idade">
+                        <p class="cinquenta"><label for="">51-60</label></p>
+                        <input type="radio" name="tipo2" value="51-60" class="idade2">
+                        <p class="sessenta"><label for="">61-70</label></p>
+                        <input type="radio" name="tipo2" value="61-70" class="idade3">
+                        <p class="setenta"><label for="">70+</label></p>
+                        <input type="radio" name="tipo2" value="70+" class="idade4">
                     </div>
                     <div class="space-between">
-                        <h2>Fatores de risco</h2>
-                        <h2>Etilista<br>Tabagista<br>Feridas Bucais</h2>
-                    <a href="#" class="popup-link no-link color-light-red">Filtrar</a>
+                        <h2>Fatores de risco:</h2>
+                        <p class="etilista"><label for="">Etilista</label></p>
+                        <input type="checkbox" name="etilista" value="Etilista" class="input1">
+                        <br>
+                        <p class="tabagista"><label for="">Tabagista</label></p>
+                        <input type="checkbox" name="tabagista" value="Tabagista" class="input2">
+                        <br>
+                        <p class="feridasbucais"><label for="">Feridas Bucais</label></p>
+                        <input type="checkbox" name="feridasbucais" value="FeridasBucais" class="input3">
+                    <input type="submit" value="Filtrar" class="popup-link no-link color-light-red">
                     </div>
                 </div>
             </div>
