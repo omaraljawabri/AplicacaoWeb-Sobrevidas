@@ -684,14 +684,14 @@
         <div class="busca color-light-pink"><input type="text" id="campo-texto" placeholder="Digite o nome do(a) paciente"><img src="/imagenspg/🦆 icon _search_.png"></div>
         <!--POP-UP-->
         <a href="#popup-1" class="filtro color-light-pink no-link">Filtrar<img src="/imagenspg/🦆 icon _filter_.png"></a>
-            <form action="">
+            <form action="/pagina-baixo-risco/filtrar">
                 <div id="popup-1" class="popup">
                 
                     <div class=" popup-conteudo">
                         <div class="barra color-light-pink">FILTRAR</div>
                         <div class="space-between">
                             <h2>Sexo:</h2>
-                            <input type="radio" value="Masculino" name="tipo1">
+                            <input type="radio" value="Masculino" name="tipo1" required>
                             <p class="sexo"><label for="">Masculino</label></p>
                             <input type="radio" value="Feminino" name="tipo1">
                             <p class="sexo"><label for="">Feminino</label></p>
@@ -699,7 +699,7 @@
                         <div class="space-between">
                             <h2>Faixa etária:</h2>
                             <p class="quarenta"><label for="">40-50</label></p>
-                            <input type="radio" name="tipo2" value="40-50" class="idade">
+                            <input type="radio" name="tipo2" value="40-50" class="idade" required>
                             <p class="cinquenta"><label for="">51-60</label></p>
                             <input type="radio" name="tipo2" value="51-60" class="idade2">
                             <p class="sessenta"><label for="">61-70</label></p>

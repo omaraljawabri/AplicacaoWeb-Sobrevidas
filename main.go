@@ -121,6 +121,7 @@ func main() {
 	http.HandleFunc("/pagina-faq", executarPagFaq)
 	http.HandleFunc("/pacientesgerais", executarPacGerais)
 	http.HandleFunc("/pagina-baixo-risco", executarPgBaixo)
+	http.HandleFunc("/pagina-baixo-risco/filtrar", executarPgBaixoFiltro)	
 	http.HandleFunc("/pagina-medio-risco", executarPgMedio)
 	http.HandleFunc("/pagina-medio-risco/filtrar", executarPgMedioFiltro)
 	http.HandleFunc("/pagina-alto-risco", executarPgAlto)
@@ -503,24 +504,24 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 		if err != nil{
 			return
 		}
+		pgbaixo := &qtdBaixo
+		pgmedio := &qtdMedio
+		pgalto := &qtdAlto
+		pgtotal := &qtdTotal
+		if tabagista == "Não" && lesao_bucal == "Não"{
+			*pgbaixo++
+		} else if tabagista == "Sim" && lesao_bucal == "Não"{
+			*pgmedio++
+		} else if lesao_bucal == "Sim"{
+			*pgalto++
+		}
+		*pgtotal = *pgalto + *pgmedio + *pgbaixo
 	} else{
 		err := templates.ExecuteTemplate(w, "cadastroinvalido1.html", d)
 		if err != nil{
 			return
 		}
 	}
-	pgbaixo := &qtdBaixo
-	pgmedio := &qtdMedio
-	pgalto := &qtdAlto
-	pgtotal := &qtdTotal
-	if tabagista == "Não" && lesao_bucal == "Não"{
-		*pgbaixo++
-	} else if tabagista == "Sim" && lesao_bucal == "Não"{
-		*pgmedio++
-	} else if lesao_bucal == "Sim"{
-		*pgalto++
-	}
-	*pgtotal = *pgalto + *pgmedio + *pgbaixo
 }
 
 func executarPagFaq(w http.ResponseWriter, _ *http.Request){
@@ -587,6 +588,104 @@ func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
 	}
 }
 
+func executarPgBaixoFiltro(w http.ResponseWriter, r *http.Request){
+	sexo := r.FormValue("tipo1")
+	idade := r.FormValue("tipo2")
+	etilista := r.Form.Has("etilista")
+	pesquisa, err := db.Query("SELECT nome_completo, data_nasc, sexo, telefone, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal FROM pacientes ORDER BY nome_completo")
+	if err != nil{
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	defer pesquisa.Close()
+	var armazenamento []Pacientes
+	for pesquisa.Next(){
+		armazenar := Pacientes{}
+		err := pesquisa.Scan(&armazenar.Nome, &armazenar.DataNasc, &armazenar.Sexo, &armazenar.Telefone, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		quebrar := strings.Split(armazenar.DataNasc, "-")
+		if armazenar.Complemento != ""{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro + "," + armazenar.Complemento
+		} else{
+			armazenar.Endereco = armazenar.Rua + "," + armazenar.Numero + "," + armazenar.Bairro
+		}
+		if armazenar.Tabagista == "Não" && armazenar.LesaoBucal == "Não"{
+			if armazenar.Homem == "Sim" && armazenar.Etilista == "Sim" {
+				armazenar.Fatores = "Homem/Etilista"
+			} else if armazenar.Homem == "Sim" && armazenar.Etilista == "Não"{
+				armazenar.Fatores = "Homem"
+			} else if armazenar.Homem == "Não" && armazenar.Etilista == "Sim"{
+				armazenar.Fatores = "Mulher/Etilista"
+			}
+			now := time.Now()
+			ano, _ := strconv.Atoi(quebrar[0])
+			mes, _ := strconv.Atoi(quebrar[1])
+			dia, _ := strconv.Atoi(quebrar[2])
+			armazenar.Idade = now.Year() - ano
+			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
+				armazenar.Idade--
+			}
+			armazenar.Usuario = usuarioLogin
+			armazenar.Primeira = primeiraletraLogin
+			armazenamento = append(armazenamento, armazenar)
+		}
+	}
+	var armazenadoPgBaixo []Pacientes
+	for _, armazenado := range armazenamento{
+		if idade == "40-50" && armazenado.Idade >= 40 && armazenado.Idade <= 50{
+			if etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			} else if !etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Não"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			}
+		}
+		if idade == "51-60" && armazenado.Idade > 50 && armazenado.Idade <= 60{
+			if etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			} else if !etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Não"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			}
+		}
+		if idade == "61-70" && armazenado.Idade > 60 && armazenado.Idade <= 70{
+			if etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			} else if !etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Não"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			}
+		}
+		if idade == "70+" && armazenado.Idade > 70{
+			if etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			} else if !etilista{
+				if armazenado.Sexo == sexo && armazenado.Etilista == "Não"{
+					armazenadoPgBaixo = append(armazenadoPgBaixo, armazenado)
+				}
+			}
+		}
+	}
+	err = templates.ExecuteTemplate(w, "pg-baixo.html", armazenadoPgBaixo)
+	if err != nil{
+		return
+	}
+}
+
 func executarPgMedio(w http.ResponseWriter, _ *http.Request){
 	pesquisa, err := db.Query("SELECT nome_completo, data_nasc, telefone, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal FROM pacientes ORDER BY nome_completo")
 	if err != nil{
@@ -641,6 +740,7 @@ func executarPgMedioFiltro(w http.ResponseWriter, r *http.Request){
 	sexo := r.FormValue("tipo1")
 	idade := r.FormValue("tipo2")
 	etilista := r.Form.Has("etilista")
+	tabagista := r.Form.Has("tabagista")
 	pesquisa, err := db.Query("SELECT nome_completo, data_nasc, sexo, telefone, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal FROM pacientes ORDER BY nome_completo")
 	if err != nil{
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
@@ -687,45 +787,61 @@ func executarPgMedioFiltro(w http.ResponseWriter, r *http.Request){
 	var armazenadoPgMedio []Pacientes
 	for _, armazenado := range armazenamento{
 		if idade == "40-50" && armazenado.Idade >= 40 && armazenado.Idade <= 50{
-			if !etilista{
+			if !etilista && tabagista{
 				if armazenado.Etilista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			} else if etilista{
 				if armazenado.Etilista == "Sim" && armazenado.Sexo == sexo{
+					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
+				}
+			} else if !etilista && !tabagista{
+				if armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			}
 		}
 		if idade == "51-60" && armazenado.Idade > 50 && armazenado.Idade <= 60{
-			if !etilista{
+			if !etilista && tabagista{
 				if armazenado.Etilista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			} else if etilista{
 				if armazenado.Etilista == "Sim" && armazenado.Sexo == sexo{
+					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
+				}
+			} else if !etilista && !tabagista{
+				if armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			}
 		}
 		if idade == "61-70" && armazenado.Idade > 60 && armazenado.Idade <= 70{
-			if !etilista{
+			if !etilista && tabagista{
 				if armazenado.Etilista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			} else if etilista{
 				if armazenado.Etilista == "Sim" && armazenado.Sexo == sexo{
+					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
+				}
+			} else if !etilista && !tabagista{
+				if armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			}
 		}
 		if idade == "70+" && armazenado.Idade > 70{
-			if !etilista{
+			if !etilista && tabagista{
 				if armazenado.Etilista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			} else if etilista{
 				if armazenado.Etilista == "Sim" && armazenado.Sexo == sexo{
+					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
+				}
+			} else if !etilista && !tabagista{
+				if armazenado.Sexo == sexo{
 					armazenadoPgMedio = append(armazenadoPgMedio, armazenado)
 				}
 			}
@@ -857,131 +973,81 @@ func executarPgAltoFiltro(w http.ResponseWriter, r *http.Request){
 	var armazenadoPgAlto []Pacientes
 	for _, armazenado := range armazenamento{
 		if idade == "40-50" && armazenado.Idade >= 40 && armazenado.Idade <= 50{
-			if !etilista && !tabagista && !feridasbucais && sexo == ""{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && !feridasbucais && armazenado.Sexo == sexo{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == "" && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == armazenado.Sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if etilista && !tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não"{
+			if !etilista && tabagista{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if !etilista && tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim"{
+			} else if etilista && !tabagista{
+				if armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if etilista && tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Sim"{
+			} else if !etilista && !tabagista && feridasbucais{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
+					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
+				}
+			} else if !etilista && !tabagista && !feridasbucais{
+				if armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
 			}
 		}
 		if idade == "51-60" && armazenado.Idade > 50 && armazenado.Idade <= 60{
-			if !etilista && !tabagista && !feridasbucais && sexo == ""{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && !feridasbucais && armazenado.Sexo == sexo{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == "" && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == armazenado.Sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if etilista && !tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não"{
+			if !etilista && tabagista{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if !etilista && tabagista {
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim"{
+			} else if etilista && !tabagista{
+				if armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if etilista && tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Sim"{
+			} else if !etilista && !tabagista && feridasbucais{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
+					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
+				}
+			} else if !etilista && !tabagista && !feridasbucais{
+				if armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
 			}
 		}
 		if idade == "61-70" && armazenado.Idade > 60 && armazenado.Idade <= 70{
-			if !etilista && !tabagista && !feridasbucais && sexo == ""{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && !feridasbucais && armazenado.Sexo == sexo{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == "" && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == armazenado.Sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if etilista && !tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não"{
+			if !etilista && tabagista{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if !etilista && tabagista {
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim"{
+			} else if etilista && !tabagista{
+				if armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if etilista && tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Sim"{
+			} else if !etilista && !tabagista && feridasbucais{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
+					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
+				}
+			} else if !etilista && !tabagista && !feridasbucais{
+				if armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
 			}
 		}
 		if idade == "70+" && armazenado.Idade > 70{
-			if !etilista && !tabagista && !feridasbucais && sexo == ""{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && !feridasbucais && armazenado.Sexo == sexo{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == "" && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if !etilista && !tabagista && feridasbucais && sexo == armazenado.Sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-				armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-			}
-			if etilista && !tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não"{
+			if !etilista && tabagista{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if !etilista && tabagista {
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim"{
+			} else if etilista && !tabagista{
+				if armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
-			} else if etilista && tabagista{
-				if armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Sim"{
+			} else if !etilista && !tabagista && feridasbucais{
+				if armazenado.Etilista == "Não" && armazenado.Tabagista == "Não" && armazenado.Sexo == sexo{
+					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
+				}
+			} else if !etilista && !tabagista && !feridasbucais{
+				if armazenado.Sexo == sexo{
 					armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 				}
 			}
 		}
-		if idade == "" && etilista && !tabagista && armazenado.Sexo == sexo && armazenado.Etilista == "Sim" && armazenado.Tabagista == "Não"{
-			armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-		}
-		if idade == "" && !etilista && tabagista && armazenado.Sexo == sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Sim"{
-			armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-		}
-		if idade == "" && !etilista && !tabagista && feridasbucais && armazenado.Sexo == sexo && armazenado.Etilista == "Não" && armazenado.Tabagista == "Não"{
-			armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-		}
-		if idade == "" && !etilista && !tabagista && !feridasbucais && armazenado.Sexo == sexo{
-			armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-		}
-		if idade == "" && !etilista && !tabagista && !feridasbucais && sexo == ""{
-			armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
-		}
-		armazenado.Usuario = usuarioLogin
-		armazenado.Primeira = primeiraletraLogin
-		armazenadoPgAlto = append(armazenadoPgAlto, armazenado)
 	}
 
 	err = templates.ExecuteTemplate(w, "pg-alto.html", armazenadoPgAlto)
