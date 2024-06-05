@@ -176,7 +176,7 @@
         .semconta{
             font-size: 1.2vw;
             position: relative;
-            top: 18vh;
+            top: 16vh;
         }
 
         a.criar{
@@ -189,9 +189,22 @@
         a.criar:hover{
             color: #0172e4;
         }
+        .invalido{
+            margin-top: 1vh;
+            color: red;
+            font-size: 1.2vw;
+            font-family: "Inter";
+            background-color: rgba(255, 0, 0, 0.192);
+            margin-left: 50vw;
+            width: 30vw;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    {{if .}}
+    <p class="invalido">CPF e/ou senha inválido(os), tente novamente!</p>
+    {{end}}
     <main>
         <h1>Login</h1>
         <p class="pf">Por favor, Agente Comunitário de Saúde, coloque suas informações abaixo:</p>

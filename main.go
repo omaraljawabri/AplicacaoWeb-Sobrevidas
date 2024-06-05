@@ -96,23 +96,26 @@ type DadosForm struct{
 	Cbo6 string
 	Cnes []string
 	Ine []string
+	ErroCampos bool
+	Confirmacao bool
 }
-
 
 var db = fazConexaoComBanco()
 var Cns, Cbo, Cnes, Ine, cpfLogin, senhaLogin, usuarioLogin, primeiraletraLogin string
+var loginInvalido = false
+var esqueceuInvalido = false
+var confirmCadastro = false
+var erroCadastro bool
 var qtdBaixo, qtdMedio, qtdAlto, qtdTotal int
-var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/telaesqueceusenha/cpfinvalido.html", "./templates/telalogin/logininvalido.html", "./templates/formulario/formulario.html", "./templates/formulario/cadastroinvalido1.html", "./templates/formulario/formulariofeito.html", "./templates/central-usuario/centralusuario.html", "./templates/pacientesgerais/indexPacGerais.html", "./templates/pg-baixo/pg-baixo.html", "./templates/dashboard/dashboardv2.html", "./templates/pg-medio/pg-medio.html", "./templates/pg-alto/pg-alto.html", "./templates/pg-absenteista/pg-absenteista.html", "./templates/pag-Faq/indexFaq.html", "./templates/formulario-preenchido/formpreenchido.html"))
+var templates = template.Must(template.ParseFiles("./index.html", "./templates/telalogin/login.html", "./templates/telaesqueceusenha/esqueceusenha.html", "./templates/dashboard/dashboard.html", "./templates/formulario/formulario.html", "./templates/central-usuario/centralusuario.html", "./templates/pacientesgerais/indexPacGerais.html", "./templates/pg-baixo/pg-baixo.html", "./templates/dashboard/dashboardv2.html", "./templates/pg-medio/pg-medio.html", "./templates/pg-alto/pg-alto.html", "./templates/pg-absenteista/pg-absenteista.html", "./templates/pag-Faq/indexFaq.html", "./templates/formulario-preenchido/formpreenchido.html"))
 
 func main() {
 	fs := http.FileServer(http.Dir("./"))
 	http.Handle("/", fs)
 	http.HandleFunc("/login", autenticaCadastroELevaAoLogin)
-	http.HandleFunc("/logininvalido", loginInvalido)
 	http.HandleFunc("/dashboard", autenticaLoginELevaAoDashboard)
 	http.HandleFunc("/dashboard/voltar", dashboard)
 	http.HandleFunc("/esqueceusenha", executarEsqueceuSenha)
-	http.HandleFunc("/atualizarinvalido", atualizarSenhaInvalido)
 	http.HandleFunc("/telalogin", atualizarSenha)
 	http.HandleFunc("/cadastrar-paciente", executarFormulario)
 	http.HandleFunc("/paciente-cadastrado", cadastrarPaciente)
@@ -195,14 +198,7 @@ func autenticaCadastroELevaAoLogin(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	err = templates.ExecuteTemplate(w, "login.html", "a")
-	if err != nil{
-		return
-	}
-}
-
-func loginInvalido(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "logininvalido.html", "a")
+	err = templates.ExecuteTemplate(w, "login.html", loginInvalido)
 	if err != nil{
 		return
 	}
@@ -315,7 +311,9 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 			return
 		}
 	}
-	http.Redirect(w, r, "/logininvalido", http.StatusSeeOther)
+	ponteiroLoginInvalido := &loginInvalido
+	*ponteiroLoginInvalido = true
+	http.Redirect(w, r, "/telalogin", http.StatusSeeOther)
 }
 
 func dashboard(w http.ResponseWriter, r *http.Request){
@@ -326,6 +324,10 @@ func dashboard(w http.ResponseWriter, r *http.Request){
 	porcmedio = float64(int(porcmedio * 100)) / 100
 	porcalto = float64(int(porcalto * 100)) / 100
 	u := UsuarioNoDashboard{Usuario: usuarioLogin, Primeira: primeiraletraLogin, QtdBaixo: qtdBaixo, QtdMedio: qtdMedio, QtdAlto: qtdAlto, PorcBaixo: porcbaixo, PorcMedio: porcmedio, PorcAlto: porcalto}
+	ponteiroConfirmCadastro := &confirmCadastro
+	*ponteiroConfirmCadastro = false
+	ponteiroErroCampos := &erroCadastro
+	*ponteiroErroCampos = false
 	err := templates.ExecuteTemplate(w, "dashboardv2.html", u)
 	if err != nil{
 		return
@@ -333,14 +335,7 @@ func dashboard(w http.ResponseWriter, r *http.Request){
 }
 
 func executarEsqueceuSenha(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "esqueceusenha.html", "a")
-	if err != nil{
-		return
-	}
-}
-
-func atualizarSenhaInvalido(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "cpfinvalido.html", "a")
+	err := templates.ExecuteTemplate(w, "esqueceusenha.html", esqueceuInvalido)
 	if err != nil{
 		return
 	}
@@ -388,14 +383,16 @@ func atualizarSenha(w http.ResponseWriter, r *http.Request){
 			if err != nil{
 				return
 			}
-			err = templates.ExecuteTemplate(w, "login.html", "a")
+			err = templates.ExecuteTemplate(w, "login.html", loginInvalido)
 			if err != nil{
 				return
 			}
 			return
 		}	
 	}
-	http.Redirect(w, r, "atualizarinvalido", http.StatusSeeOther)
+	ponteiroEsqueceuInvalido := &esqueceuInvalido
+	*ponteiroEsqueceuInvalido = true
+	http.Redirect(w, r, "/esqueceusenha", http.StatusSeeOther)
 }
 
 func executarCentralUsuario(w http.ResponseWriter, r *http.Request){
@@ -453,7 +450,7 @@ func executarFormulario (w http.ResponseWriter, _ *http.Request){
 	cbo4 := cboq[3]
 	cbo5 := cboq[4]
 	cbo6 := cboq[5]
-	d := DadosForm{Cns: cnsq, Cbo1: cbo1, Cbo2: cbo2, Cbo3: cbo3, Cbo4: cbo4, Cbo5: cbo5, Cbo6: cbo6, Cnes: cnesq, Ine: ineq}
+	d := DadosForm{Cns: cnsq, Cbo1: cbo1, Cbo2: cbo2, Cbo3: cbo3, Cbo4: cbo4, Cbo5: cbo5, Cbo6: cbo6, Cnes: cnesq, Ine: ineq, Confirmacao: confirmCadastro, ErroCampos: erroCadastro}
 	err := templates.ExecuteTemplate(w, "formulario.html", d)
 	if err != nil{
 		return
@@ -500,7 +497,13 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 			log.Println(err.Error())
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
-		err = templates.ExecuteTemplate(w, "formulariofeito.html", d)
+		ponteiroConfirmando := &confirmCadastro
+		*ponteiroConfirmando = true
+		ponteiroErro := &erroCadastro
+		*ponteiroErro = false
+		d.Confirmacao = confirmCadastro
+		d.ErroCampos = erroCadastro
+		err = templates.ExecuteTemplate(w, "formulario.html", d)
 		if err != nil{
 			return
 		}
@@ -517,10 +520,11 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 		}
 		*pgtotal = *pgalto + *pgmedio + *pgbaixo
 	} else{
-		err := templates.ExecuteTemplate(w, "cadastroinvalido1.html", d)
-		if err != nil{
-			return
-		}
+		ponteiroConfirmando := &confirmCadastro
+		*ponteiroConfirmando = false
+		ponteiroErro := &erroCadastro
+		*ponteiroErro = true
+		http.Redirect(w, r, "/cadastrar-paciente", http.StatusSeeOther)
 	}
 }
 

@@ -695,11 +695,99 @@
         background-color: #0056b3;
         cursor: pointer;
     }
+    #error{
+        position: absolute;
+        background-color: rgba(255, 0, 0, 0.493);
+        width: 35vw;
+        height: 3vh;
+        text-align: center;
+        top: 12vh;
+        left: 60vw;
+        font-family: "Inter";
+        font-weight: bold;
+        color: red;
+    }
+    #modal2{
+        display: block;
+    }
+
+    .confirmado{
+        background-color: #00fa645b;
+        margin-top: 0px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        text-align: center;
+        font-family: "Poppins";
+        font-weight: bold;
+        color: #26491D;
+        font-size: 1.4vw;
+    }
+
+    #confirmacao{
+        position: absolute;
+        top: 25vh;
+        left: 35vw; 
+    }
+
+    .fixar2{
+        position: fixed;
+    }
+
+    div.relativa2{
+        background-color: white;
+        position: relative;
+        border-radius: 10px;
+        width: 30vw;
+        height: 38vh;
+        font-family: "Inter";
+        border: 3px solid #737B8B;
+    }
+
+    img.confirmed{
+        position: absolute;
+        width: 7vw;
+        left: 11.5vw;
+        top: 5.5vh;
+    }
+
+    .cadastradook{
+        position: absolute;
+        top: 22vh;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1vw;
+        left: 5vw;
+        color: #4B505A;
+        font-family: "Poppins";
+    }
+
+    .ok{
+        font-family: "Inter";
+        border-radius: 5px;
+        position: absolute;
+        background-color: #00AB30;
+        color: white;
+        border: none;
+        top: 30vh;
+        width: 11.5vw;
+        height: 5.5vh;
+        cursor: pointer;
+        left: 9vw;
+        font-weight: bold;
+        font-size: 1.1vw;
+    }
+
+    .ok:hover{
+        background-color: #007421;
+    }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
+            {{if .ErroCampos}}
+            <p id="error">Erro! Algum dos campos não foi preenchido corretamente!</p>
+            {{end}}
             <img src="/img/imagens/logo.png" alt="logo sobre-vidas">
             <h1>SOBREVIDAS - ACS</h1>
             <h2>PACIENTE João - Baixo Risco</h2>
@@ -768,19 +856,19 @@
 
             <div class="form-section-one">
                 <label for="nome">NOME <div class="asc">*</div></label>
-                <input type="text" id="nome" name="nome" placeholder="Ex.: João da Silva">
+                <input type="text" id="nome" name="nome" placeholder="Ex.: João da Silva" required>
                 <p>Digite o nome completo</p>
 
                 <label for="data-nascimento">DATA DE NASCIMENTO <div class="asc">*</div></label>
-                <input type="date" id="data-nascimento" name="datanascimento" placeholder="Ex.:DD/MM/AAAA">
+                <input type="date" id="data-nascimento" name="datanascimento" placeholder="Ex.:DD/MM/AAAA" required>
                 <p>Digite a data de nascimento</p>
 
                 <label for="cpf">CPF <div class="asc">*</div></label>
-                <input type="text" id="cpf" name="cpfpaciente" placeholder="Ex.:123.456.789-09">
+                <input type="text" id="cpf" name="cpfpaciente" placeholder="Ex.:123.456.789-09" required>
                 <p>Digite o CPF &#40Cadastro de Pessoa Física&#41</p>
 
                 <label for="mae">NOME DA MÃE <div class="asc">*</div></label>
-                <input type="text" id="mae" name="nomemae" placeholder="Ex.: Maria da Silva">
+                <input type="text" id="mae" name="nomemae" placeholder="Ex.: Maria da Silva" required>
                 <p>Digite o nome completo da mãe</p>
 
                 <label for="isexo" style="margin-bottom: -30px;margin-top: 10px;">SEXO</label>
@@ -798,7 +886,7 @@
 
 
                 <label for="itel">TELEFONE <div class="asc">*</div></label>
-                <input type="tel" id="itel" name="telefone" pattern="^\(\d{2}\)\d{4,5}-\d{4}$" placeholder="Ex.: (99)99999-9999">
+                <input type="tel" id="itel" name="telefone" pattern="^\(\d{2}\)\d{4,5}-\d{4}$" placeholder="Ex.: (99)99999-9999" required>
                 <p>Digite o número de telefone</p>
 
                 <label for="imail">E-MAIL</label>
@@ -810,7 +898,7 @@
                 <div class="form-section-three">
                         <div id="cep">
                             <label for="icep">CEP</label>
-                            <input type="text" name="cep" id="cep" pattern="^\d{5}-\d{3}$" placeholder="Ex.: 12345-678">
+                            <input type="text" name="cep" id="cep" pattern="^\d{5}-\d{3}$" placeholder="Ex.: 12345-678" required>
                         </div>
                         <div id="ibairro">
                             <label for="ibairro">BAIRRO</label>
@@ -836,7 +924,7 @@
                     <label class="borda">Homem <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
                     <div class="radio-group">
                         <p>Marque sim ou não: </p>
-                        <label class="label1"><input type="radio" name="tipo1" id="sim1" value="Sim"><span>Sim</span></label>
+                        <label class="label1"><input type="radio" name="tipo1" id="sim1" value="Sim" ><span>Sim</span></label>
                         <label class="label2"><input type="radio" name="tipo1" id="nao1" value="Não"><span>Não</span></label>
                     </div>
                 </div>
@@ -844,7 +932,7 @@
                     <label class="borda">Etilista <div class="asc">*</div> &#40consome álcool regurlamente&#41</label>
                     <div class="radio-group">
                         <p>Marque sim ou não: </p>
-                        <label class="label1"><input type="radio" name="tipo2" id="sim2" value="Sim"><span>Sim</span></label>
+                        <label class="label1"><input type="radio" name="tipo2" id="sim2" value="Sim" ><span>Sim</span></label>
                         <label class="label2"><input type="radio" name="tipo2" id="nao2" value="Não"><span>Não</span></label>
                     </div>
                 </div>
@@ -852,7 +940,7 @@
                     <label class="borda">Tabagista <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
                     <div class="radio-group">
                         <p>Marque sim ou não: </p>
-                        <label class="label1"><input type="radio" name="tipo3" id="sim3" value="Sim"><span>Sim</span></label>
+                        <label class="label1"><input type="radio" name="tipo3" id="sim3" value="Sim" ><span>Sim</span></label>
                         <label class="label2"><input type="radio" name="tipo3" id="nao3" value="Não"><span>Não</span></label>
                     </div>
                 </div>
@@ -860,7 +948,7 @@
                     <label class="borda">Com lesão bucal suspeita <div class="asc">*</div></label>
                     <div class="radio-group">
                         <p>Marque sim ou não: </p>
-                        <label class="label1"><input type="radio" name="tipo4" id="sim4" value="Sim"><span>Sim</span></label>
+                        <label class="label1"><input type="radio" name="tipo4" id="sim4" value="Sim" ><span>Sim</span></label>
                         <label class="label2"><input type="radio" name="tipo4" id="nao4" value="Não"><span>Não</span></label>
                     </div>
                 </div>
@@ -877,7 +965,7 @@
                             <img src="/img/imagens/atencao.png" alt="Icone de Atenção" class="atencao">
                             <p class="ctz">Todos dados cadastrados estão corretos?</p>
                             <button class="sim" type="submit">Sim</button>
-                            <button class="voltar" type="button">Voltar</button></a>
+                            <button class="voltar">Voltar</button>
                         </div>
                     </div>
                 </div>
@@ -901,19 +989,20 @@
             </div>
         </div>
     </div>
-    <div id="modal">
-        <div id="logout">
-            <div class="fixar">
-                <div class="relativa">
-                    <p class="alerta">ATENÇÃO</p>
-                    <img src="/img/imagens/atencao.png" alt="Icone de Atenção" class="atencao">
-                    <p class="ctz">Todos dados cadastrados estão corretos?</p>
-                    <button class="sim">Sim</button>
-                    <button class="voltar">Voltar</button>
+    {{if .Confirmacao}}
+    <div id="modal2">
+        <div id="confirmacao">
+            <div class="fixar2">
+                <div class="relativa2">
+                    <p class="confirmado">CONFIRMADO</p>
+                    <img src="/imagens2/confirmado.png" alt="Icone de Atenção" class="confirmed">
+                    <p class="cadastradook">Paciente cadastrado com sucesso!</p>
+                    <a href="/dashboard/voltar"><button type="submit" class="ok">Ok</button></a>
                 </div>
             </div>
         </div>
     </div>
+    {{end}}
     <script>
         let btn = document.getElementById('confirmador');
         let modal = document.getElementById('modal');
