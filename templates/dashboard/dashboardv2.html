@@ -941,23 +941,58 @@
         <img src="/imgdashboard/linhahorizontal.png" alt="Separação horizontal" class="horizontal">
     </div>
     <div class="Dados2">
+        <style>
+            #myChart{
+                position: absolute;
+                left: 68vw;
+                top: 24vh;
+            }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <body>
+        
+        <canvas id="myChart" style="width:100%;max-width:30%"></canvas>
+        
+        <script>
+        var xValues = ["Baixo Risco", "Médio Risco", "Alto Risco"];
+        var porcBaixo = "{{.PorcBaixo}}";
+        var porcMedio = "{{.PorcMedio}}";
+        var porcAlto = "{{.PorcAlto}}";
+        var yValues = [porcBaixo, porcMedio, porcAlto];
+        var barColors = [
+          "#EEA8E1",
+          "rgba(255, 162, 0, 0.43)",
+          "rgba(255, 17, 0, 0.69)",
+        ];
+        
+        new Chart("myChart", {
+          type: "pie",
+          data: {
+            labels: xValues,
+            datasets: [{  
+              backgroundColor: barColors,
+              data: yValues,
+            }]
+          },
+          options: {
+            legend: {
+                display: false
+            }
+          }
+        });
+        </script>
         <p class="analise">Análise da distribuição de pacientes em relação a risco</p>
-        <div class="grafico">
-            <div class="dividir" style="--precent: 57.5"></div>
-            <div class="dividir" style="--precent:85.8"></div>
-            <div class="dividir" style="--precent: 100"></div>
-        </div>
         <p class="d1">Data de análise: De 01 - 31 Jul, 2024</p>
         <div class="info">
             <p class="bola1"></p>
             <p class="d2">Baixo Risco </p>
-            <p class="d22">{{.PorcBaixo}}%</p>
+            <p class="d22" id="porcbaixo">{{.PorcBaixo}}%</p>
             <p class="bola2"></p>
             <p class="d3">Médio Risco</p>
-            <p class="d33">{{.PorcMedio}}%</p>
+            <p class="d33" id="porcmedio">{{.PorcMedio}}%</p>
             <p class="bola3"></p>
             <p class="d4">Alto Risco</p>
-            <p class="d44">{{.PorcAlto}}%</p>
+            <p class="d44" id="porcalto">{{.PorcAlto}}%</p>
         </div>
     </div>
     <div class="MapaMonitoramento">
