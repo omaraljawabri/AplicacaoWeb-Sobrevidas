@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOBREVIDAS - ACS</title>
-    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/imagens2/imagens/favicon.ico" type="image/x-icon">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Passion+One:wght@400;700;900&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sriracha&display=swap');
 
@@ -45,7 +44,7 @@
         header{
             background-color: #007FDA;
             border-radius: 10px 10px 0px 0px;
-            width: 100%;
+            width: 97.5vw;
             height: 9vh;
             display: flex;
         }
@@ -94,12 +93,12 @@
             color: white;
             font-family: "Poppins";
             font-weight: bold;
-            margin-top: 1.3vh;
+            margin-top: 1.0vh;
             margin-left: 0.5vw;
-            width: 30px;
-            height: 30px;
+            width: 2.2vw;
+            height: 4.5vh;
             text-align: center;
-            font-size: 2.5vh;
+            font-size: 1.3vw;
             position: relative;
         }
 
@@ -109,7 +108,7 @@
             font-family: "Poppins";
             font-weight: bold;
             top: 20%;
-            left: 83%;
+            left: 7vw;
             font-size: 2.5vh;
             transform: translateX(-180%);
             text-align: center;
@@ -118,17 +117,19 @@
 
         .sinoimg{
             position: relative;
-            left: 60%;
+            left:5vw;
             top: 15%;
-            width: 35px;
+            width: 2vw;
         }
 
         .sair{
             position: relative;
-            left: 60%;
+            left: 13vw;
             top: 25%;
-            width: 30px;
+            width: 2vw;
+            height: 2vw;
             transform: translateX(3680%);
+            cursor: pointer;
         }
         /*
         header > img{
@@ -163,7 +164,7 @@
 
 
         .form-section-01 {
-            width: 100vw;
+            width: 97vw;
             margin-top: 5px;
             padding: 10px;
             display: inline-block;
@@ -226,9 +227,8 @@
         }
 
         .form-section-voltar{
-            width: 150px;
-            padding: 10px;
-            display: inline-block;
+            position: absolute;
+            width: 10vw;
         }
 
         .form-section-one{
@@ -423,10 +423,10 @@
         }
 
         .risk-factors {
-            width: 33%;
+            width: 33vw;
             padding: 10px;
             padding-bottom: 1.5%;
-            margin-top: 48px;
+            margin-top: 2vh;
             border-top: 1px solid #ddd;
             position: relative;
             display: inline-block;
@@ -438,12 +438,12 @@
         }
 
         .div-factors > h3 {
-            display: block;
+            position: absolute;
             float: inline-end;
             color: 	rgba(87, 4, 4, 0.685);
             margin-top: -575px;
             font-size: 1.37em;
-            padding-right: 28px;
+            left: 67vw;
         }
 
         .risk-factors > div {
@@ -487,11 +487,6 @@
             border: 1px solid black;
         }
 
-        .botoes {
-            display: inline-flex;
-            height: 60px;
-        }
-
         .form-section-voltar > [type="submit"] {
             width: 100%;
             padding: 10px;
@@ -516,22 +511,10 @@
             content: '<ㅤㅤㅤ';
         }
 
-        .form-section-obrigatorio {
-            border: 2px solid red;
-            border-radius: 10px;
-            width: 490px;
-            padding: 2px 2px 4px 4px;
-            margin-left: 50px;
-            margin-top: 30px;
-            font-family: "Poppins", sans-serif;
-            font-size: 0.9em;
-            transform: translateY(25%);
-        }
-
         .form-section-download {
-            margin-left: 60px;
-            margin-right: 30px;
-            margin-top: 25px;
+            position: absolute;
+            left: 50vw;
+            top: 138vh;
         }
 
         .form-section-download > img {
@@ -667,676 +650,108 @@
             box-shadow: 1px 1px rgba(0, 0, 0, 0.452);
 
         }
-        
-        @media screen and (max-width: 835px) {
-        
-            body,.container{
-            height: 100%;
-            }
-        
-            body, .container, header {
-                max-width: 100%;
-            }
+        #modal{
+            display: none;
+        }
 
-            header {
-                display: flex;
-                align-items: center;
-            }
-        
-            .titulo {
-                font-size: 1.6em;
-                margin-left: 20px;
-            }
-
-            .subtitulo {
-                font-size: 1.2em;
-                padding-left: 35px;
-            }
-
-            .posicionar {
-                width: 119px;
-                height: 76px;
-            }
-
-            #caixausuario {
-                margin-left: -60px;
-                margin-top: -0.6%;
-                width: 160px;
-                height: 60px;
-                text-align: center;
-            }
-
-            .usuario {
-                width: 35px;
-                height: 35px;
-            }
-
-            .caixa {
-                font-size: 1em;
-                left: 120px;
-                margin-top: 5px;
-            }
-
-            .sinoimg {
-                margin-top: 7px;
-            }
-
-            .sair {
-            margin-left: -225px;
-            }
-
-
-            .form-section-01 {
-                max-width: 100%;
-                font-size: 0.9em;
-                overflow-x: auto;
-                text-align: center;
-            }
-
-            .form-section-01 > table {
-                width: 100%;
-                font-size: 0.9em;
-            }
-            
-            .form-section-01 > #cns {
-            border-radius: 10px 0px 0px 0px;
-            width: 400px;
-            }
-            
-            .form-section-01 > #cbo {
-            border-radius: 0;
-            width: 160px;
-            }
-
-            .form-section-01 > #cnes {
-            border-radius: 0px 10px 0px 0px;
-            width: 170px;
-            }
-
-            .form-section-01 > #ine {
-            border-radius: 0px 0px 0px 10px;
-            width: 300px;
-            }
-
-            .form-section-01 > #microarea {
-            border-radius: 0px 0px 0px 0px;
-            width: 150px;
-            }
-
-            .form-section-01 > #datacadastro {
-            border-radius: 0px 0px 10px 0px;
-            width: 280px;
-            height: 49px;
-            text-align: center;
-            }
-
-            #datacadastro td {
-            width: 5%;
-            }
-
-            .form-section-one {
-            float: center;
-            width: 50%;
-            margin: auto;
-            height: 50%;
-            padding: 10px;
-            display: block;
-            font-size: 1.5em;
-            }
-            
-            .form-section-one label {
-            margin-top: 10px;
-            }
-            
-            .form-section-two{
-            float: center;
-            width: 50%;
-            height: 50%;
-            padding: 10px;
-            display: inline-block;
-            font-size: 1.5em;
-            margin-top: 10px;
-            }
-            
-            .form-section-three {
-            display: block;
-            width: 100%;
-            height: 100%;
-            float: inline-start;
-            font-size: 1.15em;
-            }
-
-            #campo-endereco {
-            margin-top: 15px;
-            font-size: 1em;
-            }
-            
-            .form-section-three > #cep {
-            width: 100px;
-            }
-
-            #cep {
-            width: 100px;
-            }
-            
-            #ibairro {
-            width: 130px;
-            }
-
-            #irua {
-            width: 100px;
-            }
-
-            #inum {
-            width: 70px;
-            margin-right: 66px;
-            }
-
-            #icomplemento {
-            width: 150px;
-            }
-            
-            .risk-factors {
-            width: 750px;
-            height: 100%;
-            margin: auto;
-            float: unset;
-            display: block;
-            margin-top: 65px;
-            text-align: center;
-            font-size: 1.1em;
-            }
-
-            .div-factors > h3 {
+        #logout{
             position: absolute;
-            transform: translateY(47vh);
-            left: 22%;
-            font-size: 1.5em;
-            }
-            
-            .risk-factors label {
-            width: 700px;
-            font-size: 1.3em;
-            }
-
-            .label1{
-            left: 15vw;
-            }
-        
-            .label1 input{
-            
-            }
-        
-            .label1 span{
-            font-size: 1.2em;
-            height: 30px;
-            width: 8vw;
-            }
-
-            .label2{
-            left: 22vw;
-            }
-        
-            .label2 input{
-            
-            }
-        
-            .label2 span{
-            font-size: 1.2em;
-            height: 30px;
-            width: 8vw;
-            }
-
-            .risk-level {
-            margin-left: -15px;
-            }
-
-            .botoes {
-            height: 60px;
-            }
-
-            .form-section-voltar > [type="submit"] {
-            font-size: 1em;
-            margin-left: 5px;
-            }
-
-            .form-section-obrigatorio {
-            width: 210px;
-            margin-left: 50px;
-            margin-top: 2px;
-            }
-
-            .form-section-download {
-            margin-left: 20px;
-            }
-
-            .form-section-validar-tel > [type="submit"] {
-            font-size: 1em;
-            margin-right: 5px;
-            }
-
-            .form-section-confirmar > [type="submit"] {
-            font-size: 1em;
-            }
-
-        }
-    
-    @media screen and (min-width: 1026px) and (max-width: 1195px) {
-
-    body,.container{
-        width: 1180px;
-        margin: auto;
-        height: 100%;
-    }
-
-    header {
-        width: 100%;
-    }
-
-    .titulo {
-        margin-top: 10px;
-    }
-
-    .subtitulo {
-        left: 45vw;
-        font-size: 1.4em;
-        margin-top: 15pt;
-    }
-
-    #caixausuario {
-        margin-top: 0%;
-        left: 79%;
-    }
-
-    .caixa {
-        left: 88%;
-    }
-
-    .sinoimg {
-        left: 35%;
-    }
-    .sair {
-        transform: translateX(3335%);
-    }
-
-    .form-section-01 {
-        width: 100%;
-        font-size: 0.94em;
-    }
-
-    .form-section-01 > #datacadastro {
-    border-radius: 0px 10px 10px 0px;
-    width: 197px;
-    }
-
-    .form-section-one {
-    font-size: 0.8em;
-    }
-
-    .form-section-two {
-    font-size: 0.8em;
-    }
-
-    #campo-endereco {
-    font-size: 1.6em; margin-bottom: 0px; margin-top: 20px;
-    }
-
-    #cep {
-    width: 100px;
-    }
-
-    #ibairro {
-    width: 250px;
-    }
-
-    #irua {
-    width: 150px;
-    }
-
-    #inum {
-    width: 85px;
-    }
-
-    #icomplemento {
-    width: 115px;
-    }
-
-    .div-factors > h3 {
-    margin-top: -570px;
-    font-size: 1.2em;
-    padding-right: 40px;
-    }
-
-    .risk-factors {
-    margin-top: -540px;
-    padding-bottom: 0%;
-    }
-
-    .risk-factors label{
-    width: 370px;
-    }
-
-    .radio-group > p {
-    margin-top: 4%;
-    }
-
-    .botoes {
-    height: 60px;
-    margin-bottom: 20px;
-    }
-
-
-    .risk-level >  label {
-    width: 300px;
-    }
-
-    .form-section-voltar > [type="submit"] {
-    font-size: 0.9em;
-    }
-
-    .form-section-obrigatorio {
-    width: 420px;
-    font-size: 0.8em;
-    }
-
-    .form-section-download {
-    margin-left: 45px;
-    margin-top: 35px;
-    }
-
-    .form-section-download > img {
-    width: 40px;
-    height: 40px;
-    }
-
-    .form-section-validar-tel > [type="submit"] {
-    font-size: 0.9em;
-    margin-right: 40px;
-    margin-left: 15px;
-    }
-
-    .form-section-confirmar > [type="submit"] {
-    font-size: 0.9em;
-    }
-
-    }
-
-        @media screen and (max-width: 1025px) {
-            body,.container{
-            width: 1024px;
-            margin: auto;
-            height: 100%;
-            }
-        
-            header {
-            width: 100%;
-            margin: auto;
-            }
-            .titulo {
-            font-size: 4vh;
-            margin-top: 15px;
-            }
-        
-            .subtitulo {
-            left: 45%;
-            font-size: 3vh;
-            margin-top: 20px;
-            }
-        
-            #caixausuario {
-            left: 80%;
-            margin-top: 0%;
-            }
-
-            .usuario {
-            font-size: 2vh;
-            width: 25px;
-            height: 25px;
-            }
-        
-            .caixa {
-            left: 78%;
-            font-size: 2vh;
-            }
-        
-            .sinoimg {
-            left: 60%;
-            width: 28px;
-        }
-            .sair {
-                transform: translateX(2850%);
-            }
-        
-            .form-section-01 {
-            width: 100%;
-            font-size: 0.709em;
-        }
-        
-        .form-section-01 > #datacadastro {
-            border-radius: 0px 10px 10px 0px;
-            width: 148px;
-        }
-        
-        .form-section-one {
-            font-size: 0.7em;
-        }
-        
-        .form-section-two {
-            font-size: 0.7em;
-        }
-        
-        #campo-endereco {
-            font-size: 1.45em; margin-bottom: 0px; margin-top: 20px;
-        }
-        
-        #cep {
-            width: 100px;
-        }
-        
-        #ibairro {
-            width: 200px;
-        }
-        
-        #irua {
-            width: 125px;
-        }
-        
-        #inum {
-            width: 75px;
-        }
-        
-        #icomplemento {
-            width: 105px;
-        }
-        
-        .div-factors > h3 {
-            margin-top: -555px;
-            font-size: 1em;
-            padding-right: 40px;
-        }
-        
-        .risk-factors {
-            margin-top: -530px;
-            padding-bottom: 1.25%;
-            left: 10px;
-        }
-        
-        .risk-factors label{
-            font-size: 0.8em;
-            width: 310px;
+            top: 25vh;
+            left: 40vw; 
         }
 
-        .radio-group > p {
-            font-size: 0.9em;
-            margin-top: 4%;
-        }
-        
-        .botoes {
-            height: 60px;
-            margin-bottom: 20px;
-        }
-        
-        
-        .risk-level >  label {
-            width: 240px;
-        }
-        
-        .form-section-voltar > [type="submit"] {
-            font-size: 0.8em;
-        }
-        
-        .form-section-obrigatorio {
-            width: 380px;
-            font-size: 0.7em;
-            margin-left: 25px;
-        }
-        
-        .form-section-download {
-            margin-left: 20px;
-            margin-top: 30px;
-            margin-right: 15px;
-        }
-        
-        .form-section-download > img {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .form-section-validar-tel > [type="submit"] {
-            font-size: 0.8em;
-            margin-right: 13px;
-            margin-left: 12px;
-        }
-        
-        .form-section-confirmar > [type="submit"] {
-            font-size: 0.8em;
-            margin-left: 20px;
-        }
-        
-        .label1{
-            left: 8vw;
+        .fixar{
+            position: fixed;
         }
 
-        .label1 span{
-            width: 5vw;
+        div.relativa{
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            width: 20vw;
+            height: 53vh;
+            font-family: "Inter";
+            border: 3px solid #00538E;
         }
 
-        .label2 span{
-            width: 5vw;
+        img.deslogar{
+            position: absolute;
+            width: 7vw;
+            left: 7vw;
+            top: 3vh;
         }
 
-
+        .ctz{
+            position: absolute;
+            top: 21vh;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1vw;
+            left: 0vw;
+            width: 20vw;
         }
 
-    @media screen and (min-width: 1281px) {
-        body {
-            max-width: 75vw;
-            background-image: url('/imgfm/fundo.jpg');
-            margin: auto;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.473);
+        .sim{
+            font-family: "Inter";
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 32vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-size: 0.95vw;
         }
 
-        .form-section-01 {
-            margin-left: 50px;
-            margin-right: 50px;
+        .sim:hover{
+            background-color: #0662a3;
         }
 
-        .posicionar {
-        width: 100px;
+        .nao{
+            border-radius: 5px;
+            position: absolute;
+            background-color: #007FDA;
+            color: white;
+            border: none;
+            top: 41vh;
+            width: 16.5vw;
+            height: 5.5vh;
+            cursor: pointer;
+            left: 1.5vw;
+            font-weight: bold;
+            font-family: "Inter";
+            font-size: 0.95vw;
         }
 
-        .container {
-        max-width: 75vw;
-        height: 102%;
-        margin: auto;
+        .nao:hover{
+            background-color: #0662a3;
         }
-
-        header {
-        display: flex;
-        text-align: center;
-        padding: 10px;
-        align-items: center;
-        }
-
-        .posicionar {
-        top: 5vh;
-        right: 2px;
-        }
-
-        .titulo {
-        left: 19vw;
-        }
-
-        .subtitulo {
-        margin-top: 5pt;
-        left: 47vw;
-        font-size: 1.6em;
-        }
-
-        #caixausuario {
-        left: 70vw;
-        margin-top: 0%;
-        }
-
-        .usuario {
-        font-size: 3vh;
-        width: 40px;
-        height: 40px;
-        }
-    
-        .caixa {
-        font-size: 3vh;
-        margin-left: 4px;
-        }
-    
-        .sinoimg {
-        width: 32px;
-        margin-left: 11px;
-        margin-top: 4px;
-        }
-        .sair {
-        transform: translateX(4120%);
-        }
-
-        .form-section-01 {
-            margin-top: -2px;
-        }
-
-        .risk-level {
-        padding: auto;
-        }
-
-        .div-factors > h3 {
-        margin-right: 50px;
-        }
-
-        .risk-factors {
-        text-align: center;
-        }
-
-        .botoes {
-        margin-top: -5px;
-        }
-
-        .form-section-validar-tel > [type="submit"] {
-            margin-right: 110px;
-            margin-left: 100px;
-        }
-    }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <img src="/imgfm/logo.png" alt="Logo Sobrevidas" class="posicionar">
+            <img src="/imagens2/imagens/logo.png" alt="Logo Sobrevidas" class="posicionar">
             <h1 class="titulo">SOBREVIDAS - ACS</h1>
-            <h2 class="subtitulo">PACIENTE João - Baixo Risco</h2>
+            {{if .BaixoRisco}}
+            <h2 class="subtitulo">PACIENTE {{.PrimeiroNome}} - Baixo Risco</h2>
+            {{end}}
+            {{if .MedioRisco}}
+            <h2 class="subtitulo">PACIENTE {{.PrimeiroNome}} - Médio Risco</h2>
+            {{end}}
+            {{if .AltoRisco}}
+            <h2 class="subtitulo">PACIENTE {{.PrimeiroNome}} - Alto Risco</h2>
+            {{end}}
             <div id="caixausuario">
-                <p class="usuario">U</p>
-                <p class="caixa">Usuário</p>
-                <a href="#"><img src="/imgfm/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
+                <p class="usuario">{{.PrimeiraLetra}}</p>
+                <p class="caixa">{{.Usuario}}</p>
+                <a href="#"><img src="/imagens2/imagens/sino.png" alt="Icone de Notificação" class="sinoimg"></a>
             </div>
-            <a href="/telalogin"><img src="/imgfm/logout.png" alt="Icone de sair" class="sair"></a>
+            <img src="/imagens2/imagens/logout.png" alt="Icone de sair" class="sair" id="btnlogout">
         </header>
         <form>
             <div class="form-section-01">
@@ -1344,21 +759,9 @@
                     <tr>
                         <caption>CNS DO PROFISSIONAL</caption>
                         <tr>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>5</td>
-                            <td>7</td>
+                            {{range .CNS}}
+                            <td>{{.}}</td>
+                            {{end}}
                         </tr>
                     </tr>
                 </table>
@@ -1366,41 +769,31 @@
                 <table class="infoacs" id="cbo">
                     <tr>
                         <caption>CBO</caption>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>2</td>
+                        <td>{{.CBO1}}</td>
+                        <td>{{.CBO2}}</td>
+                        <td>{{.CBO3}}</td>
+                        <td>{{.CBO4}}</td>
                         <td id="hifen">-</td>
-                        <td>5</td>
-                        <td>5</td>
+                        <td>{{.CBO5}}</td>
+                        <td>{{.CBO6}}</td>
                     </tr>
                 </table>
 
                 <table class="infoacs" id="cnes">
                         <tr>
                             <caption>CNES</caption>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>3</td>
-                            <td>5</td>
-                            <td>7</td>
-                            <td>4</td>
+                            {{range .CNES}}
+                            <td>{{.}}</td>
+                            {{end}}
                         </tr>
                 </table>
                         
                 <table class="infoacs" id="ine">
                         <tr>
                             <caption>INE</caption>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>5</td>
-                            <td>7</td>
-                            <td>6</td>
-                            <td>5</td>
+                            {{range .INE}}
+                            <td>{{.}}</td>
+                            {{end}}
                         </tr>
                 </table>
                         
@@ -1424,41 +817,39 @@
 
             <div class="form-section-one">
                 <label for="nome">NOME <div class="asc">*</div></label>
-                <input type="text" id="nome" required placeholder="Ex.: João da Silva" value="Alexandre da Silva Santos">
+                <input type="text" id="nome" required placeholder="Ex.: João da Silva" value="{{.Nome}}" disabled>
                 <p>Digite o nome completo</p>
 
                 <label for="data-nascimento">DATA DE NASCIMENTO <div class="asc">*</div></label>
-                <input type="text" id="data-nascimento" required placeholder="Ex.:DD/MM/AAAA" value="03/02/1957">
+                <input type="text" id="data-nascimento" required placeholder="Ex.:DD/MM/AAAA" value="{{.DataNasc}}" disabled>
                 <p>Digite a data de nascimento</p>
 
                 <label for="cpf">CPF <div class="asc">*</div></label>
-                <input type="text" id="cpf" required placeholder="Ex.:123.456.789-09" value="065.768.933-08">
+                <input type="text" id="cpf" required placeholder="Ex.:123.456.789-09" value="{{.CPF}}" disabled>
                 <p>Digite o CPF &#40Cadastro de Pessoa Física&#41</p>
 
                 <label for="mae">NOME DA MÃE <div class="asc">*</div></label>
-                <input type="text" id="mae" placeholder="Ex.: Maria da Silva" value="Maria Benedita da Silva Santos">
+                <input type="text" id="mae" placeholder="Ex.: Maria da Silva" value="{{.NomeMae}}" disabled>
                 <p>Digite o nome completo da mãe</p>
 
                 <label for="isexo" style="margin-bottom: -15px;">SEXO</label>
                 <select name="sexo" id="isexo">
-                    <option value="">Selecione</option>
-                    <option value="MASC" selected>Masculino</option>
-                    <option value="FEM">Feminino</option>
+                    <option value="{{.Sexo}}" selected disabled>{{.Sexo}}</option>
                 </select>
 
             </div>
             <div class="form-section-two">
                 <label for="isus">CARTÃO DO SUS</label>
-                <input type="text" id="isus" placeholder="Ex.: 999 9999 9999 9999" value="534 7687 4365 0029">
+                <input type="text" id="isus" placeholder="Ex.: 999 9999 9999 9999" value="{{.CartaoSus}}" disabled>
                 <p>Digite o número do cartão do SUS</p>
 
 
                 <label for="itel">TELEFONE <div class="asc">*</div></label>
-                <input type="tel" id="itel" pattern="^\(\d{2}\)\d{4,5}-\d{4}$" placeholder="Ex.: (99)99999-9999" value="(62) 98834-9993">
+                <input type="tel" id="itel" pattern="^\(\d{2}\)\d{4,5}-\d{4}$" placeholder="Ex.: (99)99999-9999" value="{{.Telefone}}" disabled>
                 <p>Digite o número de telefone</p>
 
                 <label for="imail">E-MAIL</label>
-                <input type="text" id="imail" placeholder="Ex.: joaodasilva@gmail.com" value="alexsilvasantos@gmail.com">
+                <input type="text" id="imail" placeholder="Ex.: joaodasilva@gmail.com" value="{{.Email}}" disabled>
                 <p>Digite o email</p>
 
                 <p id="campo-endereco">Endereço</p>
@@ -1466,23 +857,23 @@
                 <div class="form-section-three">
                         <div id="cep">
                             <label for="icep">CEP</label>
-                            <input type="text" id="cep" pattern="^\d{5}-\d{3}$" placeholder="Ex.: 12345-678" value="74932580">
+                            <input type="text" id="cep" pattern="^\d{5}-\d{3}$" placeholder="Ex.: 12345-678" value="{{.CEP}}" disabled>
                         </div>
                         <div id="ibairro">
                             <label for="ibairro">BAIRRO</label>
-                            <input type="text" id="ibairro" placeholder="Ex.: Bela Vista" value="Garavelo Residencial Park">
+                            <input type="text" id="ibairro" placeholder="Ex.: Bela Vista" value="{{.Bairro}}" disabled>
                         </div>
                         <div id="irua">
                             <label for="irua">RUA</label>
-                            <input type="text" id="irua" placeholder="Ex.: Av. Brasil" value="37 E">
+                            <input type="text" id="irua" placeholder="Ex.: Av. Brasil" value="{{.Rua}}" disabled>
                         </div>
                         <div id="inum">
                             <label for="inum">NÚMERO</label>
-                            <input type="number" id="inum" placeholder="Ex.: 99" value="123">
+                            <input type="number" id="inum" placeholder="Ex.: 99" value="{{.Numero}}" disabled>
                         </div>
                         <div id="complemento">
                             <label for="icomplemento">COMPLEMENTO</label>
-                            <input type="text" id="icomplemento" placeholder="Ex.: Apto,casa...">
+                            <input type="text" id="icomplemento" placeholder="Ex.: Apto,casa..." value="{{.Complemento}}" disabled>
                         </div>
                 </div>
             </div>
@@ -1493,58 +884,110 @@
                         <label class="borda">Homem <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
                         <div class="radio-group">
                             <p>Marque sim ou não: </p>
-                            <label class="label1"><input type="radio" name="tipo1" id="sim1" checked><span>Sim</span></label>
-                            <label class="label2"><input type="radio" name="tipo1" id="nao1"><span>Não</span></label>
+                            {{if .IsHomem}}
+                            <label class="label1"><input type="radio" name="tipo1" id="sim1" checked disabled><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo1" id="nao1" disabled><span>Não</span></label>
+                            {{else}}
+                            <label class="label1"><input type="radio" name="tipo1" id="sim1" disabled><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo1" id="nao1" checked disabled><span>Não</span></label>
+                            {{end}}
                         </div>
                     </div>
                     <div>
                         <label class="borda">Etilista <div class="asc">*</div> &#40consome álcool regurlamente&#41</label>
                         <div class="radio-group">
                             <p>Marque sim ou não: </p>
-                            <label class="label1"><input type="radio" name="tipo2" id="sim2" checked><span>Sim</span></label>
-                            <label class="label2"><input type="radio" name="tipo2" id="nao2"><span>Não</span></label>
+                            {{if .IsEtilista}}
+                            <label class="label1"><input type="radio" name="tipo2" id="sim2" checked disabled><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo2" id="nao2" disabled><span>Não</span></label>
+                            {{else}}
+                            <label class="label1"><input type="radio" name="tipo2" id="sim1" disabled><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo2" id="nao1" checked disabled><span>Não</span></label>
+                            {{end}}
                         </div>
                     </div>
                     <div>
                         <label class="borda">Tabagista <div class="asc">*</div> &#40consome cigarro regurlamente&#41</label>
                         <div class="radio-group">
                             <p>Marque sim ou não: </p>
-                            <label class="label1"><input type="radio" name="tipo3" id="sim3"><span>Sim</span></label>
-                            <label class="label2"><input type="radio" name="tipo3" id="nao3" checked><span>Não</span></label>
+                            {{if .IsTabagista}}
+                            <label class="label1"><input type="radio" name="tipo3" id="sim3" checked disabled><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo3" id="nao3" disabled><span>Não</span></label>
+                            {{else}}
+                            <label class="label1"><input type="radio" name="tipo3" id="sim3" disabled><span>Sim</span></label>
+                            <label class="label2"><input type="radio" name="tipo3" id="nao3" checked disabled><span>Não</span></label>
+                            {{end}}
                         </div>
                     </div>
                 <div>
                     <label class="borda">Com lesão bucal suspeita <div class="asc">*</div></label>
                     <div class="radio-group">
                         <p>Marque sim ou não: </p>
-                        <label class="label1"><input type="radio" name="tipo4" id="sim4"><span>Sim</span></label>
-                        <label class="label2"><input type="radio" name="tipo4" id="nao4" checked><span>Não</span></label>
+                        {{if .IsLesaoBucal}}
+                        <label class="label1"><input type="radio" name="tipo4" id="sim4" disabled checked><span>Sim</span></label>
+                        <label class="label2"><input type="radio" name="tipo4" id="nao4" disabled><span>Não</span></label>
+                        {{else}}
+                        <label class="label1"><input type="radio" name="tipo4" id="sim4" disabled><span>Sim</span></label>
+                        <label class="label2"><input type="radio" name="tipo4" id="nao4" disabled checked><span>Não</span></label>
+                        {{end}}
                     </div>
                 </div>
                 <div class="risk-level">
                     <label>Grau de Risco para Câncer de Boca</label>
-                    <div class="risk-status">Baixo Risco</div>
+                    {{if .BaixoRisco}}
+                    <div class="risk-status" style="background-color:#FFB7F1">Baixo Risco</div>
+                    {{end}}
+                    {{if .MedioRisco}}
+                    <div class="risk-status" style="background-color:#FFCF7F">Médio Risco</div>
+                    {{end}}
+                    {{if .AltoRisco}}
+                    <div class="risk-status" style="background-color:#FF877F">Alto Risco</div>
+                    {{end}}
                 </div>
             </div>
             </div>
         </form>
             <div class="botoes">
                 <div class="form-section-voltar">
-                    <button type="submit">Voltar</button>
-                </div>
-                <div class="form-section-obrigatorio">
-                    <p>Os itens assinalados com <span class="asc">*</span> são de preenchimento obrigatório</p>
+                    {{if .BaixoRisco}}
+                    <a href="/pagina-baixo-risco" class="form-section-voltar"><button type="submit">Voltar</button></a>
+                    {{end}}
+                    {{if .MedioRisco}}
+                    <a href="/pagina-medio-risco" class="form-section-voltar"><button type="submit">Voltar</button></a>
+                    {{end}}
+                    {{if .AltoRisco}}
+                    <a href="/pagina-alto-risco" class="form-section-voltar"><button type="submit">Voltar</button></a>
+                    {{end}}
                 </div>
                 <div class="form-section-download">
-                    <img src="/imgfm/download.png" alt="Icone de Download">
-                </div>
-                <div class="form-section-validar-tel">
-                    <button type="submit">Validar o Telefone</button>
-                </div>
-                <div class="form-section-confirmar">
-                    <button type="submit">Confirmar</button>
+                    <img src="/imagens2/imagens/download.png" alt="Icone de Download">
                 </div>
             </div>
     </div>
+    <div id="modal">
+        <div id="logout">
+            <div class="fixar">
+                <div class="relativa">
+                    <img src="/imgdashboard/logout icon.png" alt="Icone de Logout" class="deslogar">
+                    <p class="ctz">Tem certeza que deseja sair da <br> sua conta?</p>
+                    <a href="/telalogin"><button class="sim">Sim, deslogar.</button></a>
+                    <button class="nao">Não, continuar logado.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let btn = document.getElementById('btnlogout');
+        let modal = document.getElementById('modal');
+        let cancelbtn = document.querySelector('.nao');
+
+        btn.onclick = function(){
+            modal.style.display = 'block';
+        }
+
+        cancelbtn.onclick = function(){
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

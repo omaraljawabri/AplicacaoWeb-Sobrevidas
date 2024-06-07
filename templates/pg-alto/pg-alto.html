@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head> <!--CABEÇALHO-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alto-Risco</title>
+    <link rel="shortcut icon" href="imagens2/imagens/favicon.ico" type="image/x-icon">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
@@ -65,26 +65,15 @@
         /*EXEMPLOS DE PACIENTES*/
         .exemplos{
             font-weight: normal;
-            font-size: 140%;
             color:#3a3b3c;
-            margin-top: 7px;
-            padding: 10px;
-            border-radius: 10px;
-            border:solid 3px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
             height: 40px;
-            max-width: 1100px;
-            min-width: 920px;
+            width: 85vw;
             left:0 2%;
             align-items: center;
             display: flex;
             font-weight: bold;
             justify-content:space-between;
             position: relative;
-        }
-        .exemplos:hover {
-            color:#171717;
-            font-size: 145%;
         }
         /*MECANISMO DE BUSCA COM INTERAÇÃO*/
         .busca{
@@ -654,6 +643,43 @@
             left: 13vw;
             top: 11vh;
         }
+        .nomeExtracao{
+            display: none;
+            color: white;
+            background: none;
+        }
+        .enviarInfo{
+            font-family: "Poppins";
+            border: none;
+            width: 85vw;
+            height: 10vh;
+            cursor: pointer;
+            font-size: 130%;
+            font-weight: normal;
+            color:#3a3b3c;
+            margin-top: 7px;
+            padding: 10px;
+            border-radius: 10px;
+            height: 60px;
+            max-width: 1100px;
+            min-width: 920px;
+            left:0 2%;
+            align-items: center;
+            display: flex;
+            font-weight: normal;
+            justify-content:space-between;
+            position: relative;
+            border-radius: 10px;
+            border:solid 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            background-color: #ff6363;
+            border-color: #ff0000;
+        }
+
+        .enviarInfo:hover{
+            color:#171717;
+            font-size: 145%;
+        }
     </style>
 </head>
 <!--CORPO DA PÁGINA-->
@@ -662,7 +688,7 @@
     <header class="top-bar">
         <div class="imagem1"><img src="/imagenspg/logo projeto 2.png"></div>
         <div class="sobrevidas">SOBREVIDAS-ACS</div>
-        <div class="titulo1">PACIENTES-Baixo risco</div>
+        <div class="titulo1">PACIENTES-Alto risco</div>
         <div id="caixausuario">
             {{range .}}
             <p class="usuario">{{.Primeira}}</p>
@@ -685,56 +711,60 @@
         <div class="busca color-light-red"><input type="text" id="campo-texto" placeholder="Digite o nome do(a) paciente"><img src="/imagenspg/🦆 icon _search_.png"></div>
         <!--POP-UP-->
         <a href="#popup-1" class="filtro color-light-red no-link">Filtrar<img src="/imagenspg/🦆 icon _filter_.png"></a>
-        <form action="/pagina-alto-risco/filtrar">
-            <div id="popup-1" class="popup">
-            
-                <div class=" popup-conteudo">
-                    <div class="barra color-light-red">FILTRAR</div>
-                    <div class="space-between">
-                        <h2>Sexo:</h2>
-                        <input type="radio" value="Masculino" name="tipo1" required>
-                        <p class="sexo"><label for="">Masculino</label></p>
-                        <input type="radio" value="Feminino" name="tipo1">
-                        <p class="sexo"><label for="">Feminino</label></p>
-                    </div>
-                    <div class="space-between">
-                        <h2>Faixa etária:</h2>
-                        <p class="quarenta"><label for="">40-50</label></p>
-                        <input type="radio" name="tipo2" value="40-50" class="idade" required>
-                        <p class="cinquenta"><label for="">51-60</label></p>
-                        <input type="radio" name="tipo2" value="51-60" class="idade2">
-                        <p class="sessenta"><label for="">61-70</label></p>
-                        <input type="radio" name="tipo2" value="61-70" class="idade3">
-                        <p class="setenta"><label for="">70+</label></p>
-                        <input type="radio" name="tipo2" value="70+" class="idade4">
-                    </div>
-                    <div class="space-between">
-                        <h2>Fatores de risco:</h2>
-                        <p class="etilista"><label for="">Etilista</label></p>
-                        <input type="checkbox" name="etilista" value="Etilista" class="input1">
-                        <br>
-                        <p class="tabagista"><label for="">Tabagista</label></p>
-                        <input type="checkbox" name="tabagista" value="Tabagista" class="input2">
-                        <br>
-                        <p class="feridasbucais"><label for="">Feridas Bucais</label></p>
-                        <input type="checkbox" name="feridasbucais" value="FeridasBucais" class="input3">
-                    <input type="submit" value="Filtrar" class="popup-link no-link color-light-red">
+            <form action="/pagina-alto-risco/filtrar">
+                <div id="popup-1" class="popup">
+                
+                    <div class=" popup-conteudo">
+                        <div class="barra color-light-red">FILTRAR</div>
+                        <div class="space-between">
+                            <h2>Sexo:</h2>
+                            <input type="radio" value="Masculino" name="tipo1" required>
+                            <p class="sexo"><label for="">Masculino</label></p>
+                            <input type="radio" value="Feminino" name="tipo1">
+                            <p class="sexo"><label for="">Feminino</label></p>
+                        </div>
+                        <div class="space-between">
+                            <h2>Faixa etária:</h2>
+                            <p class="quarenta"><label for="">40-50</label></p>
+                            <input type="radio" name="tipo2" value="40-50" class="idade" required>
+                            <p class="cinquenta"><label for="">51-60</label></p>
+                            <input type="radio" name="tipo2" value="51-60" class="idade2">
+                            <p class="sessenta"><label for="">61-70</label></p>
+                            <input type="radio" name="tipo2" value="61-70" class="idade3">
+                            <p class="setenta"><label for="">70+</label></p>
+                            <input type="radio" name="tipo2" value="70+" class="idade4">
+                        </div>
+                        <div class="space-between">
+                            <h2>Fatores de risco:</h2>
+                            <p class="etilista"><label for="">Etilista</label></p>
+                            <input type="checkbox" name="etilista" value="Etilista" class="input1">
+                            <p class="tabagista"><label for="">Tabagista</label></p>
+                            <input type="checkbox" name="tabagista" value="Tabagista" class="input2">
+                            <p class="feridasbucais"><label for="">Feridas Bucais</label></p>
+                            <input type="checkbox" name="feridasbucais" value="FeridasBucais" class="input3">
+                            <br>
+                        <input type="submit" value="Filtrar" class="popup-link no-link color-light-red">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
     </div>
     <!--EXEMPLOS DE PACIENTES-->
     <!--1-->
     {{range .}}
-    <a href="#" class="no-link">
-        <div class="exemplos color-light-red">
-            <div class="space11">{{.Nome}}</div>
-            <div class="space21">{{.Endereco}}</div>
-            <div class="space31">{{.Telefone}}</div>
-            <div class="space41">{{.Idade}}</div>
-            <div class="space51">{{.Fatores}}</div>
-        </div>
-    </a>
+    <form action="/formulario/preenchido">
+        <input type="text" name="Nome" value="{{.Nome}}" class="nomeExtracao">
+        <input type="text" name="Risco" value="Alto" class="nomeExtracao">
+        <button type="submit" class="enviarInfo">
+            <div class="exemplos color-light-red ">
+                <div class="space11">{{.Nome}}</div>
+                <div class="space21">{{.Endereco}}</div>
+                <div class="space31">{{.Telefone}}</div>
+                <div class="space41">{{.Idade}}</div>
+                <div class="space51">{{.Fatores}}</div>
+            </div>
+        </button>
+    </form>
     {{end}}
     <div><a href="/pacientesgerais" class="return no-link"><img src="/imagenspg/Seta.png">Voltar</a></div>
     <div id="modal">

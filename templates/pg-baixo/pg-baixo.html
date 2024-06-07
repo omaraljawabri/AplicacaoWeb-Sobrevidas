@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baixo-Risco</title>
+    <link rel="shortcut icon" href="imagens2/imagens/favicon.ico" type="image/x-icon">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
@@ -64,26 +65,15 @@
         /*EXEMPLOS DE PACIENTES*/
         .exemplos{
             font-weight: normal;
-            font-size: 140%;
             color:#3a3b3c;
-            margin-top: 7px;
-            padding: 10px;
-            border-radius: 10px;
-            border:solid 3px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
             height: 40px;
-            max-width: 1100px;
-            min-width: 920px;
+            width: 85vw;
             left:0 2%;
             align-items: center;
             display: flex;
             font-weight: bold;
             justify-content:space-between;
             position: relative;
-        }
-        .exemplos:hover {
-            color:#171717;
-            font-size: 145%;
         }
         /*MECANISMO DE BUSCA COM INTERAÇÃO*/
         .busca{
@@ -653,6 +643,43 @@
             left: 13vw;
             top: 11vh;
         }
+        .nomeExtracao{
+            display: none;
+            color: white;
+            background: none;
+        }
+        .enviarInfo{
+            font-family: "Poppins";
+            background-color: #fa9be8;
+            border: none;
+            width: 85vw;
+            height: 10vh;
+            cursor: pointer;
+            font-size: 130%;
+            font-weight: normal;
+            color:#3a3b3c;
+            margin-top: 7px;
+            padding: 10px;
+            border-radius: 10px;
+            height: 60px;
+            max-width: 1100px;
+            min-width: 920px;
+            left:0 2%;
+            align-items: center;
+            display: flex;
+            font-weight: normal;
+            justify-content:space-between;
+            position: relative;
+            border-radius: 10px;
+            border:solid 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            border-color: #ff71e5;
+        }
+
+        .enviarInfo:hover{
+            color:#171717;
+            font-size: 145%;
+        }
     </style>
 </head>
 <!--CORPO DA PÁGINA-->
@@ -721,15 +748,19 @@
     <!--EXEMPLOS DE PACIENTES-->
     <!--1-->
     {{range .}}
-    <a href="/formulario/preenchido" class="no-link">
-        <div class="exemplos color-light-pink ">
-            <div class="space11">{{.Nome}}</div>
-            <div class="space21">{{.Endereco}}</div>
-            <div class="space31">{{.Telefone}}</div>
-            <div class="space41">{{.Idade}}</div>
-            <div class="space51">{{.Fatores}}</div>
-        </div>
-    </a>
+    <form action="/formulario/preenchido">
+        <input type="text" name="Nome" value="{{.Nome}}" class="nomeExtracao">
+        <input type="text" name="Risco" value="Baixo" class="nomeExtracao">
+        <button type="submit" class="enviarInfo">
+            <div class="exemplos color-light-pink ">
+                <div class="space11">{{.Nome}}</div>
+                <div class="space21">{{.Endereco}}</div>
+                <div class="space31">{{.Telefone}}</div>
+                <div class="space41">{{.Idade}}</div>
+                <div class="space51">{{.Fatores}}</div>
+            </div>
+        </button>
+    </form>
     {{end}}
     <div><a href="/pacientesgerais" class="return no-link"><img src="/imagenspg/Seta.png">Voltar</a></div>
     <div id="modal">

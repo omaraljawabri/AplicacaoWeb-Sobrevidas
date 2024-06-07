@@ -35,6 +35,46 @@ type Pacientes struct{
 	Primeira string
 }
 
+type PacienteFormularioPreenchido struct{
+	ID string
+	PrimeiroNome string
+	Nome string
+	DataNasc string
+	CPF string
+	NomeMae string
+	Sexo string
+	CartaoSus string
+	Telefone string
+	Email string
+	CEP string
+	Bairro string
+	Rua string
+	Numero string
+	Complemento string
+	Homem string
+	Etilista string
+	Tabagista string
+	LesaoBucal string
+	Usuario string
+	PrimeiraLetra string
+	CNS []string
+	CBO1 string
+	CBO2 string
+	CBO3 string
+	CBO4 string
+	CBO5 string
+	CBO6 string
+	CNES []string
+	INE []string
+	BaixoRisco bool
+	MedioRisco bool
+	AltoRisco bool
+	IsHomem bool
+	IsEtilista bool
+	IsTabagista bool
+	IsLesaoBucal bool
+}
+
 type validarlogin struct{
 	Usuario string
 	Cpf string
@@ -130,7 +170,7 @@ func main() {
 	http.HandleFunc("/pagina-alto-risco", executarPgAlto)
 	http.HandleFunc("/pagina-alto-risco/filtrar", executarPgAltoFiltro)
 	http.HandleFunc("/pagina-absenteista", executarPgAbsenteista)
-	http.HandleFunc("/formulario/preenchido", executarFormPreenchdio)
+	http.HandleFunc("/formulario/preenchido", executarFormPreenchido)
 
 	log.Println("Server rodando na porta 8080")
 
@@ -1068,9 +1108,75 @@ func executarPgAbsenteista(w http.ResponseWriter, _ *http.Request){
 	}
 }
 
-func executarFormPreenchdio(w http.ResponseWriter, _ *http.Request){
-	err := templates.ExecuteTemplate(w, "formpreenchido.html", "a")
+func executarFormPreenchido(w http.ResponseWriter, r *http.Request){
+	nome := r.FormValue("Nome")
+	risco := r.FormValue("Risco")
+	pesquisa, err := db.Query("SELECT * FROM pacientes")
 	if err != nil{
-		return
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	defer pesquisa.Close()
+	var armazenamento []PacienteFormularioPreenchido
+	for pesquisa.Next(){
+		armazenar := PacienteFormularioPreenchido{}
+		err = pesquisa.Scan(&armazenar.ID, &armazenar.Nome, &armazenar.DataNasc, &armazenar.CPF, &armazenar.NomeMae, &armazenar.Sexo, &armazenar.CartaoSus, &armazenar.Telefone, &armazenar.Email, &armazenar.CEP, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
+		if err != nil{
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+		armazenamento = append(armazenamento, armazenar)
+	}
+	for _, armazenado := range armazenamento{
+		if armazenado.Nome == nome{
+			if risco == "Baixo"{
+				armazenado.BaixoRisco = true
+			} else if risco == "Medio"{
+				armazenado.MedioRisco = true
+			} else{
+				armazenado.AltoRisco = true
+			}
+			if armazenado.Etilista == "Sim"{
+				armazenado.IsEtilista = true
+			}
+			if armazenado.Tabagista == "Sim"{
+				armazenado.IsTabagista = true
+			}
+			if armazenado.Homem == "Sim"{
+				armazenado.IsHomem = true
+			}
+			if armazenado.LesaoBucal == "Sim"{
+				armazenado.IsLesaoBucal = true
+			}
+			datanascimento := strings.Split(armazenado.DataNasc, "-")
+			armazenado.DataNasc = datanascimento[2] + "/" + datanascimento[1] + "/" + datanascimento[0]
+			cnsq := strings.Split(Cns, "")
+			cboq := strings.Split(Cbo, "")
+			cnesq := strings.Split(Cnes, "")
+			ineq := strings.Split(Ine, "")
+			cbo1 := cboq[0]
+			cbo2 := cboq[1]
+			cbo3 := cboq[2]
+			cbo4 := cboq[3]
+			cbo5 := cboq[4]
+			cbo6 := cboq[5]
+			primeironome := strings.Split(nome, " ")
+			armazenado.PrimeiroNome = primeironome[0]
+			armazenado.CNS = cnsq
+			armazenado.CNES = cnesq
+			armazenado.CBO1 = cbo1
+			armazenado.CBO2 = cbo2
+			armazenado.CBO3 = cbo3
+			armazenado.CBO4 = cbo4
+			armazenado.CBO5 = cbo5
+			armazenado.CBO6 = cbo6
+			armazenado.INE = ineq
+			armazenado.Usuario = usuarioLogin
+			armazenado.PrimeiraLetra = primeiraletraLogin
+			err = templates.ExecuteTemplate(w, "formpreenchido.html", armazenado)
+			if err != nil{
+				return
+			}
+		}
 	}
 }
