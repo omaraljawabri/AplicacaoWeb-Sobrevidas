@@ -33,6 +33,7 @@ type Pacientes struct{
 	Fatores string
 	Usuario string
 	Primeira string
+	TemDados bool
 }
 
 type PacienteFormularioPreenchido struct{
@@ -602,6 +603,7 @@ func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
 	}
 	defer pesquisa.Close()
 	var armazenamento []Pacientes
+	var temDados bool
 	for pesquisa.Next(){
 		armazenar := Pacientes{}
 		err := pesquisa.Scan(&armazenar.Nome, &armazenar.DataNasc, &armazenar.Telefone, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
@@ -632,10 +634,19 @@ func executarPgBaixo(w http.ResponseWriter, _ *http.Request){
 			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
 				armazenar.Idade--
 			}
+			armazenar.TemDados = true
 			armazenar.Usuario = usuarioLogin
 			armazenar.Primeira = primeiraletraLogin
 			armazenamento = append(armazenamento, armazenar)
+			temDados = true
 		}
+	}
+	if !temDados{
+		u := Pacientes{}
+		u.Usuario = usuarioLogin
+		u.Primeira = primeiraletraLogin
+		u.TemDados = false
+		armazenamento = append(armazenamento, u)
 	}
 	err = templates.ExecuteTemplate(w, "pg-baixo.html", armazenamento)
 	if err != nil{
@@ -747,6 +758,7 @@ func executarPgMedio(w http.ResponseWriter, _ *http.Request){
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 	}
 	defer pesquisa.Close()
+	var temDados bool
 	var armazenamento []Pacientes
 	for pesquisa.Next(){
 		armazenar := Pacientes{}
@@ -780,10 +792,19 @@ func executarPgMedio(w http.ResponseWriter, _ *http.Request){
 			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
 				armazenar.Idade--
 			}
+			armazenar.TemDados = true
 			armazenar.Usuario = usuarioLogin
 			armazenar.Primeira = primeiraletraLogin
 			armazenamento = append(armazenamento, armazenar)
+			temDados = true
 		}
+	}
+	if !temDados{
+		u := Pacientes{}
+		u.Usuario = usuarioLogin
+		u.Primeira = primeiraletraLogin
+		u.TemDados = false
+		armazenamento = append(armazenamento, u)
 	}
 	err = templates.ExecuteTemplate(w, "pg-medio.html", armazenamento)
 	if err != nil{
@@ -915,6 +936,7 @@ func executarPgAlto(w http.ResponseWriter, _ *http.Request){
 	}
 	defer pesquisa.Close()
 	var armazenamento []Pacientes
+	var temDados bool
 	for pesquisa.Next(){
 		armazenar := Pacientes{}
 		err := pesquisa.Scan(&armazenar.Nome, &armazenar.DataNasc, &armazenar.Sexo, &armazenar.Telefone, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
@@ -956,10 +978,19 @@ func executarPgAlto(w http.ResponseWriter, _ *http.Request){
 			if int(now.Month()) < mes || (int(now.Month()) == mes && now.Day() < dia){
 				armazenar.Idade--
 			}
+			armazenar.TemDados = true
 			armazenar.Usuario = usuarioLogin
 			armazenar.Primeira = primeiraletraLogin
 			armazenamento = append(armazenamento, armazenar)
+			temDados = true
 		}
+	}
+	if !temDados{
+		u := Pacientes{}
+		u.Usuario = usuarioLogin
+		u.Primeira = primeiraletraLogin
+		u.TemDados = false
+		armazenamento = append(armazenamento, u)
 	}
 	err = templates.ExecuteTemplate(w, "pg-alto.html", armazenamento)
 	if err != nil{

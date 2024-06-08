@@ -748,19 +748,21 @@
     <!--EXEMPLOS DE PACIENTES-->
     <!--1-->
     {{range .}}
-    <form action="/formulario/preenchido">
-        <input type="text" name="Nome" value="{{.Nome}}" class="nomeExtracao">
-        <input type="text" name="Risco" value="Baixo" class="nomeExtracao">
-        <button type="submit" class="enviarInfo">
-            <div class="exemplos color-light-pink ">
-                <div class="space11">{{.Nome}}</div>
-                <div class="space21">{{.Endereco}}</div>
-                <div class="space31">{{.Telefone}}</div>
-                <div class="space41">{{.Idade}}</div>
-                <div class="space51">{{.Fatores}}</div>
-            </div>
-        </button>
-    </form>
+        {{if .TemDados}}
+        <form action="/formulario/preenchido">
+            <input type="text" name="Nome" value="{{.Nome}}" class="nomeExtracao">
+            <input type="text" name="Risco" value="Baixo" class="nomeExtracao">
+            <button type="submit" class="enviarInfo">
+                <div class="exemplos color-light-pink ">
+                    <div class="space11">{{.Nome}}</div>
+                    <div class="space21">{{.Endereco}}</div>
+                    <div class="space31">{{.Telefone}}</div>
+                    <div class="space41">{{.Idade}}</div>
+                    <div class="space51">{{.Fatores}}</div>
+                </div>
+            </button>
+        </form>
+        {{end}}
     {{end}}
     <div><a href="/pacientesgerais" class="return no-link"><img src="/imagenspg/Seta.png">Voltar</a></div>
     <div id="modal">
