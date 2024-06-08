@@ -57,6 +57,7 @@ type PacienteFormularioPreenchido struct{
 	LesaoBucal string
 	Usuario string
 	PrimeiraLetra string
+	DataCadastro string
 	CNS []string
 	CBO1 string
 	CBO2 string
@@ -200,7 +201,7 @@ func fazConexaoComBanco() *sql.DB{
 		log.Fatal(err)
 	}
 
-	_, err = database.Query("CREATE TABLE IF NOT EXISTS pacientes(id SERIAL PRIMARY KEY, nome_completo VARCHAR(255) UNIQUE NOT NULL, data_nasc VARCHAR(30), cpf VARCHAR(15) UNIQUE NOT NULL, nome_mae VARCHAR(255) UNIQUE NOT NULL, sexo VARCHAR(30), cartao_sus VARCHAR(55) UNIQUE NOT NULL, telefone VARCHAR(55) UNIQUE NOT NULL, email VARCHAR(255) UNIQUE NOT NULL, cep VARCHAR(15) UNIQUE NOT NULL, bairro VARCHAR(255), rua VARCHAR(255), numero VARCHAR(255), complemento VARCHAR(255), homem VARCHAR(15) NOT NULL, etilista VARCHAR(15) NOT NULL, tabagista VARCHAR(15) NOT NULL, lesao_bucal VARCHAR(15) NOT NULL)")
+	_, err = database.Query("CREATE TABLE IF NOT EXISTS pacientes(id SERIAL PRIMARY KEY, nome_completo VARCHAR(255) UNIQUE NOT NULL, data_nasc VARCHAR(30), cpf VARCHAR(15) UNIQUE NOT NULL, nome_mae VARCHAR(255) UNIQUE NOT NULL, sexo VARCHAR(30), cartao_sus VARCHAR(55) UNIQUE NOT NULL, telefone VARCHAR(55) UNIQUE NOT NULL, email VARCHAR(255) UNIQUE NOT NULL, cep VARCHAR(15) UNIQUE NOT NULL, bairro VARCHAR(255), rua VARCHAR(255), numero VARCHAR(255), complemento VARCHAR(255), homem VARCHAR(15) NOT NULL, etilista VARCHAR(15) NOT NULL, tabagista VARCHAR(15) NOT NULL, lesao_bucal VARCHAR(15) NOT NULL, data_cadastro VARCHAR(20))")
 	if err != nil{
 		log.Fatal(err)
 	}
@@ -312,15 +313,24 @@ func autenticaLoginELevaAoDashboard(w http.ResponseWriter, r *http.Request){
 		armazenar.QtdBaixo = qtdBaixo
 		armazenar.QtdMedio = qtdMedio
 		armazenar.QtdAlto = qtdAlto
-		porcbaixo := (float64(qtdBaixo)/float64(qtdTotal))*100
-		porcmedio := (float64(qtdMedio)/float64(qtdTotal))*100
-		porcalto := (float64(qtdAlto)/float64(qtdTotal))*100
-		porcbaixo = float64(int(porcbaixo * 100)) / 100
-		porcmedio = float64(int(porcmedio * 100)) / 100
-		porcalto = float64(int(porcalto * 100)) / 100
-		armazenar.PorcBaixo = porcbaixo
-		armazenar.PorcMedio = porcmedio
-		armazenar.PorcAlto = porcalto
+		if qtdBaixo == 0 && qtdMedio == 0 && qtdAlto == 0{
+			var porcbaixo float64 = 0
+			var porcmedio float64 = 0
+			var porcalto float64 = 0
+			armazenar.PorcBaixo = porcbaixo
+			armazenar.PorcMedio = porcmedio
+			armazenar.PorcAlto = porcalto
+		} else{
+			porcbaixo := (float64(qtdBaixo)/float64(qtdTotal))*100
+			porcmedio := (float64(qtdMedio)/float64(qtdTotal))*100
+			porcalto := (float64(qtdAlto)/float64(qtdTotal))*100
+			porcbaixo = float64(int(porcbaixo * 100)) / 100
+			porcmedio = float64(int(porcmedio * 100)) / 100
+			porcalto = float64(int(porcalto * 100)) / 100
+			armazenar.PorcBaixo = porcbaixo
+			armazenar.PorcMedio = porcmedio
+			armazenar.PorcAlto = porcalto
+		}
 		armazenamento = append(armazenamento, armazenar)
 	}
 	if err = cpfsenha.Err(); err != nil{
@@ -519,6 +529,7 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 	etilista := r.FormValue("tipo2")
 	tabagista := r.FormValue("tipo3")
 	lesao_bucal := r.FormValue("tipo4")
+	data_cadastro := r.FormValue("DataCadastro")
 	cnsq := strings.Split(Cns, "")
 	cboq := strings.Split(Cbo, "")
 	cnesq := strings.Split(Cnes, "")
@@ -532,7 +543,7 @@ func cadastrarPaciente(w http.ResponseWriter, r *http.Request){
 	d := DadosForm{Cns: cnsq, Cbo1: cbo1, Cbo2: cbo2, Cbo3: cbo3, Cbo4: cbo4, Cbo5: cbo5, Cbo6: cbo6, Cnes: cnesq, Ine: ineq}
 
 	if homem != "" && etilista != "" && tabagista != "" && lesao_bucal != "" && sexo != "" && (homem != "Não" || etilista != "Não" || tabagista != "Não" || lesao_bucal != "Não"){
-		_, err := db.Exec("INSERT INTO pacientes(nome_completo, data_nasc, cpf, nome_mae, sexo, cartao_sus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)", nome, datanascimento, cpf, nomemae, sexo, cartaosus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal)
+		_, err := db.Exec("INSERT INTO pacientes(nome_completo, data_nasc, cpf, nome_mae, sexo, cartao_sus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal, data_cadastro) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)", nome, datanascimento, cpf, nomemae, sexo, cartaosus, telefone, email, cep, bairro, rua, numero, complemento, homem, etilista, tabagista, lesao_bucal, data_cadastro)
 		if err != nil{
 			log.Println(err.Error())
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
@@ -1119,7 +1130,7 @@ func executarFormPreenchido(w http.ResponseWriter, r *http.Request){
 	var armazenamento []PacienteFormularioPreenchido
 	for pesquisa.Next(){
 		armazenar := PacienteFormularioPreenchido{}
-		err = pesquisa.Scan(&armazenar.ID, &armazenar.Nome, &armazenar.DataNasc, &armazenar.CPF, &armazenar.NomeMae, &armazenar.Sexo, &armazenar.CartaoSus, &armazenar.Telefone, &armazenar.Email, &armazenar.CEP, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal)
+		err = pesquisa.Scan(&armazenar.ID, &armazenar.Nome, &armazenar.DataNasc, &armazenar.CPF, &armazenar.NomeMae, &armazenar.Sexo, &armazenar.CartaoSus, &armazenar.Telefone, &armazenar.Email, &armazenar.CEP, &armazenar.Bairro, &armazenar.Rua, &armazenar.Numero, &armazenar.Complemento, &armazenar.Homem, &armazenar.Etilista, &armazenar.Tabagista, &armazenar.LesaoBucal, &armazenar.DataCadastro)
 		if err != nil{
 			log.Println(err)
 			http.Error(w, http.StatusText(500), 500)
@@ -1148,6 +1159,8 @@ func executarFormPreenchido(w http.ResponseWriter, r *http.Request){
 			if armazenado.LesaoBucal == "Sim"{
 				armazenado.IsLesaoBucal = true
 			}
+			datacadastro := strings.Split(armazenado.DataCadastro, "-")
+			armazenado.DataCadastro = datacadastro[2] + "/" + datacadastro[1] + "/" + datacadastro[0]
 			datanascimento := strings.Split(armazenado.DataNasc, "-")
 			armazenado.DataNasc = datanascimento[2] + "/" + datanascimento[1] + "/" + datanascimento[0]
 			cnsq := strings.Split(Cns, "")
