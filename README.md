@@ -1,6 +1,6 @@
 <p align="center"><img src="https://github.com/omaraljawabri/AplicacaoWeb-Sobrevidas/assets/164200540/876d8273-019a-41f1-b923-2e7c2cf00c4e"/></p>
 
-# SOBREVIDAS ACS - Rastreamento e Monitoramento do Câncer de Boca
+<h1 font-size: 1.1vw>SOBREVIDAS ACS - Rastreamento e Monitoramento do Câncer de Boca</h1>
 O objetivo desse repositório é armazenar a aplicação web da nossa versão do projeto Sobrevidas ACS
 
 ## Requisitos mínimos
